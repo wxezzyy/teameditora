@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>dot.</title>
+<style>
+:root{--red:#ff4328;--ink:#000;--paper:#f6f5ef;--line:#e2e0d4;--sub:#6b6b6b;--white:#fff;}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Helvetica,Arial,sans-serif;
+  display:flex;flex-direction:column;min-height:100vh;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+header{position:sticky;top:0;z-index:10;background:var(--ink);color:#fff;padding:14px 18px;
+  padding-top:calc(14px + env(safe-area-inset-top,0px));display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;}
+.brand{font-weight:800;font-style:italic;letter-spacing:.02em;font-size:18px;}
+.brand span{color:var(--red);}
+nav{display:flex;gap:4px;background:#161616;border-radius:10px;padding:4px;flex-wrap:wrap;}
+nav button{background:none;border:0;color:#bbb;padding:8px 13px;border-radius:7px;font-size:12.5px;font-weight:700;cursor:pointer;}
+nav button.active{background:var(--red);color:#fff;}
+.admin-box{display:flex;gap:6px;align-items:center;}
+input.admin-pin{width:100px;padding:8px 10px;border-radius:9px;border:1.5px solid #2b2b2b;background:#101010;color:var(--red);
+  font-family:Consolas,monospace;font-size:13px;letter-spacing:.15em;text-align:center;}
+input.admin-pin:focus{outline:none;border-color:var(--red);}
+button.pill{background:var(--red);color:#fff;border:0;border-radius:9px;padding:8px 12px;font-weight:800;font-size:12px;cursor:pointer;}
+.admin-pill{font-size:11px;background:var(--red);color:#fff;padding:6px 12px;border-radius:20px;font-weight:800;}
+button.ghost{background:transparent;border:1px solid #444;color:#eee;border-radius:9px;padding:7px 11px;font-size:12px;cursor:pointer;}
+main{flex:1 0 auto;max-width:920px;width:100%;margin:0 auto;padding:20px 16px 60px;}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;background:#fff;}
+h1{font-size:15px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 14px;}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);margin:0 0 10px;}
+.muted{color:var(--sub);font-size:13px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:6px;}
+.stat{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--paper);}
+.stat b{display:block;font-size:20px;}
+.stat span{font-size:10.5px;color:var(--sub);text-transform:uppercase;}
+.item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;margin-bottom:6px;border-left:4px solid var(--line);}
+.item.edu{background:var(--paper);border-left-color:var(--ink);}
+.item.mot{background:rgba(255,67,40,.08);border-left-color:var(--red);}
+.item.promo{background:var(--ink);color:#fff;border-left-color:var(--red);}
+.item.promo input[type=text]{background:#222;color:#fff;border-color:#333;}
+.item input[type=checkbox]{width:18px;height:18px;accent-color:var(--red);flex-shrink:0;}
+.item .title{flex:1 1 140px;font-size:13.5px;font-weight:600;}
+.item input[type=text]{flex:1 1 140px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;}
+.tag{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:3px 7px;border-radius:20px;background:#eee;color:#555;font-weight:800;}
+.item.promo .tag{background:var(--red);color:#fff;}
+.acct-row{display:flex;align-items:center;gap:14px;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;}
+.acct-row .name{flex:1;font-weight:700;font-size:13px;}
+.acct-row label{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--sub);}
+input[type=checkbox]{accent-color:var(--red);}
+input[type=date]{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px;}
+.gate{max-width:320px;margin:60px auto;text-align:center;}
+.gate-icon{font-size:34px;}
+input.gate-input{width:100%;padding:14px 16px;margin-top:14px;border:2px solid var(--ink);border-radius:12px;
+  font-size:18px;letter-spacing:.12em;font-family:Consolas,monospace;text-align:center;background:#101010;color:var(--red);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.cal-head{font-size:10px;text-align:center;color:var(--sub);text-transform:uppercase;}
+.cal-cell{border:1px solid var(--line);border-radius:8px;min-height:70px;padding:4px;background:var(--paper);}
+.cal-cell .d{font-size:10.5px;font-weight:700;color:var(--sub);}
+.cal-cell textarea{width:100%;border:0;background:transparent;resize:none;font-size:10.5px;height:44px;font-family:inherit;}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+footer{flex-shrink:0;text-align:center;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));font-size:11.5px;color:var(--sub);}
+footer a{color:var(--red);font-weight:800;text-decoration:none;}
+.growth-table{width:100%;border-collapse:collapse;}
+.growth-table th,.growth-table td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);font-size:12.5px;}
+.growth-table th{color:var(--sub);font-size:10px;text-transform:uppercase;letter-spacing:.05em;}
+.growth-table input[type=number]{width:80px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;}
+.delta.up{color:#1a8a3a;font-weight:800;}
+.delta.down{color:var(--red);font-weight:800;}
+.seg{display:inline-flex;background:#161616;border-radius:9px;padding:4px;gap:4px;}
+.seg button{background:none;border:0;color:#bbb;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;}
+.seg button.active{background:var(--red);color:#fff;}
+.table-wrap{overflow-x:auto;}
+@media (max-width:480px){
+  header{padding:10px 12px;gap:8px;}
+  .brand{font-size:16px;}
+  nav button{padding:7px 10px;font-size:11px;}
+  input.admin-pin{width:82px;font-size:11.5px;padding:7px 8px;}
+  button.pill{padding:7px 10px;font-size:11px;}
+  main{padding:14px 10px 40px;}
+  .card{padding:14px;border-radius:13px;}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
+  .item{flex-wrap:wrap;}
+  .item .title{flex:1 1 100%;order:1;}
+  .item input[type=text]{flex:1 1 100%;order:3;}
+  .item .tag{order:2;}
+  .acct-row{flex-direction:column;align-items:flex-start;gap:8px;}
+  .acct-row label{font-size:11.5px;}
+  .cal-grid{gap:3px;}
+  .cal-cell{min-height:54px;padding:3px;}
+  .cal-cell textarea{height:32px;font-size:9px;}
+  .cal-cell .d{font-size:9.5px;}
+  .growth-table th,.growth-table td{padding:6px 4px;font-size:11.5px;}
+  .growth-table input[type=number]{width:64px;}
+}
+
+.timer-big{font-family:Consolas,monospace;font-size:44px;font-weight:800;letter-spacing:.04em;line-height:1;}
+.status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#bbb;margin-right:6px;}
+.status-dot.on{background:#1a8a3a;box-shadow:0 0 0 4px rgba(26,138,58,.18);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+button.big{border:0;border-radius:11px;padding:12px 22px;font-weight:800;font-size:14px;cursor:pointer;color:#fff;background:var(--red);}
+button.big.out{background:var(--ink);}
+button.big:disabled{opacity:.3;cursor:not-allowed;}
+.plat-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.plat-head h2{margin:0;}
+.acct-block{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;}
+.acct-block .name{font-weight:800;font-size:13.5px;margin-bottom:8px;display:flex;justify-content:space-between;gap:8px;}
+.acct-block .name small{color:var(--sub);font-weight:700;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chips label{display:flex;align-items:center;gap:6px;font-size:12.5px;padding:7px 11px;border:1px solid var(--line);border-radius:9px;background:var(--paper);cursor:pointer;}
+.chips label.car{border-color:var(--ink);}
+.chips label.done{background:rgba(26,138,58,.09);border-color:#1a8a3a;}
+.chips input{width:17px;height:17px;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:6px 10px;border-radius:9px;border:1px solid var(--line);background:var(--paper);color:var(--sub);font-weight:700;}
+.badge.ok{background:rgba(26,138,58,.1);border-color:#1a8a3a;color:#1a8a3a;}
+.badge.car{border-style:dashed;}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:12px;}
+.bar i{display:block;height:100%;background:var(--red);}
+.log{font-size:12.5px;color:var(--sub);margin:4px 0 0;}
+@media (max-width:480px){.timer-big{font-size:34px;}}
+
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.hero-top .who{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.hero-num{font-size:58px;font-weight:800;line-height:1;margin-top:16px;letter-spacing:-.02em;}
+.hero-num small{font-size:24px;color:var(--sub);font-weight:700;margin-left:4px;}
+.hero-sub{font-size:12px;color:var(--sub);margin-top:4px;text-transform:uppercase;letter-spacing:.05em;}
+.hero-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin-top:16px;color:var(--sub);}
+.hero-meta b{color:var(--ink);font-family:Consolas,monospace;}
+.hero-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub);}
+.hero-foot b{color:var(--ink);}
+.grp{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);font-weight:800;margin:18px 0 4px;}
+.grp:first-child{margin-top:0;}
+.arow{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);}
+.arow:last-child{border-bottom:0;}
+.arow .ah{flex:1;font-weight:700;font-size:14px;}
+.arow .an{font-size:12px;color:var(--sub);width:34px;text-align:right;font-weight:700;}
+.pips{display:flex;align-items:center;gap:6px;}
+.pip{width:14px;height:14px;border-radius:50%;border:2px solid #cfcdbf;display:inline-block;}
+.pip.sq{border-radius:4px;}
+.pip.on{background:var(--ink);border-color:var(--ink);}
+.pip.miss{border-color:var(--red);}
+.sep{width:1px;height:14px;background:var(--line);margin:0 4px;display:inline-block;}
+.legend{font-size:11px;color:var(--sub);margin-top:14px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.legend .pip{width:10px;height:10px;border-width:1.5px;margin-right:4px;vertical-align:middle;}
+.sheet-scroll{max-height:360px;overflow:auto;border:1px solid var(--line);border-radius:10px;}
+table.sheet{width:100%;border-collapse:collapse;font-size:12.5px;}
+table.sheet th{position:sticky;top:0;background:var(--ink);color:#fff;text-align:left;padding:8px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.05em;z-index:1;}
+table.sheet td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:middle;}
+table.sheet tbody tr[data-d]{cursor:pointer;}
+table.sheet tr.sel td{background:rgba(255,67,40,.1);font-weight:700;}
+table.sheet tr.dim td{color:#aaa;}
+table.sheet td.bad{color:var(--red);font-weight:800;}
+table.sheet tfoot td{font-weight:800;background:var(--paper);position:sticky;bottom:0;}
+table.sheet tr.grp-start td{border-top:2px solid var(--ink);}
+.st{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:20px;background:#eee;color:#666;text-transform:uppercase;}
+.st.Posted{background:rgba(26,138,58,.12);color:#1a8a3a;}
+.st.Missed{background:rgba(255,67,40,.12);color:var(--red);}
+input.vin{width:84px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;}
+small.due{display:block;font-size:10px;color:var(--sub);margin-top:2px;}
+small.due.now{color:#c77700;font-weight:800;}
+.sheet-bar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.cal-cell{cursor:pointer;overflow:hidden;}
+.cal-cell.sel{border-color:var(--red);box-shadow:0 0 0 2px rgba(255,67,40,.25);}
+.cal-cell.today .d{color:var(--red);}
+.cal-cell .d{display:flex;justify-content:space-between;}
+.cal-cell .cb{font-size:8.5px;background:var(--ink);color:#fff;border-radius:8px;padding:1px 5px;}
+.cal-txt{font-size:10.5px;white-space:pre-wrap;word-break:break-word;max-height:44px;overflow:hidden;margin-top:3px;}
+textarea.cal-ed{width:100%;min-height:130px;padding:12px;border:1.5px solid var(--ink);border-radius:12px;font-family:inherit;font-size:14px;resize:vertical;}
+@media (max-width:480px){.hero-num{font-size:46px;}.pip{width:12px;height:12px;}.pips{gap:5px;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">dot<span>.</span></div>
+  <nav id="tabs"></nav>
+  <div class="admin-box" id="adminBox"></div>
+</header>
+<main id="app"></main>
+<footer><a href="https://www.instagram.com/teameditoraa" target="_blank" rel="noopener">@teameditoraa</a></footer>
+<script>
+// ---------- config ----------
+const MANAGER_PIN = '2029';
+const POSTER_PASS = '@post4$';
+const POSTER_NAME = 'Zahra';
+const CLIENT_NAME = 'Tehreem';
+const REELS_PER_ACCOUNT = 3;
+const CAROUSELS = 3; // only on Instagram @tsk_diet
+const META_HANDLES = ['@tsk_diet','@tskdiet_stories','@tehreeem_khan_tsk'];
+const PLATFORMS = [
+  {id:'ig', name:'Instagram', handles:META_HANDLES},
+  {id:'fb', name:'Facebook',  handles:META_HANDLES},
+  {id:'tt', name:'TikTok',    handles:['@tskdiet']},
+  {id:'yt', name:'YouTube',   handles:['@Tehreem Khan']},
+];
+// flat list of every posting account + the task keys under it
+const ACCOUNTS = PLATFORMS.flatMap(p=>p.handles.map(h=>{
+  const id = p.id+'_'+h.replace(/[^a-z0-9]/gi,'').toLowerCase();
+  const tasks = [
+    ...Array.from({length:REELS_PER_ACCOUNT},(_,i)=>({key:id+'_r'+(i+1), label:'Reel '+(i+1), kind:'reel'})),
+    ...((p.id==='ig' && h==='@tsk_diet') ? Array.from({length:CAROUSELS},(_,i)=>({key:id+'_c'+(i+1), label:'Carousel '+(i+1), kind:'carousel'})) : []),
+  ];
+  return {id, platform:p.name, pid:p.id, handle:h, tasks};
+}));
+const ALL_TASKS = ACCOUNTS.flatMap(a=>a.tasks);
+const TOPICS = [
+  ...Array.from({length:14},(_,i)=>({id:'edu'+(i+1), title:'Educational Reel '+(i+1), cat:'edu', tag:'Educational'})),
+  ...Array.from({length:5},(_,i)=>({id:'mot'+(i+1), title:'Motivational Reel '+(i+1), cat:'mot', tag:'Motivational'})),
+  ...Array.from({length:2},(_,i)=>({id:'promo'+(i+1), title:'Promo / Ad Reel '+(i+1), cat:'promo', tag:'Promo / Ad'})),
+];
+const EDITORS = [
+  {id:'editor1', name:'Masood', pass:'@edit1#', topics:TOPICS.slice(0,14)},
+  {id:'editor2', name:'Daud', pass:'@edit2#', topics:TOPICS.slice(14)},
+];
+
+// ---------- state ----------
+let data = { editor1:{}, editor2:{}, poster:{}, calendar:{}, analytics:{weekly:{}, monthly:{}} };
+let adminMode = false;
+let unlocked = {};
+let activeTab = 'dashboard';
+let analyticsRange = 'weekly';
+let calMonth = new Date(); calMonth.setDate(1);
+const todayKey = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+
+function load(){ try{ data = {...data, ...JSON.parse(localStorage.getItem('ct_data')||'{}')}; }catch(e){} }
+function save(){ try{ localStorage.setItem('ct_data', JSON.stringify(data)); }catch(e){} }
+function isUnlocked(id){ if(adminMode) return true; if(unlocked[id]) return true;
+  try{ return sessionStorage.getItem('ct_unlock_'+id)==='1'; }catch(e){ return false; } }
+function unlock(id){ unlocked[id]=true; try{ sessionStorage.setItem('ct_unlock_'+id,'1'); }catch(e){} }
+
+// ---------- header ----------
+function renderNav(){
+  const tabs=[{id:'dashboard',name:'Dashboard'}, ...EDITORS, {id:'poster',name:POSTER_NAME}, {id:'sheet',name:'Sheet'}, {id:'calendar',name:'Calendar'}, {id:'analytics',name:'Analytics'}];
+  document.getElementById('tabs').innerHTML = tabs.map(t=>
+    `<button data-tab="${t.id}" class="${activeTab===t.id?'active':''}">${t.name}</button>`).join('');
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{activeTab=b.dataset.tab; render();});
+
+  const box=document.getElementById('adminBox');
+  if(adminMode){
+    box.innerHTML = `<span class="admin-pill">🔓 MANAGER</span><button class="ghost" id="exitAdmin">Exit</button>`;
+    document.getElementById('exitAdmin').onclick=()=>{adminMode=false; try{sessionStorage.removeItem('ct_admin')}catch(e){} render();};
+  } else {
+    box.innerHTML = `<input id="pin" class="admin-pin" type="password" inputmode="numeric" maxlength="6" placeholder="MANAGER PIN">
+      <button class="pill" id="pinBtn">Unlock</button>`;
+    const pin=document.getElementById('pin');
+    const tryUnlock=()=>{ if(pin.value.trim()===MANAGER_PIN){ adminMode=true; try{sessionStorage.setItem('ct_admin','1')}catch(e){} render(); } else { pin.value=''; pin.focus(); } };
+    document.getElementById('pinBtn').onclick=tryUnlock;
+    pin.onkeydown=e=>{ if(e.key==='Enter') tryUnlock(); };
+  }
+}
+
+// ---------- gate ----------
+function gate(id, label, checkFn){
+  const app=document.getElementById('app');
+  app.innerHTML = `<div class="gate card">
+    <div class="gate-icon">🔒</div><h1 style="margin-top:10px">${label}</h1>
+    <input id="gp" class="gate-input" type="password" placeholder="PASSCODE">
+    <div style="margin-top:12px"><button class="pill" id="gbtn">Unlock</button></div>
+  </div>`;
+  const gp=document.getElementById('gp');
+  const attempt=()=>{ if(checkFn(gp.value.trim())){ unlock(id); render(); } else { gp.value=''; gp.focus(); } };
+  document.getElementById('gbtn').onclick=attempt;
+  gp.onkeydown=e=>{ if(e.key==='Enter') attempt(); };
+}
+
+// ---------- editor view ----------
+function editorProgress(ed){
+  const st=data[ed.id]||{}; const topics=ed.topics; const done=topics.filter(t=>st[t.id]?.done).length;
+  return {done, total:topics.length};
+}
+function renderEditor(ed){
+  if(!isUnlocked(ed.id)) return gate(ed.id, ed.name, v=>v===ed.pass);
+  const st = data[ed.id] = data[ed.id] || {};
+  const p = editorProgress(ed);
+  const app=document.getElementById('app');
+  app.innerHTML = `<div class="card"><h1>${ed.name} — Reel Checklist</h1>
+    <div class="grid"><div class="stat"><b>${p.done}/${p.total}</b><span>Completed</span></div>
+    <div class="stat"><b>${p.total-p.done}</b><span>Remaining</span></div></div></div>
+    <div class="card" id="list"></div>`;
+  const list=document.getElementById('list');
+  list.innerHTML = ed.topics.map(t=>{
+    const row = st[t.id]||{};
+    return `<div class="item ${t.cat}">
+      <input type="checkbox" data-id="${t.id}" class="chk" ${row.done?'checked':''}>
+      <span class="title">${t.title}</span>
+      <input type="text" data-id="${t.id}" class="note" placeholder="project / reel name" value="${(row.note||'').replace(/"/g,'&quot;')}">
+      <span class="tag">${t.tag}</span>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.chk').forEach(c=>c.onchange=()=>{
+    const id=c.dataset.id; st[id]=st[id]||{}; st[id].done=c.checked; save(); render();
+  });
+  list.querySelectorAll('.note').forEach(n=>n.onchange=()=>{
+    const id=n.dataset.id; st[id]=st[id]||{}; st[id].note=n.value; save();
+  });
+}
+
+// ---------- work-session helpers (timer) ----------
+const pad = n => String(n).padStart(2,'0');
+function fmtDur(ms){ const t=Math.max(0,Math.floor(ms/1000)); return pad(Math.floor(t/3600))+':'+pad(Math.floor(t%3600/60))+':'+pad(t%60); }
+function fmtTime(ts){ return new Date(ts).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}); }
+function getDay(date){ const d = data.poster[date] = data.poster[date] || {}; d.tasks = d.tasks || {}; d.sessions = d.sessions || []; d.times = d.times || {}; d.views = d.views || {}; return d; }
+function setPosted(day,key,val,date){ day.tasks[key]=val; if(val){ if(date===todayKey()) day.times[key]=day.times[key]||Date.now(); } else delete day.times[key]; }
+const esc = v => String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const dateKey = (y,m,d) => y+'-'+pad(m+1)+'-'+pad(d);
+function dayOrEmpty(date){ return data.poster[date] ? getDay(date) : {tasks:{},sessions:[],times:{},views:{}}; }
+function firstTracked(){ const ks=Object.keys(data.poster).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).filter(k=>{const d=data.poster[k]; return (d.sessions&&d.sessions.length)||Object.values(d.tasks||{}).some(Boolean);}).sort(); return ks[0]||null; }
+function statusOf(date,key,ft){ const d=dayOrEmpty(date); if(d.tasks[key]) return 'Posted'; if(date<todayKey()) return (ft&&date>=ft)?'Missed':'—'; return 'Pending'; }
+function dayStats(date,ft){ const d=dayOrEmpty(date); const total=ALL_TASKS.length; const posted=doneCount(d); const tracked=!!ft&&date>=ft&&date<=todayKey();
+  const missed=(date<todayKey()&&tracked)?total-posted:0; let v24=0,v48=0; Object.values(d.views||{}).forEach(v=>{v24+=Number(v.h24)||0; v48+=Number(v.h48)||0;});
+  return {posted,missed,total,v24,v48,tracked}; }
+function monthTotals(y,m){ const ft=firstTracked(); const n=new Date(y,m+1,0).getDate(); const t={posted:0,missed:0,v24:0,v48:0}; for(let i=1;i<=n;i++){ const x=dayStats(dateKey(y,m,i),ft); t.posted+=x.posted; t.missed+=x.missed; t.v24+=x.v24; t.v48+=x.v48; } return t; }
+function workedMs(day){ return (day.sessions||[]).reduce((a,x)=>a+((x.out||Date.now())-x.in),0); }
+function isOn(day){ return (day.sessions||[]).some(x=>!x.out); }
+function doneCount(day){ return ALL_TASKS.filter(t=>day.tasks && day.tasks[t.key]).length; }
+let tickHandle=null;
+function startTick(){
+  clearInterval(tickHandle);
+  const update=()=>{ const els=document.querySelectorAll('[data-timer]'); if(!els.length){ clearInterval(tickHandle); return; }
+    els.forEach(el=>{ const day=data.poster[el.dataset.timer]; if(day) el.textContent=fmtDur(workedMs(day)); }); };
+  update(); tickHandle=setInterval(update,1000);
+}
+function sessionLog(day){
+  if(!(day.sessions||[]).length) return '<p class="log">No sign-ins yet.</p>';
+  return '<p class="log">'+day.sessions.map(x=>`In ${fmtTime(x.in)} → ${x.out?('Out '+fmtTime(x.out)):'<b style="color:#1a8a3a">working now</b>'}`).join(' &nbsp;•&nbsp; ')+'</p>';
+}
+
+function attendanceHtml(){
+  const keys=Object.keys(data.poster).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k) && (data.poster[k].sessions||[]).length).sort().reverse();
+  const now=new Date(), tk=todayKey();
+  const wk=new Date(now); wk.setDate(wk.getDate()-6); const wkKey=wk.getFullYear()+'-'+pad(wk.getMonth()+1)+'-'+pad(wk.getDate());
+  const mk=tk.slice(0,7);
+  const sum=f=>keys.filter(f).reduce((a,k)=>a+workedMs(data.poster[k]),0);
+  const rows=keys.slice(0,31).map(k=>{ const d=data.poster[k];
+    const lbl=new Date(k+'T00:00:00').toLocaleDateString([], {weekday:'short', day:'numeric', month:'short'});
+    const sess=d.sessions.map(x=>`${fmtTime(x.in)} → ${x.out?fmtTime(x.out):'<b style="color:#1a8a3a">now</b>'}`).join('<br>');
+    return `<tr><td>${lbl}${k===tk?' <span class="tag">Today</span>':''}</td><td>${sess}</td><td><b data-timer="${k}">${fmtDur(workedMs(d))}</b></td></tr>`; }).join('');
+  return `<div class="card"><h1>Login / Logout Schedule</h1>
+    <div class="grid"><div class="stat"><b>${fmtDur(sum(k=>k>=wkKey))}</b><span>Last 7 days</span></div>
+    <div class="stat"><b>${fmtDur(sum(k=>k.startsWith(mk)))}</b><span>This month</span></div></div>
+    ${rows?`<div class="sheet-scroll" style="margin-top:12px"><table class="sheet"><thead><tr><th>Day</th><th>Login → Logout</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table></div>`:'<p class="muted">No logins yet. Press Sign in to start.</p>'}</div>`;
+}
+
+// ---------- poster view (Zahra) ----------
+function renderPoster(){
+  if(!isUnlocked('poster')) return gate('poster', POSTER_NAME, v=>v===POSTER_PASS);
+  const date = todayKey();
+  const day = getDay(date);
+  const on = isOn(day);
+  const done = doneCount(day);
+  const app=document.getElementById('app');
+  app.innerHTML = `<div class="card"><h1>${POSTER_NAME} — Posting Tracker</h1>
+    <p class="muted" style="margin:0 0 12px">${new Date().toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'})}</p>
+    <div><span class="status-dot ${on?'on':''}"></span><b>${on?'Signed in':'Signed out'}</b></div>
+    <div class="timer-big" style="margin-top:10px" data-timer="${date}">00:00:00</div>
+    <div class="btn-row">
+      <button class="big" id="signIn" ${on?'disabled':''}>Sign in</button>
+      <button class="big out" id="signOut" ${on?'':'disabled'}>Sign out</button>
+    </div>
+    </div>
+    ${attendanceHtml()}
+    <div class="card"><div class="grid"><div class="stat"><b>${done}/${ALL_TASKS.length}</b><span>Posted today</span></div>
+    <div class="stat"><b>${ALL_TASKS.length-done}</b><span>Remaining</span></div></div>
+    <div class="bar"><i style="width:${Math.round(done/ALL_TASKS.length*100)}%"></i></div></div>
+    <div id="plats"></div>`;
+  document.getElementById('signIn').onclick=()=>{ day.sessions.push({in:Date.now(), out:null}); save(); render(); };
+  document.getElementById('signOut').onclick=()=>{ day.sessions.forEach(x=>{ if(!x.out) x.out=Date.now(); }); save(); render(); };
+  document.getElementById('plats').innerHTML = PLATFORMS.map(p=>{
+    const accts = ACCOUNTS.filter(a=>a.pid===p.id);
+    return `<div class="card"><div class="plat-head"><h2>${p.name}</h2></div>`+accts.map(a=>{
+      const n = a.tasks.filter(t=>day.tasks[t.key]).length;
+      return `<div class="acct-block"><div class="name"><span>${a.handle}</span><small>${n}/${a.tasks.length}</small></div><div class="chips">`+
+        a.tasks.map(t=>`<label class="${t.kind==='carousel'?'car':''} ${day.tasks[t.key]?'done':''}"><input type="checkbox" class="tchk" data-key="${t.key}" ${day.tasks[t.key]?'checked':''}> ${t.label}</label>`).join('')+
+        `</div></div>`;
+    }).join('')+`</div>`;
+  }).join('');
+  document.querySelectorAll('.tchk').forEach(c=>c.onchange=()=>{ setPosted(day,c.dataset.key,c.checked,date); save(); render(); });
+  startTick();
+}
+
+// ---------- sheet view (Zahra's monthly tracker) ----------
+let sheetMonth = new Date(); sheetMonth.setDate(1);
+let sheetDate = null;
+function sumRows(y,m){
+  const ft=firstTracked(); const n=new Date(y,m+1,0).getDate();
+  let html='';
+  for(let i=1;i<=n;i++){
+    const key=dateKey(y,m,i), x=dayStats(key,ft);
+    const wd=new Date(y,m,i).toLocaleDateString([], {weekday:'short'});
+    html += `<tr data-d="${key}" class="${key===sheetDate?'sel':''} ${x.tracked?'':'dim'}"><td>${wd} ${i}</td><td>${x.tracked?x.posted+'/'+x.total:'—'}</td><td class="${x.missed?'bad':''}">${x.tracked?x.missed:'—'}</td><td>${x.v24||'—'}</td><td>${x.v48||'—'}</td></tr>`;
+  }
+  return html;
+}
+function viewCell(key,f,val,base){
+  const has = val!=='' && val!=null;
+  let hint='';
+  if(!has && base){ const due=base+(f==='h24'?24:48)*3600000;
+    hint = Date.now()>=due ? '<small class="due now">due now</small>' : '<small class="due">due '+new Date(due).toLocaleString([], {weekday:'short', hour:'numeric', minute:'2-digit'})+'</small>'; }
+  return `<input type="number" min="0" class="vin" data-key="${key}" data-f="${f}" placeholder="0" value="${has?val:''}">${hint}`;
+}
+function downloadCsv(y,m){
+  const ft=firstTracked(); const n=new Date(y,m+1,0).getDate();
+  const rows=[['Date','Platform','Account','Post','Status','Views 24h','Views 48h']];
+  for(let i=1;i<=n;i++){ const key=dateKey(y,m,i); if(!dayStats(key,ft).tracked) continue; const day=dayOrEmpty(key);
+    ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const v=day.views[t.key]||{};
+      rows.push([key,a.platform,a.handle,t.label,statusOf(key,t.key,ft),v.h24==null?'':v.h24,v.h48==null?'':v.h48]); })); }
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='zahra-'+y+'-'+pad(m+1)+'.csv'; document.body.appendChild(a); a.click(); a.remove();
+}
+function renderSheet(){
+  if(!isUnlocked('poster')) return gate('poster', 'Sheet — '+POSTER_NAME, v=>v===POSTER_PASS);
+  const y=sheetMonth.getFullYear(), m=sheetMonth.getMonth(), prefix=y+'-'+pad(m+1);
+  if(!sheetDate || !sheetDate.startsWith(prefix)) sheetDate = todayKey().startsWith(prefix) ? todayKey() : prefix+'-01';
+  const monthName=sheetMonth.toLocaleString([], {month:'long', year:'numeric'});
+  const ft=firstTracked(), t=monthTotals(y,m);
+  const day=dayOrEmpty(sheetDate);
+  const app=document.getElementById('app');
+  app.innerHTML = `<div class="card"><div class="sheet-bar">
+      <button class="ghost" id="sPrev" style="color:#000;border-color:#ccc">‹ Prev</button>
+      <h1 style="margin:0">${monthName}</h1>
+      <button class="ghost" id="sNext" style="color:#000;border-color:#ccc">Next ›</button></div>
+    <div class="grid" style="margin-top:14px">
+      <div class="stat"><b>${t.posted}</b><span>Posted</span></div>
+      <div class="stat"><b class="${t.missed?'delta down':''}">${t.missed}</b><span>Missed</span></div>
+      <div class="stat"><b>${t.v24}</b><span>Views @24h</span></div>
+      <div class="stat"><b>${t.v48}</b><span>Views @48h</span></div></div>
+    <p class="muted" style="margin:8px 0 0">Tap a day to open it. Missed = a past day that was not ticked as posted.</p>
+    <button class="pill" id="csvBtn" style="margin-top:10px">Download month as CSV (opens in Google Sheets)</button></div>
+    <div class="card"><div class="sheet-scroll"><table class="sheet"><thead><tr><th>Day</th><th>Posted</th><th>Missed</th><th>24h views</th><th>48h views</th></tr></thead>
+      <tbody id="sumBody">${sumRows(y,m)}</tbody></table></div></div>
+    <div class="card" id="detail"><h1>${new Date(sheetDate+'T00:00:00').toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'})}</h1>
+      <div class="table-wrap"><table class="sheet"><thead><tr><th>Account</th><th>Post</th><th>Posted</th><th>Status</th><th>Views @24h</th><th>Views @48h</th></tr></thead><tbody>
+      ${ACCOUNTS.map(a=>a.tasks.map((tk,i)=>{ const st=statusOf(sheetDate,tk.key,ft); const v=day.views[tk.key]||{}; const at=day.times[tk.key];
+        return `<tr class="${i===0?'grp-start':''}"><td>${i===0?'<b>'+esc(a.handle)+'</b><br><span class="muted">'+a.platform+'</span>':''}</td><td>${tk.label}</td>
+          <td><input type="checkbox" class="schk" data-key="${tk.key}" ${day.tasks[tk.key]?'checked':''}></td>
+          <td><span class="st ${st}">${st}</span></td><td>${viewCell(tk.key,'h24',v.h24,at)}</td><td>${viewCell(tk.key,'h48',v.h48,at)}</td></tr>`; }).join('')).join('')}
+      </tbody></table></div>
+      <p class="muted" style="margin:10px 0 0">Enter each post's views 24 and 48 hours after it went live. Due times show once a post is ticked.</p></div>`;
+  document.getElementById('sPrev').onclick=()=>{ sheetMonth.setMonth(sheetMonth.getMonth()-1); sheetDate=null; render(); };
+  document.getElementById('sNext').onclick=()=>{ sheetMonth.setMonth(sheetMonth.getMonth()+1); sheetDate=null; render(); };
+  document.getElementById('csvBtn').onclick=()=>downloadCsv(y,m);
+  document.getElementById('sumBody').onclick=e=>{ const tr=e.target.closest('tr[data-d]'); if(!tr) return; sheetDate=tr.dataset.d; render();
+    document.getElementById('detail').scrollIntoView({behavior:'smooth', block:'start'}); };
+  document.querySelectorAll('.schk').forEach(c=>c.onchange=()=>{ setPosted(getDay(sheetDate), c.dataset.key, c.checked, sheetDate); save(); render(); });
+  document.querySelectorAll('.vin').forEach(inp=>inp.onchange=()=>{
+    const d=getDay(sheetDate); const k=inp.dataset.key; d.views[k]=d.views[k]||{};
+    d.views[k][inp.dataset.f] = inp.value==='' ? '' : Math.max(0,Number(inp.value)||0);
+    save(); document.getElementById('sumBody').innerHTML = sumRows(y,m); });
+}
+
+// ---------- calendar view (editable) ----------
+let calSel = null;
+function renderCalendar(){
+  const app=document.getElementById('app');
+  const y=calMonth.getFullYear(), m=calMonth.getMonth(), prefix=y+'-'+pad(m+1);
+  const startDay=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
+  const monthName=calMonth.toLocaleString([], {month:'long', year:'numeric'});
+  if(!calSel || !calSel.startsWith(prefix)) calSel = todayKey().startsWith(prefix) ? todayKey() : prefix+'-01';
+  const ft=firstTracked();
+  let cells = ['S','M','T','W','T','F','S'].map(d=>`<div class="cal-head">${d}</div>`).join('');
+  for(let i=0;i<startDay;i++) cells += `<div></div>`;
+  for(let d=1; d<=days; d++){
+    const key=dateKey(y,m,d), x=dayStats(key,ft);
+    cells += `<div class="cal-cell ${key===calSel?'sel':''} ${key===todayKey()?'today':''}" data-key="${key}"><div class="d"><span>${d}</span>${x.tracked&&x.posted?`<span class="cb">${x.posted}/${x.total}</span>`:''}</div><div class="cal-txt">${esc(data.calendar[key]||'')}</div></div>`;
+  }
+  app.innerHTML = `<div class="card"><div class="cal-nav">
+    <button class="ghost" id="prevM" style="color:#000;border-color:#ccc">‹ Prev</button><h1 style="margin:0">${monthName}</h1><button class="ghost" id="nextM" style="color:#000;border-color:#ccc">Next ›</button>
+    </div><div class="cal-grid">${cells}</div></div>
+    <div class="card"><h1>${new Date(calSel+'T00:00:00').toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'})}</h1>
+      <textarea id="calEd" class="cal-ed" placeholder="Write the plan for this day — ideas, shoots, deadlines, notes...">${esc(data.calendar[calSel]||'')}</textarea>
+      <div style="margin-top:10px"><button class="pill" id="calClear">Clear day</button> <span class="muted">Saves automatically</span></div></div>`;
+  document.getElementById('prevM').onclick=()=>{ calMonth.setMonth(calMonth.getMonth()-1); render(); };
+  document.getElementById('nextM').onclick=()=>{ calMonth.setMonth(calMonth.getMonth()+1); render(); };
+  document.querySelectorAll('.cal-cell[data-key]').forEach(c=>c.onclick=()=>{ calSel=c.dataset.key; render(); document.getElementById('calEd').focus(); });
+  const ed=document.getElementById('calEd');
+  ed.oninput=()=>{ if(ed.value.trim()) data.calendar[calSel]=ed.value; else delete data.calendar[calSel]; save();
+    const cell=document.querySelector('.cal-cell[data-key="'+calSel+'"] .cal-txt'); if(cell) cell.textContent=ed.value; };
+  document.getElementById('calClear').onclick=()=>{ delete data.calendar[calSel]; save(); render(); };
+}
+
+// ---------- analytics (growth tracking) ----------
+function renderAnalytics(){
+  if(!adminMode) return gate('analytics', 'Analytics — manager only', v=>v===MANAGER_PIN);
+  const app=document.getElementById('app');
+  const store = data.analytics[analyticsRange];
+  let totalViews=0, totalDelta=0;
+  const rows = TOPICS.map(t=>{
+    const row = store[t.id] = store[t.id] || {value:0, prev:0};
+    const delta = row.value - row.prev;
+    const pct = row.prev ? ((delta/row.prev)*100).toFixed(1) : (row.value?'100.0':'0.0');
+    totalViews += Number(row.value)||0; totalDelta += delta;
+    return {t, row, delta, pct};
+  });
+  app.innerHTML = `<div class="card"><h1>Reel Growth — ${analyticsRange==='weekly'?'Weekly':'Monthly'}</h1>
+    <div class="seg" id="rangeSeg">
+      <button data-r="weekly" class="${analyticsRange==='weekly'?'active':''}">Weekly</button>
+      <button data-r="monthly" class="${analyticsRange==='monthly'?'active':''}">Monthly</button>
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="stat"><b>${totalViews}</b><span>Total views</span></div>
+      <div class="stat"><b class="${totalDelta>=0?'delta up':'delta down'}">${totalDelta>=0?'+':''}${totalDelta}</b><span>Change vs last ${analyticsRange==='weekly'?'week':'month'}</span></div>
+    </div>
+    <p class="muted">Enter each reel's current view count for this ${analyticsRange==='weekly'?'week':'month'}. Growth is calculated against the previous value you saved — click "Roll over" once the period ends to lock the current value in as the new baseline.</p>
+    <button class="pill" id="rollover" style="margin-bottom:6px">Roll over → set as new baseline</button>
+    </div>
+    <div class="card"><div class="table-wrap"><table class="growth-table">
+      <thead><tr><th>Reel</th><th>Category</th><th>Previous</th><th>Current views</th><th>Growth</th></tr></thead>
+      <tbody>${rows.map(({t,row,delta,pct})=>`<tr>
+        <td>${t.title}</td><td><span class="tag" style="background:#eee;color:#555">${t.tag}</span></td>
+        <td>${row.prev}</td>
+        <td><input type="number" min="0" data-id="${t.id}" class="gval" value="${row.value}"></td>
+        <td class="${delta>=0?'delta up':'delta down'}">${delta>=0?'+':''}${delta} (${pct}%)</td>
+      </tr>`).join('')}</tbody>
+    </table></div></div>`;
+  document.querySelectorAll('#rangeSeg button').forEach(b=>b.onclick=()=>{ analyticsRange=b.dataset.r; render(); });
+  document.querySelectorAll('.gval').forEach(inp=>inp.onchange=()=>{
+    const id=inp.dataset.id; store[id].value = Number(inp.value)||0; save(); render();
+  });
+  document.getElementById('rollover').onclick=()=>{
+    TOPICS.forEach(t=>{ const row=store[t.id]=store[t.id]||{value:0,prev:0}; row.prev = row.value; });
+    save(); render();
+  };
+}
+
+// ---------- dashboard (client view: Zahra's tasks) ----------
+let dashDate = null;
+function renderDashboard(){
+  const app=document.getElementById('app');
+  dashDate = dashDate || todayKey();
+  const ft=firstTracked();
+  const day = dayOrEmpty(dashDate);
+  const x = dayStats(dashDate, ft);
+  const isToday = dashDate===todayKey();
+  const on = isOn(day) && isToday;
+  const past = dashDate<todayKey() && x.tracked;
+  const dy=+dashDate.slice(0,4), dm=+dashDate.slice(5,7)-1;
+  const mt = monthTotals(dy,dm);
+  const monthName = new Date(dy,dm,1).toLocaleString([], {month:'long'});
+  const started = (day.sessions||[])[0];
+  const pips = (a,kind)=>a.tasks.filter(t=>t.kind===kind).map(t=>`<span class="pip ${kind==='carousel'?'sq':''} ${day.tasks[t.key]?'on':(past?'miss':'')}"></span>`).join('');
+  app.innerHTML = `<div class="card">
+    <div class="hero-top"><span class="who">${POSTER_NAME} · ${isToday?'Today':new Date(dashDate+'T00:00:00').toLocaleDateString([], {day:'numeric', month:'short'})}</span>
+      <input type="date" id="ddate" value="${dashDate}"></div>
+    <div class="hero-num">${x.posted}<small>/ ${x.total}</small></div>
+    <div class="hero-sub">posts published</div>
+    <div class="bar"><i style="width:${Math.round(x.posted/x.total*100)}%"></i></div>
+    <div class="hero-meta">
+      <span><span class="status-dot ${on?'on':''}"></span>${on?'Online now':'Offline'}</span>
+      <span>Time worked <b data-timer="${dashDate}">00:00:00</b></span>
+      ${started?`<span>Started ${fmtTime(started.in)}</span>`:''}
+    </div>
+    <div class="hero-foot"><b>${mt.posted}</b> posted · <b>${mt.missed}</b> missed in ${monthName}</div>
+  </div>
+  <div class="card">${PLATFORMS.map(p=>`<div class="grp">${p.name}</div>`+ACCOUNTS.filter(a=>a.pid===p.id).map(a=>{
+      const n=a.tasks.filter(t=>day.tasks[t.key]).length; const car=pips(a,'carousel');
+      return `<div class="arow"><span class="ah">${esc(a.handle)}</span><span class="pips">${pips(a,'reel')}${car?'<i class="sep"></i>'+car:''}</span><span class="an">${n}/${a.tasks.length}</span></div>`;
+    }).join('')).join('')}
+    <div class="legend"><span><span class="pip on"></span>Posted</span><span><span class="pip"></span>Pending</span><span><span class="pip miss"></span>Missed</span><span><span class="pip sq"></span>Carousel</span></div>
+  </div>`;
+  document.getElementById('ddate').onchange=e=>{ dashDate=e.target.value||todayKey(); render(); };
+  startTick();
+}
+
+// ---------- render router ----------
+function render(){
+  renderNav(); save();
+  if(activeTab==='dashboard') return renderDashboard();
+  if(activeTab==='poster') return renderPoster();
+  if(activeTab==='sheet') return renderSheet();
+  if(activeTab==='calendar') return renderCalendar();
+  if(activeTab==='analytics') return renderAnalytics();
+  const ed = EDITORS.find(e=>e.id===activeTab);
+  if(ed) return renderEditor(ed);
+}
+
+load();
+try{ adminMode = sessionStorage.getItem('ct_admin')==='1'; }catch(e){}
+render();
+</script>
+</body>
+</html>
