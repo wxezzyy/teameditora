@@ -317,6 +317,55 @@ nav#tabs button.active .lb{max-width:96px;opacity:1;margin-left:7px;transform:no
 .card{background-image:linear-gradient(180deg,rgba(255,67,40,.04),transparent 90px)}
 .stat{position:relative;overflow:hidden}.stat::after{content:'';position:absolute;right:-16px;top:-16px;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,rgba(250,126,30,.24),transparent 70%)}
 .acct-block{transition:border-color .2s,transform .2s}.acct-block:hover{border-color:var(--red);transform:translateY(-2px)}
+/* ===== v10 ===== */
+header{flex:0 0 auto;height:calc(62px + env(safe-area-inset-top,0px));min-height:0;flex-wrap:nowrap;padding-bottom:0;gap:8px;padding-left:max(clamp(10px,3vw,24px),calc((100vw - 1120px)/2),env(safe-area-inset-left,0px));padding-right:max(clamp(10px,3vw,24px),calc((100vw - 1120px)/2),env(safe-area-inset-right,0px))}
+nav#tabs{flex:1 1 0;justify-content:flex-start}nav#tabs button{height:42px;padding:0 12px}main{max-width:1040px}
+button.chip{cursor:pointer;font-family:inherit;color:var(--ink);display:inline-flex;align-items:center;gap:6px;transition:transform .15s,border-color .2s}button.chip:hover{transform:translateY(-2px);border-color:var(--red)}button.chip.ok{color:#1a8a3a}.chip .lg{width:16px;height:16px}
+.bigrow{display:flex;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}.bigrow .mring b{font-size:20px;font-weight:800}.bigrow .dm{flex:1;min-width:0}.bigrow .dh{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:14px}.bigrow .dh span{color:var(--sub);font-size:12px}
+.gx .slides{overflow:hidden;border-radius:14px}.gx .slides{transition:height .5s}.gx .track{display:flex;align-items:flex-start;transition:transform .7s cubic-bezier(.2,.7,.2,1)}.gx .sl{flex:0 0 100%;min-width:0;padding:6px 4px;min-height:320px}
+.dots{display:flex;justify-content:center;gap:7px;margin-top:10px}.dots i{width:8px;height:8px;border-radius:5px;background:var(--line);cursor:pointer;transition:width .3s,background .3s}.dots i.on{width:24px;background:var(--red)}
+.tkw{overflow:hidden;white-space:nowrap;padding:10px 0;margin-bottom:16px;border-radius:12px;background:var(--ink);color:var(--paper)}.tk{display:inline-flex;gap:30px;align-items:center;font-size:13px;font-weight:700;animation:mq 34s linear infinite}.tk>span{display:inline-flex;align-items:center;gap:8px}@keyframes mq{to{transform:translateX(-50%)}}
+.gx .rf{animation:rl 4s ease-in-out infinite}@keyframes rl{0%{stroke-dashoffset:339.29}65%,100%{stroke-dashoffset:var(--to)}}
+.gx .cols div{animation:gw 3.6s ease-in-out infinite;transform-origin:bottom}@keyframes gw{0%{transform:scaleY(.08)}45%,100%{transform:scaleY(1)}}
+.gx .livedot{animation:pulse 1.6s infinite}.gx.hold .rf,.gx.hold .cols div{animation:none}.gx.hold .tk{animation-play-state:paused}
+.gx .stat b{font-size:26px}.gx .tile{animation:rise .5s both}
+@media (max-width:560px){header{gap:4px;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}.brand{font-size:18px}.sync{width:6px;height:6px;margin-left:3px}nav#tabs{gap:0}nav#tabs button{flex:1 1 0;min-width:0;max-width:58px;justify-content:center;padding:0;height:42px}nav#tabs button.active{flex:1 1 0;padding:0;max-width:58px}nav#tabs button .ic{width:20px;height:20px}nav#tabs button .ic svg{width:19px;height:19px}nav#tabs button .ic i{width:20px;height:20px;font-size:10px}.admin-box{gap:0}.ib{width:32px;height:32px}.av{width:32px;height:32px}.login-btn{padding:0 12px}
+main{padding:10px 10px 34px}.card{padding:12px;margin-bottom:10px;border-radius:14px}h1{margin-bottom:8px}h2{margin-bottom:8px}.grid{gap:8px;grid-template-columns:repeat(auto-fit,minmax(92px,1fr))}.stat{padding:9px 10px}.stat b{font-size:18px}
+.hero-num{font-size:38px;margin-top:10px}.ringwrap{gap:14px;margin-top:8px;justify-content:center}.ringbox{width:120px;height:120px}.ringtxt .hero-num{font-size:26px}.streak b{font-size:34px}.hero-foot{margin-top:10px;padding-top:8px}.btn-row{margin-top:10px;gap:8px}button.big{padding:10px 16px;font-size:13px}
+.arow{padding:8px 0;gap:8px}.feed{padding:6px 4px;gap:8px;font-size:12.5px}.grp{margin:12px 0 2px}.chip{font-size:11px;padding:4px 8px}.chips{gap:6px}
+.bigrow{display:grid;grid-template-columns:76px 1fr;gap:8px 12px;align-items:center;padding:10px 0}.bigrow .dm{display:contents}.bigrow .dh{grid-column:2;flex-direction:column;gap:2px;margin:0}.bigrow .chips{grid-column:1/-1}.bigrow .mring{width:76px!important;height:76px!important}.bigrow .mring b{font-size:16px}.bigrow .dh{margin-bottom:6px;font-size:13px}
+.tiles{grid-template-columns:repeat(2,1fr);gap:8px;padding:10px}.tile{padding:9px;gap:4px 6px}.tile .tl b{font-size:11.5px}
+.fs{padding:10px}.fs b{font-size:22px}.funnel{gap:8px}.goalrow{grid-template-columns:repeat(3,1fr);gap:6px}.gr{padding:10px 3px}.gr .ringbox{width:78px!important;height:78px!important;margin-bottom:4px}.gr .ringtxt b{font-size:14px!important}.gr .gt{font-size:11px}.gr .muted{font-size:10px!important}
+.gx .sl{min-height:0!important;padding:2px 0}.gx>.grid{grid-template-columns:repeat(2,1fr)}.gx .ringbox{width:140px!important;height:140px!important}.gx .gr .ringbox{width:78px!important;height:78px!important}.gx>.grid{margin-bottom:10px!important}.gx .stat b{font-size:20px}.tkw{padding:8px 0;margin-bottom:10px}.tk{gap:22px;font-size:12px}.dots{margin-top:8px}.cols{height:90px!important}
+.banner{gap:10px}.bn-em{font-size:26px}.dr2{gap:10px;padding:8px 0}}
+
+
+.gx .slides{height:292px}.gx .sl{height:292px;display:flex;flex-direction:column;overflow:hidden;padding:2px 0}.gx .sl h2{flex:0 0 auto}.sb{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:14px}.gx .ringbox{width:150px;height:150px}
+.cu{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:11px;background:var(--paper);font-size:12px}.cu b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cu .cc{display:flex;gap:5px}.cu .chip{padding:2px 8px}
+.tpg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px}.tp{display:flex;align-items:center;gap:12px;padding:8px 10px;border:1px solid var(--line);border-radius:13px;background:var(--paper);transition:transform .2s,border-color .2s}.tp:hover{transform:translateY(-2px);border-color:var(--red)}.tp .mring b{font-size:14px;font-weight:800}.tpm{min-width:0}.tpm b{display:block;font-size:14px}.tpm span{display:block;font-size:12px;color:var(--sub)}.tpm .chips{margin-top:5px;gap:5px}.tpm .chip{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;font-size:11px}.tpm .chip .lg{width:14px;height:14px;display:inline-flex}
+.pr{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px}.pr b{width:76px}.pr .bar{flex:1;margin:0;height:8px}.pr span{width:38px;text-align:right;color:var(--sub);font-size:12px}
+.bar i{animation:barin .9s cubic-bezier(.2,.7,.2,1)}@keyframes barin{from{width:0}}
+.grid>.stat{animation:rise .45s both}.grid>.stat:nth-child(2){animation-delay:.05s}.grid>.stat:nth-child(3){animation-delay:.1s}.grid>.stat:nth-child(4){animation-delay:.15s}
+@media (max-width:560px){.gx .slides,.gx .sl{height:262px}.gx .ringbox{width:124px!important;height:124px!important}.sb{gap:10px}.cu{padding:5px 8px}.tp{padding:7px 9px;gap:10px}.tpg{gap:6px}.pr b{width:70px}}
+@media (max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}.cols{height:70px}}
+@media (max-width:560px){.sheet-bar{flex-wrap:nowrap;gap:6px}.sheet-bar h1{font-size:12px;text-align:center;flex:1;min-width:0}.sheet-bar .ghost{padding:6px 9px;font-size:11.5px;white-space:nowrap}
+.item{padding:7px 9px;margin-bottom:5px;gap:8px}.item[style*="opacity"]{display:flex;flex-wrap:nowrap;align-items:center}.item[style*="opacity"] .title{flex:1;order:0}.item[style*="opacity"] .tag{order:1}}
+
+.fdot{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--red)}.bn-em:empty,.gate-icon:empty{display:none}
+.kvg{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}.kv span{display:block;font-size:10.5px;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;font-weight:800}.kv b{font-size:16px}
+.pane[hidden],#detail tr[hidden]{display:none!important}
+@media (max-width:560px){
+ .card{box-shadow:none;background-image:none;padding:12px}.card:hover{transform:none;box-shadow:none}.card h1::before,.card h2::before{display:none}.stat::after{display:none}.stat{background:none}
+ h1,h2{font-size:11.5px}.bar{height:5px;margin-top:8px}.fs .bar{height:4px}.hero-num{font-size:32px}.tpg{grid-template-columns:1fr 1fr}.tp{padding:7px 8px;gap:8px}.tp .mring b{font-size:11px}.tpm b{font-size:12.5px}.tpm span{font-size:11px}
+ .hb{flex-wrap:wrap;gap:3px 8px;margin:10px 0 4px}.hb .hl{flex:1 1 60%}.hb b{width:auto}.hb .hbar{flex:1 0 100%;order:3;height:5px}.muted[style*="138px"]{margin:0 0 6px!important}
+ .acct-block{padding:8px 10px}.chips label{padding:5px 8px;font-size:12px}.chips{gap:6px}.plat-head{margin-bottom:6px}.acct-block .name{margin-bottom:6px}.acct-row{padding:8px}.timer-big{font-size:30px}
+ .gx .tile,.tile{background:none}.grid>.stat{animation:none}
+ #detail .table-wrap{overflow:visible}#detail table.sheet,#detail tbody,#detail tr,#detail td{display:block}#detail thead{display:none}
+ #detail tr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 8px;padding:10px 0;border-bottom:1px solid var(--line)}#detail td{padding:0;border:0}
+ #detail td::before{content:attr(data-l);display:block;font-size:9.5px;text-transform:uppercase;color:var(--sub);margin-bottom:2px}
+ #detail td:nth-child(1){grid-column:1/-1}#detail td:nth-child(1):empty{display:none}#detail td:nth-child(2){grid-column:1/-1;font-weight:700}#detail td:nth-child(2)::before{display:none}#detail td:nth-child(1)::before{display:none}
+ #detail input.vin{width:100%}#detail table.sheet tr.grp-start td{border-top:0}
+}
 </style>
 </head>
 <body>
@@ -779,7 +828,7 @@ const quota=(ed,k)=>curCfg()[ed.period==='week'?'masoodWeekly':'daudDaily']+(k?c
 const pkey=ed=>{ const o=edOff[ed.id]||0; return ed.period==='week'?addDays(weekStart(todayKey()),7*o):addDays(todayKey(),o); };
 const slotsOf=(ed,k)=>(data.pipe[ed.id]||{})[k]||[];
 function slots(ed,k){ const P=data.pipe[ed.id]=data.pipe[ed.id]||{}, a=P[k]=P[k]||[]; while(a.length<quota(ed,k)) a.push({recv:null,title:'',status:'',done:null}); return a; }
-function lockedCard(l){ document.getElementById('app').innerHTML=`<div class="gate card"><div class="gate-icon">🔒</div><h1 style="margin-top:10px">${l} - manager only</h1><p class="muted">Log in as manager to open this.</p></div>`; }
+function lockedCard(l){ document.getElementById('app').innerHTML=`<div class="gate card"><div class="gate-icon"></div><h1 style="margin-top:10px">${l} - manager only</h1><p class="muted">Log in as manager to open this.</p></div>`; }
 function render(){ if(!tabsFor().some(t=>t.id===activeTab)) activeTab='dashboard'; buildAccounts(); const m=document.getElementById('app'); m.onclick=m.onchange=null; m.classList.toggle('enter',activeTab!==lastTab); lastTab=activeTab;
   if(activeTab==='manager'){ renderNav(); save(); return renderManager(); } render0(); guestMode(); }
 const GH='style="color:#000;border-color:#ccc"';
@@ -995,10 +1044,10 @@ function doReset(w){ const L={editor1:'Masood (this week)',editor2:'Daud (today)
 const ago=t=>{ const m=Math.floor((Date.now()-t)/6e4); return m<1?'just now':m<60?m+'m ago':m<1440?Math.floor(m/60)+'h ago':Math.floor(m/1440)+'d ago'; };
 function liveEvents(){ const E=[], tk=todayKey();
   [tk,addDays(tk,-1)].forEach(k=>{ const d=data.poster[k]; if(!d) return;
-    ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const at=(d.times||{})[t.key]; if(at&&d.tasks[t.key]) E.push({t:at,i:'✅',x:`<b>${POSTER_NAME}</b> posted ${dn(a.handle)} · ${t.label}`}); }));
-    (d.sessions||[]).forEach(s=>{ E.push({t:s.in,i:'🟢',x:`<b>${POSTER_NAME}</b> signed in`}); if(s.out) E.push({t:s.out,i:'⚪',x:`<b>${POSTER_NAME}</b> signed out`}); }); });
+    ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const at=(d.times||{})[t.key]; if(at&&d.tasks[t.key]) E.push({t:at,i:'',x:`<b>${POSTER_NAME}</b> posted ${dn(a.handle)} · ${t.label}`}); }));
+    (d.sessions||[]).forEach(s=>{ E.push({t:s.in,i:'',x:`<b>${POSTER_NAME}</b> signed in`}); if(s.out) E.push({t:s.out,i:'',x:`<b>${POSTER_NAME}</b> signed out`}); }); });
   EDITORS.forEach(ed=>{ const ks=ed.period==='week'?[weekStart(tk),addDays(weekStart(tk),-7)]:[tk,addDays(tk,-1)];
-    ks.forEach(k=>slotsOf(ed,k).forEach((s,i)=>{ if(s.recv) E.push({t:s.recv,i:'📥',x:`Manager gave <b>${ed.name}</b> Reel ${i+1}`}); if(s.done) E.push({t:s.done,i:'🎬',x:`<b>${ed.name}</b> delivered Reel ${i+1}${s.title?' · '+esc(s.title):''}`}); })); });
+    ks.forEach(k=>slotsOf(ed,k).forEach((s,i)=>{ if(s.recv) E.push({t:s.recv,i:'',x:`Manager gave <b>${ed.name}</b> Reel ${i+1}`}); if(s.done) E.push({t:s.done,i:'',x:`<b>${ed.name}</b> delivered Reel ${i+1}${s.title?' · '+esc(s.title):''}`}); })); });
   return E.filter(e=>Date.now()-e.t<4*864e5).sort((a,b)=>b.t-a.t).slice(0,8); }
 function dutyHtml(){ return dutyHtml2(); }
 function liveCard(){ const E=liveEvents();
@@ -1006,27 +1055,27 @@ function liveCard(){ const E=liveEvents();
     (E.length?E.map(e=>`<div class="feed"><span>${e.i}</span><span class="fx">${e.x}</span><span class="muted">${ago(e.t)}</span></div>`).join(''):'<p class="muted" style="margin:0">Nothing yet today - the first post will show up here live.</p>')+`</div>`; }
 function bannerCard(){ const d=dayOrEmpty(todayKey()), tot=ALL_TASKS.length, n=doneCount(d), s=streak();
   const msg=tot&&n>=tot?`All ${tot} posts are live today. Incredible work, team!`:n>0?`${n} post${n>1?'s are':' is'} already live - only ${tot-n} to go. Keep the momentum!`:`Fresh day, ${tot} posts lined up. Let's make it count!`;
-  return `<div class="card banner" id="bannerBox"><div class="bn-em">${tot&&n>=tot?'🎉':n>0?'🔥':'☀️'}</div><div><b>${msg}</b><div class="muted">${s.cur>1?'🔥 '+s.cur+'-day full-posting streak':'Every post builds the brand - thank you for the effort.'}</div></div></div>`; }
+  return `<div class="card banner" id="bannerBox"><div class="bn-em">${tot&&n>=tot?'':n>0?'':''}</div><div><b>${msg}</b><div class="muted">${s.cur>1?' '+s.cur+'-day full-posting streak':'Every post builds the brand - thank you for the effort.'}</div></div></div>`; }
 setInterval(()=>{ if(activeTab!=='dashboard') return; const sw=(id,f)=>{ const e=document.getElementById(id); if(e) e.outerHTML=f(); }; sw('bannerBox',bannerCard); sw('liveBox',liveCard); sw('guestBox',guestReportCard); },30000);
 
 // ---------- v8: guest live report + 29-day report ----------
 function guestReportCard(){ const d=dayOrEmpty(todayKey()), items=[];
   ACCOUNTS.forEach(a=>a.tasks.forEach(t=>items.push({ok:!!d.tasks[t.key],at:(d.times||{})[t.key],l:dn(a.handle)+' · '+t.label})));
   const done=items.filter(i=>i.ok).sort((x,y)=>(y.at||0)-(x.at||0)), up=items.filter(i=>!i.ok), pc=items.length?Math.round(done.length/items.length*100):0, S=goalStats(), hi=[];
-  if(S.gain>0) hi.push('📈 +'+fmtN(S.gain)+' new followers this month');
-  if(S.best>0) hi.push('🚀 Best reel this month: '+fmtN(S.best)+' views');
-  const w=postRecs(7,0).reduce((x,r)=>x+r.n,0); if(w>0) hi.push('👀 '+fmtN(w)+' views in the last 7 days');
+  if(S.gain>0) hi.push(' +'+fmtN(S.gain)+' new followers this month');
+  if(S.best>0) hi.push(' Best reel this month: '+fmtN(S.best)+' views');
+  const w=postRecs(7,0).reduce((x,r)=>x+r.n,0); if(w>0) hi.push(' '+fmtN(w)+' views in the last 7 days');
   const fd=i=>`<div class="feed"><span>${i.ic}</span><span class="fx">${i.l}</span><span class="muted">${i.r}</span></div>`;
   return `<div class="card" id="guestBox"><div class="plat-head"><h2><span class="livedot"></span>Today's posting</h2></div>
     <div class="hero-num" style="font-size:42px">${done.length}<small>/ ${items.length} live</small></div><div class="bar"><i style="width:${pc}%"></i></div>`+
-    (done.length?'<div class="grp">Live now</div>'+done.slice(0,10).map(i=>fd({ic:'✅',l:i.l,r:i.at?ago(i.at):'today'})).join(''):'')+
-    (up.length?'<div class="grp">Coming up today</div>'+up.slice(0,10).map(i=>fd({ic:'🕒',l:i.l,r:'on the way'})).join('')+(up.length>10?`<div class="muted" style="padding:6px">+${up.length-10} more coming</div>`:''):'<div class="grp">Everything is live for today 🎉</div>')+
+    (done.length?'<div class="grp">Live now</div>'+done.slice(0,10).map(i=>fd({ic:'',l:i.l,r:i.at?ago(i.at):'today'})).join(''):'')+
+    (up.length?'<div class="grp">Coming up today</div>'+up.slice(0,10).map(i=>fd({ic:'',l:i.l,r:'on the way'})).join('')+(up.length>10?`<div class="muted" style="padding:6px">+${up.length-10} more coming</div>`:''):'<div class="grp">Everything is live for today </div>')+
     (hi.length?'<div class="grp">Highlights</div>'+hi.map(p=>`<div class="feed"><span class="fx">${p}</span></div>`).join(''):'')+`</div>`; }
 function cycleInfo(){ const ft=firstTracked(); if(!ft) return null; const nd=Math.round((new Date(todayKey()+'T00:00:00')-new Date(ft+'T00:00:00'))/864e5)+1, start=addDays(ft,Math.floor((nd-1)/29)*29);
   return {nd,start,end:addDays(start,28),isReportDay:(nd-1)%29===28}; }
 function reminderCard(){ const c=cycleInfo(); if(!c||!c.isReportDay) return ''; let miss=0;
   for(let k=c.start;k<=c.end;k=addDays(k,1)){ const d=data.poster[k]; if(!d) continue; ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ if(!d.tasks[t.key]) return; const v=(d.views||{})[t.key]||{}; if((v.h48==null||v.h48==='')||(v.fol==null||v.fol==='')) miss++; })); }
-  return `<div class="card banner"><div class="bn-em">📅</div><div><b>Day 29 - monthly report day</b><div class="muted">${miss?miss+' post'+(miss>1?'s are':' is')+' still missing views or followers gained. Fill them in so the full report is ready.':'Everything is filled in - the report is ready on the dashboard.'}</div><div class="btn-row" style="margin-top:10px"><button class="pill" id="remBtn">Open sheet</button></div></div></div>`; }
+  return `<div class="card banner"><div class="bn-em"></div><div><b>Day 29 - monthly report day</b><div class="muted">${miss?miss+' post'+(miss>1?'s are':' is')+' still missing views or followers gained. Fill them in so the full report is ready.':'Everything is filled in - the report is ready on the dashboard.'}</div><div class="btn-row" style="margin-top:10px"><button class="pill" id="remBtn">Open sheet</button></div></div></div>`; }
 function monthReportCard(detail){ const c=cycleInfo(); if(!c||!c.isReportDay) return ''; const by={};
   for(let k=c.start;k<=c.end;k=addDays(k,1)){ const d=data.poster[k]; if(!d) continue; ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ if(!d.tasks[t.key]) return; const v=(d.views||{})[t.key]||{}, n=Number(v.h48)||Number(v.h24)||0, f=Number(v.fol)||0;
     const o=by[a.id]=by[a.id]||{a,posts:0,views:0,fol:0,rows:[]}; o.posts++; o.views+=n; o.fol+=f; o.rows.push({k,t,n,f}); })); }
@@ -1065,7 +1114,129 @@ function dutyHtml2(){ const tk=todayKey(), ws=weekStart(tk), d=dayOrEmpty(tk), c
     pend.slice(0,8).map(i=>chip('○ '+i.l,'pend')).join('')+(pend.length>8?chip('+'+(pend.length-8)+' pending','pend'):'')+done.slice(0,8).map(i=>chip('✓ '+i.l,'ok')).join('')+(done.length>8?chip('+'+(done.length-8)+' done','ok'):''));
   EDITORS.forEach(e=>{ const k=e.period==='week'?ws:tk, q=quota(e,k), a=slotsOf(e,k).slice(0,q), rc=a.filter(s=>s.recv).length, dl=a.filter(s=>s.done).length; prov+=rc; exp+=q;
     out+=row(e.name,dl+'/'+q+' delivered '+(e.period==='week'?'this week':'today'),q?dl/q:0,chip('✓ '+dl+' delivered','ok')+chip('○ '+(rc-dl)+' editing','pend')+chip('… '+(q-rc)+' waiting for manager','wait')); });
-  return out+row('Manager',exp-prov?(exp-prov)+' reels still to hand over':'All reels handed over 🎉',exp?prov/exp:0,chip('✓ '+prov+' handed over','ok')+(exp-prov?chip('… '+(exp-prov)+' to go','wait'):'')); }
+  return out+row('Manager',exp-prov?(exp-prov)+' reels still to hand over':'All reels handed over ',exp?prov/exp:0,chip('✓ '+prov+' handed over','ok')+(exp-prov?chip('… '+(exp-prov)+' to go','wait'):'')); }
+
+// ===== v10: roles, guest energy, availability, messages =====
+SECTIONS.push('msgs','avail'); USERS.masood.home='dashboard'; USERS.daud.home='dashboard';
+const sumN=a=>a.reduce((x,r)=>x+r.n,0), lpf=v=>v>=1e4?fmtN(v):String(v);
+const avRead=(id,d)=>((data.avail||{})[id]||{})[d]||[];
+const avW=(id,d)=>{const A=data.avail=data.avail||{},B=A[id]=A[id]||{};return B[d]=B[d]||[];};
+let gHold=false,gIdx=0,gRaf=0,gSl=0,gT=0,sheetPerson='poster',hlAcct=null;
+const feedH=E=>E.map(e=>`<div class="feed"><span class="fdot"></span><span class="fx">${e.x}</span><span class="muted">${ago(e.t)}</span></div>`).join('')||'<p class="muted" style="margin:0">Nothing yet.</p>';
+const msgIf=(pid,n)=>((data.msgs||{})[pid]||[]).length?msgBox(pid,n):'';
+function msgBox(pid,name){ const L=((data.msgs||{})[pid]||[]).slice(-(adminMode?6:3)).reverse();
+  return `<div class="card"><h2>${adminMode?'Message to '+name:'Message from manager'}</h2>${adminMode?`<textarea id="msgT" class="cal-ed" style="min-height:64px" placeholder="Write to ${esc(name)}..."></textarea><div style="margin:8px 0 12px"><button class="pill" id="msgS" data-p="${pid}">Send to ${esc(name)}</button></div>`:''}${L.map(m=>`<div class="feed"><span class="fx">${esc(m.x)}</span><span class="muted">${ago(m.t)}</span></div>`).join('')||'<p class="muted" style="margin:0">No messages yet.</p>'}</div>`; }
+
+// tabs: dashboard = overview, sheet = input, calendar = plan
+tabsFor=function(){ const D={id:'dashboard',name:'Dashboard'}; if(!me) return [D]; const S={id:'sheet',name:'Sheet'},C={id:'calendar',name:'Calendar'};
+  return adminMode?[D,{id:'analytics',name:'Analytics'},C,{id:'manager',name:'Manager'}]:[D,S,C]; };
+USERS.zahra.home='dashboard';
+// live feed: manager/Zahra see all, editors only their own
+const _le=liveEvents;
+liveEvents=function(){ const E=_le(), tk=todayKey();
+  let L=E.filter(e=>Date.now()-e.t<4*864e5).sort((a,b)=>b.t-a.t);
+  if(me&&/^editor/.test(me.role)){ const n=EDITORS.find(e=>e.id===me.role).name; L=L.filter(e=>e.x.includes('<b>'+n+'</b>')); }
+  return L.slice(0,8); };
+
+// compact team progress (manager + Zahra)
+function dutyHtml2(){ const tk=todayKey(), ws=weekStart(tk), d=dayOrEmpty(tk), pc=f=>{ const n=Math.round(f*100); return `<span data-cu="${n}" data-s="%">${n}%</span>`; };
+  const row=(n,sub,f)=>`<div class="tp">${miniRing(f,pc(f),50)}<div class="tpm"><b>${n}</b><span>${sub}</span></div></div>`, it=[];
+  ACCOUNTS.forEach(a=>a.tasks.forEach(t=>it.push(!!d.tasks[t.key]))); const dn_=it.filter(Boolean).length; let out=row(esc(POSTER_NAME),dn_+' / '+it.length+' posted',it.length?dn_/it.length:0), prov=0, exp=0;
+  EDITORS.forEach(e=>{ const k=e.period==='week'?ws:tk, q=quota(e,k), a=slotsOf(e,k).slice(0,q), rc=a.filter(s=>s.recv).length, dl=a.filter(s=>s.done).length; prov+=rc; exp+=q; out+=row(e.name,dl+' / '+q+' delivered',q?dl/q:0); });
+  return `<div class="tpg">${out}${row('Manager',(exp-prov)+' to hand over',exp?prov/exp:0)}</div>`; }
+platformsCard=function(){ const day=dayOrEmpty(dashDate), NM={ig:'Instagram',fb:'Facebook',tt:'TikTok',yt:'YouTube'};
+  return `<div class="card"><h2>Platforms</h2>`+['ig','fb','tt','yt'].map(p=>{ const src=ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)); if(!src.length) return '';
+    const dn_=src.reduce((q,a)=>q+a.tasks.filter(t=>day.tasks[t.key]).length,0), tot=src.reduce((q,a)=>q+a.tasks.length,0);
+    return `<div class="pr">${logo(p)}<b>${NM[p]}</b><div class="bar"><i style="width:${tot?dn_/tot*100:0}%"></i></div><span>${dn_}/${tot}</span></div>`; }).join('')+`</div>`; };
+
+// calendar: edit controls only for manager
+const _rc=renderCalendar;
+renderCalendar=function(){ _rc(); if(adminMode) return; const c=document.getElementById('calClear'); if(c) c.parentElement.remove(); const t=document.getElementById('calEd'); if(t) t.outerHTML=`<div style="white-space:pre-wrap;min-height:60px">${esc(data.calendar[calSel]||'')||'<span class="muted">Nothing planned for this day.</span>'}</div>`; };
+
+// sheet per person (+ manager picker + message box)
+function editorSheet(ed){ const tk=todayKey(), wk=ed.period==='week', ks=wk?[0,1,2,3].map(i=>addDays(weekStart(tk),-7*i)):[0,1,2,3,4,5,6].map(i=>addDays(tk,-i)); let rows='',P=0,D=0,X=0,T=0;
+  ks.forEach(k=>slotsOf(ed,k).slice(0,quota(ed,k)).forEach((s,i)=>{ if(!s.recv) return; P++; const h=s.done?(s.done-s.recv)/36e5:0; if(s.done){D++;T+=h;} const late=!s.done&&!wk&&Date.now()>s.recv+864e5; if(late)X++;
+    rows+=`<tr><td>${wk?'Wk '+fmtD(k):fmtD(k)}</td><td>Reel ${i+1}${s.title?' · '+esc(s.title):''}</td><td>${fmtTime(s.recv)}</td><td>${s.done?fmtTime(s.done):'—'}</td><td>${s.done?h.toFixed(1)+'h':'—'}</td><td><span class="st ${s.done?'Posted':late?'Missed':''}">${s.done?'Delivered':late?'Overdue':(s.status||'Editing')}</span></td></tr>`; }));
+  return `<div class="card"><h1>${esc(ed.name)} · Progress</h1><div class="grid"><div class="stat"><b>${P}</b><span>Received</span></div><div class="stat"><b>${D}</b><span>Delivered</span></div><div class="stat"><b>${D?(T/D).toFixed(1)+'h':'-'}</b><span>Avg turnaround</span></div><div class="stat"><b class="${X?'delta down':''}">${X}</b><span>Overdue</span></div></div></div><div class="card"><div class="sheet-scroll"><table class="sheet"><thead><tr><th>${wk?'Week':'Day'}</th><th>Reel</th><th>In</th><th>Out</th><th>Time</th><th>Status</th></tr></thead><tbody>${rows||'<tr><td colspan="6">Nothing received yet.</td></tr>'}</tbody></table></div></div>`; }
+const _rs=renderSheet; let shPane='today', dSel=null;
+renderSheet=function(){ const app=document.getElementById('app'), ed=me&&EDITORS.find(e=>e.id===me.role);
+  if(ed){ renderEditor(ed); const w=[...app.querySelectorAll('.item[style*="opacity"]')];
+    if(w.length){ const c=w[0].parentElement; w.forEach(x=>x.remove()); c.insertAdjacentHTML('beforeend',`<p class="muted" style="margin:6px 0 0">${w.length} reel${w.length>1?'s':''} awaiting manager</p>`); }
+    app.insertAdjacentHTML('beforeend',editorSheet(ed)); return; }
+  renderPoster(); const A=[...app.children]; _rs(); const B=[...app.children];
+  const log=A.find(c=>/Login \/ Logout/.test(c.textContent)), P={today:A.filter(c=>c!==log),month:B.slice(0,2),day:B.slice(2),log:[log].filter(Boolean)};
+  const det=P.day[0];
+  if(det){ const ths=[...det.querySelectorAll('thead th')].map(t=>t.textContent), rows=[...det.querySelectorAll('tbody tr')]; let g=-1;
+    rows.forEach(r=>{ if(r.classList.contains('grp-start')) g++; r.dataset.g=g; [...r.children].forEach((td,i)=>td.dataset.l=ths[i]); });
+    if(dSel==null) dSel=innerWidth<=560?'0':'all';
+    det.querySelector('h1').insertAdjacentHTML('afterend',`<select id="dAcct" class="stsel" style="width:100%;margin:0 0 8px"><option value="all">All IDs</option>${ACCOUNTS.map((a,i)=>`<option value="${i}"${String(i)===dSel?' selected':''}>${dnr(a.handle)} · ${a.platform}</option>`).join('')}</select>`);
+    const f=()=>rows.forEach(r=>r.hidden=dSel!=='all'&&r.dataset.g!==dSel); f();
+    det.querySelector('#dAcct').onchange=e=>{ dSel=e.target.value; f(); }; }
+  app.innerHTML=`<div class="seg" id="shPane" style="margin-bottom:10px;width:100%">${[['today','Today'],['month','Month'],['day','Day'],['log','Log']].map(([k,l])=>`<button data-p="${k}" class="${k===shPane?'active':''}" style="flex:1">${l}</button>`).join('')}</div>`;
+  Object.keys(P).forEach(k=>{ const d=document.createElement('div'); d.className='pane'; d.dataset.p=k; d.hidden=k!==shPane; P[k].forEach(n=>d.appendChild(n)); app.appendChild(d); });
+  const sb=document.getElementById('sumBody'); if(sb) sb.addEventListener('click',()=>{ shPane='day'; },true); };
+const _gm=guestMode; guestMode=function(){ if(activeTab==='sheet'&&me&&!adminMode) return; _gm(); };
+
+document.addEventListener('click',e=>{ let b;
+  if(b=e.target.closest('#msgS')){ const x=document.getElementById('msgT').value.trim(); if(!x) return; const M=data.msgs=data.msgs||{}; (M[b.dataset.p]=M[b.dataset.p]||[]).push({t:Date.now(),x}); save(); render(); return; }
+  if(b=e.target.closest('#shPane button')){ shPane=b.dataset.p; document.querySelectorAll('#shPane button').forEach(x=>x.classList.toggle('active',x===b)); document.querySelectorAll('.pane').forEach(x=>x.hidden=x.dataset.p!==shPane); return; }
+  if(b=e.target.closest('#shSeg button')){ sheetPerson=b.dataset.p; render(); } });
+
+// editor dashboard (own section only)
+function editorDash(ed){ const tk=todayKey(), k=ed.period==='week'?weekStart(tk):tk, q=quota(ed,k), a=slots(ed,k).slice(0,q), rc=a.filter(s=>s.recv).length, dl=a.filter(s=>s.done).length, f=q?dl/q:0, C=339.29;
+  const open=a.map((s,i)=>({s,i})).filter(o=>o.s.recv&&!o.s.done);
+  document.getElementById('app').innerHTML=msgIf(ed.id,ed.name)+`<div class="card"><div class="hero-top"><span class="who">${esc(ed.name)} · ${ed.period==='week'?'this week':'today'}</span></div>
+    <div class="ringwrap"><div class="ringbox"><svg class="ring" viewBox="0 0 140 140"><circle class="rt" cx="70" cy="70" r="54"/><circle class="rf" cx="70" cy="70" r="54" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-f)}"/></svg><div class="ringtxt"><div class="hero-num">${dl}<small>/ ${q}</small></div><div class="hero-sub">delivered</div></div></div>
+    <div class="streak"><b>${rc-dl}</b><span>with you now</span><em>${q-rc} still to come from manager</em></div></div></div>
+    <div class="card"><h2>To deliver</h2>${open.map(o=>`<div class="arow"><span class="ah">Reel ${o.i+1}${o.s.title?' · '+esc(o.s.title):''}<small class="due">in ${fmtTime(o.s.recv)}${ed.period==='day'?' · due '+new Date(o.s.recv+864e5).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'}):''}</small></span><span class="st">${o.s.status||'Editing'}</span></div>`).join('')||'<p class="muted" style="margin:0">Nothing pending </p>'}</div>
+    <div class="card"><h2>Just happened · yours</h2>${feedH(liveEvents())}</div>`;
+}
+
+// guest dashboard: equal-size sliding panels, looping numbers
+function guestDash(){ const tk=todayKey(), d=dayOrEmpty(tk), it=[];
+  ACCOUNTS.forEach(a=>a.tasks.forEach(t=>it.push({p:a.pid,ok:!!d.tasks[t.key],h:dn(a.handle),l:t.label})));
+  const live=it.filter(i=>i.ok), up=it.filter(i=>!i.ok), tot=it.length, f=tot?live.length/tot:0, R=postRecs(7,0), v7=sumN(R), vp=sumN(postRecs(7,7)), dl=vp?Math.round((v7-vp)/vp*100):null, st=streak(), C=339.29, mp=monthTotals(+tk.slice(0,4),+tk.slice(5,7)-1).posted;
+  const days=Array.from({length:7},(_,i)=>{ const k=addDays(tk,-(6-i)); return {k,v:R.filter(r=>r.k===k).reduce((x,r)=>x+r.n,0)}; }), mx=Math.max(1,...days.map(x=>x.v));
+  const lp=v=>`<b class="lp" data-v="${v}">${lpf(v)}</b>`, NM={ig:'Instagram',fb:'Facebook',tt:'TikTok',yt:'YouTube'};
+  const pv=['ig','tt','yt','fb'].map(p=>{ const src=ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)); return src.length?{p,v:R.filter(r=>src.some(a=>a.id===r.a.id)).reduce((x,r)=>x+r.n,0)}:null; }).filter(Boolean), pm=Math.max(1,...pv.map(x=>x.v));
+  const gr=ACCOUNTS.map(a=>{ const T=a.tasks.filter(t=>!d.tasks[t.key]); return {a,r:T.filter(t=>t.kind==='reel').length,c:T.filter(t=>t.kind==='carousel').length}; }).filter(g=>g.r+g.c);
+  const sl=[
+   `<div class="sl"><h2>Today's posting</h2><div class="sb"><div class="ringwrap" style="justify-content:center;margin:0"><div class="ringbox"><svg class="ring" viewBox="0 0 140 140"><circle class="rt" cx="70" cy="70" r="54"/><circle class="rf" cx="70" cy="70" r="54" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-f)}"/></svg><div class="ringtxt"><div class="hero-num">${lp(live.length)}<small>/ ${tot}</small></div><div class="hero-sub">live today</div></div></div><div class="streak"><b>${lp(st.cur)}</b><span>day streak</span><em>${tot-live.length} still to go</em></div></div><div class="chips" style="justify-content:center">${PLATFORMS.map(p=>{ const a=it.filter(i=>i.p===p.id); return `<span class="chip">${logo(p.id)} ${a.filter(i=>i.ok).length}/${a.length}</span>`; }).join('')}</div></div></div>`,
+   `<div class="sl"><h2>Coming up today</h2><div class="sb" style="gap:6px">${gr.length?gr.slice(0,5).map(g=>`<div class="cu">${logo(g.a.pid)}<b>${dn(g.a.handle)}</b><span class="cc">${g.r?`<i class="chip"> ${g.r} reel${g.r>1?'s':''}</i>`:''}${g.c?`<i class="chip"> ${g.c} carousel${g.c>1?'s':''}</i>`:''}</span></div>`).join('')+(gr.length>5?`<div class="muted" style="text-align:center;font-size:11.5px">+${gr.length-5} more IDs</div>`:''):'<div class="hero-num" style="font-size:26px;text-align:center">Everything is live </div>'}</div></div>`,
+   `<div class="sl"><h2>Views · last 7 days</h2><div class="sb" style="gap:8px"><div style="text-align:center"><div class="hero-num" style="margin:0">${lp(v7)}</div><div class="hero-sub">${dl==null?'building up':`<span class="delta ${dl>=0?'up':'down'}">${dl>=0?'+':''}${dl}%</span> vs previous week`}</div></div><div><div class="cols" style="height:84px">${days.map(x=>`<div title="${fmtD(x.k)}: ${x.v}" style="height:${Math.max(3,x.v/mx*100)}%"></div>`).join('')}</div>${colLabels(days.map(x=>wdl(x.k)))}</div></div></div>`,
+   `<div class="sl"><h2>Platforms · views this week</h2><div class="sb"><div class="tiles" style="padding:0">${pv.map(x=>`<div class="tile"><div class="tl">${logo(x.p)}<b>${NM[x.p]}</b></div><div class="tr" style="font-size:20px">${lp(x.v)}</div><div class="tb"><div class="bar" style="margin:0"><i style="width:${x.v/pm*100}%"></i></div></div></div>`).join('')}</div></div></div>`];
+  const tkr=[...live.slice(0,6).map(i=>`<span>${logo(i.p)}${i.h} · ${i.l} is live </span>`),...up.slice(0,6).map(i=>`<span>${logo(i.p)}${i.h} · ${i.l} coming up </span>`),`<span> ${fmtN(v7)} views this week</span>`,`<span> ${st.cur}-day posting streak</span>`].join(''), N=sl.length;
+  document.getElementById('app').innerHTML=`<div id="gx" class="gx ${gHold?'hold':''}"><div class="tkw"><div class="tk">${tkr}${tkr}</div></div>
+    <div class="grid" style="margin-bottom:12px"><div class="stat"><span><i class="livedot"></i>Live today</span>${lp(live.length)}</div><div class="stat"><span>Views · 7 days</span>${lp(v7)}</div><div class="stat"><span>Day streak</span>${lp(st.cur)}</div><div class="stat"><span>Posts · month</span>${lp(mp)}</div></div>
+    <div class="card"><div class="slides"><div class="track" id="trk" style="transform:translateX(-${gIdx*100}%)">${sl.join('')}</div></div><div class="dots">${sl.map((_,i)=>`<i data-i="${i}" class="${i===gIdx?'on':''}"></i>`).join('')}</div></div></div>${monthReportCard(false)}${noteCard()}`;
+  const gx=document.getElementById('gx'), hold=v=>{ gHold=v; gx.classList.toggle('hold',v); }, go=n=>{ gIdx=(n+N)%N; document.getElementById('trk').style.transform=`translateX(-${gIdx*100}%)`; gx.querySelectorAll('.dots i').forEach((x,i)=>x.classList.toggle('on',i===gIdx)); };
+  gx.querySelectorAll('.rf').forEach(c=>c.style.setProperty('--to',c.getAttribute('stroke-dashoffset')));
+  gx.onmouseenter=()=>hold(true); gx.onmouseleave=()=>hold(false); gx.ontouchstart=()=>{ clearTimeout(gT); hold(true); }; gx.ontouchend=gx.ontouchcancel=()=>{ gT=setTimeout(()=>hold(false),3000); };
+  gx.querySelectorAll('.dots i').forEach(i=>i.onclick=()=>go(+i.dataset.i));
+  clearInterval(gSl); gSl=setInterval(()=>{ if(!document.getElementById('gx')) return clearInterval(gSl); if(!gHold) go(gIdx+1); },4500);
+  cancelAnimationFrame(gRaf); const tick=()=>{ if(!document.getElementById('gx')) return; const e=gHold?1:Math.min(1,(Date.now()%3600)/2200), q=1-Math.pow(1-e,3); document.querySelectorAll('.lp').forEach(el=>{ el.textContent=lpf(Math.round(+el.dataset.v*q)); }); gRaf=requestAnimationFrame(tick); }; tick(); }
+setInterval(()=>{ if(activeTab==='dashboard'&&!me&&!gHold) render(); },30000);
+
+// manager dashboard: team overview only
+function runCU(){ document.querySelectorAll('[data-cu]').forEach(el=>{ const v=+el.dataset.cu, t0=performance.now(), f=t=>{ const q=Math.min(1,(t-t0)/800); el.textContent=Math.round(v*(1-Math.pow(1-q,3)))+(el.dataset.s||''); if(q<1) requestAnimationFrame(f); }; requestAnimationFrame(f); }); }
+function managerDash(){ document.getElementById('app').innerHTML=bannerCard()+monthReportCard(false)+liveCard()+funnelCard(); runCU(); }
+const _fun=funnelCard;
+funnelCard=function(){ const ws=weekStart(todayKey()), W=weekStats(ws), v=sumN(postRecs(7,0)), pv=sumN(postRecs(7,7)), dl=pv?Math.round((v-pv)/pv*100):null, kv=(l,x)=>`<div class="kv"><span>${l}</span><b>${x}</b></div>`;
+  return `<div class="card"><h2>This week</h2><div class="kvg">${kv('Provided',W.prov+' / '+W.tProv)}${kv('Edited',W.del+' / '+W.tProv)}${kv('Posted',W.posted+' / '+W.tPost)}${kv('Views, 7 days',v+(dl==null?'':' ('+(dl>=0?'+':'')+dl+'%)'))}</div></div>`; };
+viewsCard=()=>'';
+function bannerCard(){ const d=dayOrEmpty(todayKey()), tot=ALL_TASKS.length, n=doneCount(d), s=streak();
+  return `<div class="card banner" id="bannerBox"><div><b>${n} of ${tot} posts live today</b><div class="muted">${s.cur>1?s.cur+'-day full-posting streak':tot&&n>=tot?'All posts are live.':tot-n+' still to go.'}</div></div></div>`; }
+function liveCard(){ const E=liveEvents(); return `<div class="card" id="liveBox"><h2>Team today</h2>${dutyHtml()}<h2 style="margin-top:14px">Just happened</h2>${E.length?feedH(E):'<p class="muted" style="margin:0">Nothing yet today.</p>'}</div>`; }
+function msgPanel(){ const pid=sheetPerson, ed=EDITORS.find(e=>e.id===pid);
+  return `<div class="seg" id="shSeg" style="margin-bottom:10px;width:100%">${[['poster',POSTER_NAME],...EDITORS.map(e=>[e.id,e.name])].map(([i,n])=>`<button data-p="${i}" class="${i===pid?'active':''}" style="flex:1">${esc(n)}</button>`).join('')}</div>`+msgBox(pid,ed?ed.name:POSTER_NAME); }
+const _rm=renderManager; renderManager=function(){ _rm(); if(!adminMode) return; document.getElementById('app').insertAdjacentHTML('afterbegin',msgPanel()+noteCard()); const ne=document.getElementById('noteEd'); if(ne) ne.oninput=()=>{ data.meta=data.meta||{}; data.meta.note=ne.value; save(); }; };
+const _att=attentionCard, _vis=visionCard; attentionCard=()=>''; visionCard=()=>'';
+const _ra=renderAnalytics; renderAnalytics=function(){ _ra(); if(adminMode){ document.getElementById('app').insertAdjacentHTML('beforeend',_fun()+_vis()+_att()+'<div class="btn-row" style="margin-top:0"><button class="pill" id="repBtn">Weekly report</button></div>'); document.getElementById('repBtn').onclick=openReport; } };
+
+const _rd=renderDashboard;
+renderDashboard=function(){ if(!me) return guestDash(); if(adminMode) return managerDash(); const ed=EDITORS.find(e=>e.id===me.role); if(ed) return editorDash(ed); _rd();
+  if(me.role==='poster') document.getElementById('app').insertAdjacentHTML('afterbegin',msgIf('poster',POSTER_NAME)); runCU(); };
+
 
 load(); cloudInit(); applyTheme();
 loadSession();
