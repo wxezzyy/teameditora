@@ -392,6 +392,7 @@ main{padding:10px 10px 34px}.card{padding:12px;margin-bottom:10px;border-radius:
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
 <script>
 // ---------- config ----------
 const POSTER_NAME = 'Zahra';
@@ -726,7 +727,15 @@ function render0(){
 }
 
 // ---------- v2: cloud sync, theme, dashboard, reports ----------
-const FIREBASE_CONFIG = { apiKey:'', authDomain:'', projectId:'', storageBucket:'', messagingSenderId:'', appId:'' };
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCmYSOyOkNhzimCuzxnf72aM4fAZ3Hf_ck",
+  authDomain: "teameditora-95ad9.firebaseapp.com",
+  projectId: "teameditora-95ad9",
+  storageBucket: "teameditora-95ad9.firebasestorage.app",
+  messagingSenderId: "229272441022",
+  appId: "1:229272441022:web:6665add9a699895d8e4eef",
+  measurementId: "G-GLRH6XDR51"
+};
 let db=null, ready=false, got=0, pushed={}, pendingRender=false, syncT=null;
 let theme=(()=>{try{return localStorage.getItem('ct_theme')||'light'}catch(e){return 'light'}})();
 const SECTIONS=['editor1','editor2','calendar','analytics','meta','pipe','cfg'];
@@ -734,7 +743,7 @@ function applyTheme(){ document.documentElement.dataset.theme=theme; }
 function setSync(s){ const e=document.getElementById('syncDot'); if(e){ e.className='sync '+s; e.title=s==='live'?'Synced':s==='offline'?'Offline - saved locally':'Local only (Firebase not configured)'; } }
 function cloudInit(){
   if(!FIREBASE_CONFIG.apiKey || typeof firebase==='undefined') return setSync('local');
-  try{ firebase.initializeApp(FIREBASE_CONFIG); db=firebase.firestore(); firebase.auth().signInAnonymously().catch(()=>{}).then(listen); }catch(e){ setSync('local'); }
+  try{ firebase.initializeApp(FIREBASE_CONFIG); try{ firebase.analytics(); }catch(e){} db=firebase.firestore(); firebase.auth().signInAnonymously().catch(()=>{}).then(listen); }catch(e){ setSync('local'); }
 }
 function listen(){
   let f1=true,f2=true;
