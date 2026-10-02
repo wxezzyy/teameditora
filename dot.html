@@ -366,6 +366,19 @@ main{padding:10px 10px 34px}.card{padding:12px;margin-bottom:10px;border-radius:
  #detail td:nth-child(1){grid-column:1/-1}#detail td:nth-child(1):empty{display:none}#detail td:nth-child(2){grid-column:1/-1;font-weight:700}#detail td:nth-child(2)::before{display:none}#detail td:nth-child(1)::before{display:none}
  #detail input.vin{width:100%}#detail table.sheet tr.grp-start td{border-top:0}
 }
+/* ===== v11 ===== */
+#anPane button,#mgPane button{padding:7px 6px;font-size:clamp(11px,3.3vw,12.5px)}
+@media (max-width:560px){
+ .table-wrap{overflow:visible}
+ .growth-table,.growth-table tbody,.growth-table tr,.growth-table td{display:block}
+ .growth-table thead{display:none}
+ .growth-table tr{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+ .growth-table tr:last-child{border-bottom:0}
+ .growth-table td{padding:0;border:0;font-size:clamp(12px,3.4vw,13px)}
+ .growth-table td::before{content:attr(data-l);display:block;font-size:9.5px;text-transform:uppercase;color:var(--sub);margin-bottom:2px}
+ .growth-table td:first-child{grid-column:1/-1;font-weight:800}
+ .growth-table td:first-child::before{display:none}
+}
 </style>
 </head>
 <body>
@@ -537,20 +550,12 @@ function renderPoster(){
   const app=document.getElementById('app');
   app.innerHTML = `<div class="card"><h1>${POSTER_NAME} — Posting Tracker</h1>
     <p class="muted" style="margin:0 0 12px">${new Date().toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'})}</p>
-    <div><span class="status-dot ${on?'on':''}"></span><b>${on?'Signed in':'Signed out'}</b></div>
-    <div class="timer-big" style="margin-top:10px" data-timer="${date}">00:00:00</div>
-    <div class="btn-row">
-      <button class="big" id="signIn" ${on?'disabled':''}>Sign in</button>
-      <button class="big out" id="signOut" ${on?'':'disabled'}>Sign out</button>
     </div>
-    </div>
-    ${dueCard()}${reminderCard()}${attendanceHtml()}
+    ${dueCard()}${reminderCard()}
     <div class="card"><div class="grid"><div class="stat"><b>${done}/${ALL_TASKS.length}</b><span>Posted today</span></div>
     <div class="stat"><b>${ALL_TASKS.length-done}</b><span>Remaining</span></div></div>
     <div class="bar"><i style="width:${Math.round(done/ALL_TASKS.length*100)}%"></i></div></div>
     <div id="plats"></div>`;
-  document.getElementById('signIn').onclick=()=>{ day.sessions.push({in:Date.now(), out:null}); save(); render(); };
-  document.getElementById('signOut').onclick=()=>{ day.sessions.forEach(x=>{ if(!x.out) x.out=Date.now(); }); save(); render(); };
   document.getElementById('plats').innerHTML = PLATFORMS.map(p=>{
     const accts = ACCOUNTS.filter(a=>a.pid===p.id);
     return `<div class="card"><div class="plat-head"><h2>${p.name}</h2></div>`+accts.map(a=>{
@@ -618,13 +623,13 @@ function renderSheet(){
     <div class="card"><div class="sheet-scroll"><table class="sheet"><thead><tr><th>Day</th><th>Posted</th><th>Missed</th><th>24h views</th><th>48h views</th></tr></thead>
       <tbody id="sumBody">${sumRows(y,m)}</tbody></table></div></div>
     <div class="card" id="detail"><h1>${new Date(sheetDate+'T00:00:00').toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'})}</h1>
-      <div class="table-wrap"><table class="sheet"><thead><tr><th>Account</th><th>Post</th><th>Posted</th><th>Status</th><th>Views @24h</th><th>Views @48h</th><th>Likes</th><th>Comments</th><th>Shares</th><th>Saves</th><th>Followers gained</th></tr></thead><tbody>
+      <div class="table-wrap"><table class="sheet"><thead><tr><th>Account</th><th>Post</th><th>Posted</th><th>Status</th><th>Views @24h</th><th>Views @48h</th><th>FB views</th></tr></thead><tbody>
       ${ACCOUNTS.map(a=>a.tasks.map((tk,i)=>{ const st=statusOf(sheetDate,tk.key,ft); const v=day.views[tk.key]||{}; const at=day.times[tk.key];
         return `<tr class="${i===0?'grp-start':''}"><td>${i===0?logo(a.pid)+' <b>'+dn(a.handle)+'</b><br><span class="muted">'+a.platform+'</span>':''}</td><td>${tk.label}</td>
           <td><input type="checkbox" class="schk" data-key="${tk.key}" ${day.tasks[tk.key]?'checked':''}></td>
-          <td><span class="st ${st}">${st}</span></td><td>${viewCell(tk.key,'h24',v.h24,at)}</td><td>${viewCell(tk.key,'h48',v.h48,at)}</td>${['likes','comments','shares','saves','fol'].map(f=>`<td>${detCell(tk.key,f,v[f])}</td>`).join('')}</tr>`; }).join('')).join('')}
+          <td><span class="st ${st}">${st}</span></td><td>${viewCell(tk.key,'h24',v.h24,at)}</td><td>${viewCell(tk.key,'h48',v.h48,at)}</td><td>${a.pid==='ig'?detCell(tk.key,'fbv',v.fbv):'—'}</td></tr>`; }).join('')).join('')}
       </tbody></table></div>
-      <p class="muted" style="margin:10px 0 0">Zahra: 48 hours after a reel or carousel goes live, add its views, likes, comments, shares, saves and followers gained here.</p></div>`;
+      <p class="muted" style="margin:10px 0 0">Add each post's views here at 24h and 48h. Likes, comments, shares, saves and followers are filled once a month in the monthly report below.</p></div>${monthEntryCard()}`;
   document.getElementById('sPrev').onclick=()=>{ sheetMonth.setMonth(sheetMonth.getMonth()-1); sheetDate=null; render(); };
   document.getElementById('sNext').onclick=()=>{ sheetMonth.setMonth(sheetMonth.getMonth()+1); sheetDate=null; render(); };
   document.getElementById('csvBtn').onclick=()=>downloadCsv(y,m);
@@ -635,6 +640,7 @@ function renderSheet(){
     const d=getDay(sheetDate); const k=inp.dataset.key; d.views[k]=d.views[k]||{};
     d.views[k][inp.dataset.f] = inp.value==='' ? '' : Math.max(0,Number(inp.value)||0);
     save(); document.getElementById('sumBody').innerHTML = sumRows(y,m); });
+  document.querySelectorAll('.mon').forEach(i=>i.onchange=()=>{ const d=getDay(i.dataset.d), k=i.dataset.key; d.views[k]=d.views[k]||{}; d.views[k][i.dataset.f]=i.value===''?'':Math.max(0,Number(i.value)||0); save(); });
 }
 
 // ---------- calendar view (editable) ----------
@@ -793,12 +799,12 @@ function renderDashboard(){ renderDashboard0();
   const num=card.querySelector('.hero-num'), sub=card.querySelector('.hero-sub'), bar=card.querySelector('.bar');
   const [p,t]=num.textContent.split('/').map(v=>parseInt(v)); const C=339.29, f=t?p/t:0, s=streak();
   const w=document.createElement('div'); w.className='ringwrap';
-  w.innerHTML=`<div class="ringbox"><svg class="ring" viewBox="0 0 140 140"><circle class="rt" cx="70" cy="70" r="54"/><circle class="rf" cx="70" cy="70" r="54" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-f)}"/></svg><div class="ringtxt"></div></div><div class="streak"><b>${s.cur}</b><span>day streak</span><em>Best ${s.best}</em></div>`;
-  w.querySelector('.ringtxt').append(num,sub); bar.replaceWith(w);
+  w.innerHTML=`<div class="rtxt"></div><div class="streak"><b>${s.cur}</b><span>day streak</span><em>Best ${s.best}</em></div>`;
+  w.querySelector('.rtxt').append(num,sub); bar.replaceWith(w);
   card.querySelector('.hero-top').insertAdjacentHTML('beforeend','<button class="pill" id="repBtn">Weekly report</button>');
   document.getElementById('repBtn').onclick=openReport;
   const acc=card.nextElementSibling; if(acc) acc.outerHTML=platformsCard();
-  const goals=(me&&(adminMode||me.role==='poster'))?goalsHtml(adminMode,true):'';
+  const goals=(me&&adminMode)?goalsHtml(adminMode,true):'';
   if(me){ card.insertAdjacentHTML('beforebegin',bannerCard()+monthReportCard(true)+liveCard()+funnelCard()+viewsCard()); card.insertAdjacentHTML('afterend',goals+noteCard()+attentionCard()+visionCard()); wireGoals(); }
   else { card.insertAdjacentHTML('beforebegin',bannerCard()+monthReportCard(false)+guestReportCard()+viewsCard()+noteCard()); card.remove(); }
   const ne=document.getElementById('noteEd'); if(ne) ne.oninput=()=>{ data.meta=data.meta||{}; data.meta.note=ne.value; save(); };
@@ -910,7 +916,7 @@ function funnelCard(){
     <div class="hero-foot">${M.name}: <b>${ma.filter(s=>s.done).length}/${quota(M,ws)}</b> delivered, <b>${ma.filter(s=>s.recv).length}</b> received this week &nbsp;·&nbsp; ${D.name} today: <b>${da.filter(s=>s.done).length}/${quota(D)}</b> delivered</div></div>`;
 }
 function postRecs(n,skip){ const R=[]; for(let i=skip;i<skip+n;i++){ const k=addDays(todayKey(),-i), d=data.poster[k]; if(!d) continue;
-  ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const v=(d.views||{})[t.key]||{}, n24=Number(v.h24)||0, n48=Number(v.h48)||0; R.push({k,a,t,n24,n48,n:n48||n24,r48:v.h48!=null&&v.h48!==''}); })); } return R; }
+  ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const v=(d.views||{})[t.key]||{}, n24=Number(v.h24)||0, n48=Number(v.h48)||0; R.push({k,a,t,n24,n48,n:n48||n24,fb:Number(v.fbv)||0,r48:v.h48!=null&&v.h48!==''}); })); } return R; }
 function topCard(){
   const L=postRecs(30,0).filter(r=>r.n).sort((x,y)=>y.n-x.n); if(L.length<2) return '';
   const box=(l,x)=>`<div class="stat"><span>${l}</span><b style="font-size:15px;margin:4px 0">${dn(x.a.handle)} · ${x.t.label}</b><span>${x.n} views · ${fmtD(x.k)}</span></div>`;
@@ -919,9 +925,9 @@ function topCard(){
 
 // ----- analytics (from Zahra's tracker + pipeline)
 const hbars=rows=>{ const mx=Math.max(1,...rows.map(r=>r.v)); return rows.map((r,i)=>`<div class="hb"><span class="hl" title="${esc(r.l)}">${esc(r.l)}</span><div class="hbar"><i class="${i===0&&r.v?'best':''}" style="width:${r.v/mx*100}%"></i></div><b>${r.v}</b></div>`).join('')||'<p class="muted">No views entered yet.</p>'; };
-function teamStats(){ return EDITORS.map(ed=>{ const ks=new Set(); for(let i=0;i<anDays;i++){ const k=addDays(todayKey(),-i); ks.add(ed.period==='week'?weekStart(k):k); }
-  let prov=0,del=0,tat=0,late=0; ks.forEach(k=>slotsOf(ed,k).forEach(s=>{ if(s.recv) prov++; if(s.done){ del++; const h=(s.done-s.recv)/36e5; tat+=h; if(h>24) late++; } }));
-  return {ed,prov,del,exp:[...ks].reduce((a,k)=>a+quota(ed,k),0),avg:del?(tat/del).toFixed(1)+'h':'-',ot:del&&ed.period==='day'?Math.round((del-late)/del*100)+'%':'-'}; }); }
+function teamStats(){ const cut=new Date(addDays(todayKey(),-(anDays-1))+'T00:00:00').getTime(); return EDITORS.map(ed=>{ const ks=new Set(); for(let i=0;i<anDays;i++){ const k=addDays(todayKey(),-i); ks.add(ed.period==='week'?weekStart(k):k); }
+  let prov=0,del=0,tat=0,late=0; ks.forEach(k=>slotsOf(ed,k).forEach(s=>{ if(s.recv&&s.recv>=cut) prov++; if(s.done&&s.done>=cut){ del++; const h=(s.done-s.recv)/36e5; tat+=h; if(h>24) late++; } }));
+  return {ed,prov,del,exp:ed.period==='week'?Math.round(curCfg().masoodWeekly*anDays/7):curCfg().daudDaily*anDays,avg:del?(tat/del).toFixed(1)+'h':'-',ot:del&&ed.period==='day'?Math.round((del-late)/del*100)+'%':'-'}; }); }
 function renderAnalytics0(){
   if(!adminMode) return lockedCard('Analytics');
   const R=postRecs(anDays,0), P=postRecs(anDays,anDays), ft=firstTracked(), sum=a=>a.reduce((x,r)=>x+r.n,0), views=sum(R), pv=sum(P), wv=R.filter(r=>r.n);
@@ -937,7 +943,7 @@ function renderAnalytics0(){
     <div class="card"><h2>By account</h2>${acctTiles(R)}</div>
     <div class="card"><h2>Reels vs carousels (avg views per post)</h2><div class="grid"><div class="stat"><b>${g('reel')}</b><span>Reel</span></div><div class="stat"><b>${g('carousel')}</b><span>Carousel</span></div></div></div>
     <div class="card"><h2>Top posts</h2>${wv.sort((a,b)=>b.n-a.n).slice(0,5).map(r=>`<div class="arow"><span class="ah">${dn(r.a.handle)} · ${r.t.label}</span><span class="an" style="width:auto">${fmtD(r.k)}</span><b>${r.n}</b></div>`).join('')||'<p class="muted">No views entered yet.</p>'}</div>
-    <div class="card"><h2>Team progress</h2>${teamBars(tm,posted,missed)}<h2 style="margin-top:20px">Details</h2><div class="table-wrap"><table class="growth-table"><thead><tr><th>Editor</th><th>Provided by manager</th><th>Delivered</th><th>Avg turnaround</th><th>On time (24h)</th></tr></thead><tbody>${tm.map(t=>`<tr><td>${t.ed.name}</td><td>${t.prov}/${t.exp}</td><td>${t.del}</td><td>${t.avg}</td><td>${t.ot}</td></tr>`).join('')}</tbody></table></div></div>`;
+    <div class="card"><h2>Team progress</h2>${teamBars(tm,posted,missed)}<h2 style="margin-top:20px">Details</h2><div class="table-wrap"><table class="growth-table"><thead><tr><th>Editor</th><th>Provided by manager</th><th>Delivered</th><th>Avg turnaround</th><th>On time (24h)</th></tr></thead><tbody>${tm.map(t=>`<tr><td>${t.ed.name}</td><td data-l="Provided">${t.prov}/${t.exp}</td><td data-l="Delivered">${t.del}</td><td data-l="Turnaround">${t.avg}</td><td data-l="On time">${t.ot}</td></tr>`).join('')}</tbody></table></div></div>`;
   document.querySelectorAll('#anSeg button').forEach(b=>b.onclick=()=>{ anDays=+b.dataset.n; render(); });
 }
 
@@ -1071,16 +1077,16 @@ function guestReportCard(){ const d=dayOrEmpty(todayKey()), items=[];
     (done.length?'<div class="grp">Live now</div>'+done.slice(0,10).map(i=>fd({ic:'',l:i.l,r:i.at?ago(i.at):'today'})).join(''):'')+
     (up.length?'<div class="grp">Coming up today</div>'+up.slice(0,10).map(i=>fd({ic:'',l:i.l,r:'on the way'})).join('')+(up.length>10?`<div class="muted" style="padding:6px">+${up.length-10} more coming</div>`:''):'<div class="grp">Everything is live for today </div>')+
     (hi.length?'<div class="grp">Highlights</div>'+hi.map(p=>`<div class="feed"><span class="fx">${p}</span></div>`).join(''):'')+`</div>`; }
-function cycleInfo(){ const ft=firstTracked(); if(!ft) return null; const nd=Math.round((new Date(todayKey()+'T00:00:00')-new Date(ft+'T00:00:00'))/864e5)+1, start=addDays(ft,Math.floor((nd-1)/29)*29);
-  return {nd,start,end:addDays(start,28),isReportDay:(nd-1)%29===28}; }
+function cycleInfo(){ const ft=firstTracked(); if(!ft) return null; const t=new Date(), a=new Date(t.getFullYear(),t.getMonth()-1,1), b=new Date(t.getFullYear(),t.getMonth(),0), end=dateKey(b.getFullYear(),b.getMonth(),b.getDate());
+  return {start:dateKey(a.getFullYear(),a.getMonth(),1),end,name:a.toLocaleString([],{month:'long'}),isReportDay:t.getDate()<=7&&ft<=end}; }
 function reminderCard(){ const c=cycleInfo(); if(!c||!c.isReportDay) return ''; let miss=0;
   for(let k=c.start;k<=c.end;k=addDays(k,1)){ const d=data.poster[k]; if(!d) continue; ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ if(!d.tasks[t.key]) return; const v=(d.views||{})[t.key]||{}; if((v.h48==null||v.h48==='')||(v.fol==null||v.fol==='')) miss++; })); }
-  return `<div class="card banner"><div class="bn-em"></div><div><b>Day 29 - monthly report day</b><div class="muted">${miss?miss+' post'+(miss>1?'s are':' is')+' still missing views or followers gained. Fill them in so the full report is ready.':'Everything is filled in - the report is ready on the dashboard.'}</div><div class="btn-row" style="margin-top:10px"><button class="pill" id="remBtn">Open sheet</button></div></div></div>`; }
+  return `<div class="card banner"><div class="bn-em"></div><div><b>${c.name} report</b><div class="muted">${miss?miss+' post'+(miss>1?'s are':' is')+' still missing views or followers gained. Fill them in so the full report is ready.':'Everything is filled in - the report is ready on the dashboard.'}</div><div class="btn-row" style="margin-top:10px"><button class="pill" id="remBtn">Open sheet</button></div></div></div>`; }
 function monthReportCard(detail){ const c=cycleInfo(); if(!c||!c.isReportDay) return ''; const by={};
   for(let k=c.start;k<=c.end;k=addDays(k,1)){ const d=data.poster[k]; if(!d) continue; ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ if(!d.tasks[t.key]) return; const v=(d.views||{})[t.key]||{}, n=Number(v.h48)||Number(v.h24)||0, f=Number(v.fol)||0;
     const o=by[a.id]=by[a.id]||{a,posts:0,views:0,fol:0,rows:[]}; o.posts++; o.views+=n; o.fol+=f; o.rows.push({k,t,n,f}); })); }
   const L=Object.values(by); if(!L.length) return ''; const T=L.reduce((x,o)=>({p:x.p+o.posts,v:x.v+o.views,f:x.f+o.fol}),{p:0,v:0,f:0});
-  return `<div class="card"><h2>29-day report · ${fmtD(c.start)} - ${fmtD(c.end)}</h2><div class="grid"><div class="stat"><b>${T.p}</b><span>Posts</span></div><div class="stat"><b>${fmtN(T.v)}</b><span>Views</span></div><div class="stat"><b>+${fmtN(T.f)}</b><span>Followers gained</span></div></div>`+
+  return `<div class="card"><h2>${c.name} report</h2><div class="grid"><div class="stat"><b>${T.p}</b><span>Posts</span></div><div class="stat"><b>${fmtN(T.v)}</b><span>Views</span></div><div class="stat"><b>+${fmtN(T.f)}</b><span>Followers gained</span></div></div>`+
     L.map(o=>`<div class="grp">${dn(o.a.handle)} · ${o.a.platform}</div><div class="arow"><span class="ah">${o.posts} posts</span><span class="an" style="width:auto">${fmtN(o.views)} views · +${fmtN(o.fol)} followers</span></div>`+
       (detail?`<div class="sheet-scroll" style="max-height:240px"><table class="sheet"><thead><tr><th>Date</th><th>Post</th><th>Views</th><th>Followers</th></tr></thead><tbody>${o.rows.map(r=>`<tr><td>${fmtD(r.k)}</td><td>${r.t.label}</td><td>${r.n}</td><td>+${r.f}</td></tr>`).join('')}</tbody></table></div>`:'')).join('')+`</div>`; }
 
@@ -1198,7 +1204,7 @@ function guestDash(){ const tk=todayKey(), d=dayOrEmpty(tk), it=[];
   const live=it.filter(i=>i.ok), up=it.filter(i=>!i.ok), tot=it.length, f=tot?live.length/tot:0, R=postRecs(7,0), v7=sumN(R), vp=sumN(postRecs(7,7)), dl=vp?Math.round((v7-vp)/vp*100):null, st=streak(), C=339.29, mp=monthTotals(+tk.slice(0,4),+tk.slice(5,7)-1).posted;
   const days=Array.from({length:7},(_,i)=>{ const k=addDays(tk,-(6-i)); return {k,v:R.filter(r=>r.k===k).reduce((x,r)=>x+r.n,0)}; }), mx=Math.max(1,...days.map(x=>x.v));
   const lp=v=>`<b class="lp" data-v="${v}">${lpf(v)}</b>`, NM={ig:'Instagram',fb:'Facebook',tt:'TikTok',yt:'YouTube'};
-  const pv=['ig','tt','yt','fb'].map(p=>{ const src=ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)); return src.length?{p,v:R.filter(r=>src.some(a=>a.id===r.a.id)).reduce((x,r)=>x+r.n,0)}:null; }).filter(Boolean), pm=Math.max(1,...pv.map(x=>x.v));
+  const pv=['ig','tt','yt','fb'].map(p=>{ const src=ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)); return src.length?{p,v:R.filter(r=>src.some(a=>a.id===r.a.id)).reduce((x,r)=>x+(p==='fb'?r.fb:r.n),0)}:null; }).filter(Boolean), pm=Math.max(1,...pv.map(x=>x.v));
   const gr=ACCOUNTS.map(a=>{ const T=a.tasks.filter(t=>!d.tasks[t.key]); return {a,r:T.filter(t=>t.kind==='reel').length,c:T.filter(t=>t.kind==='carousel').length}; }).filter(g=>g.r+g.c);
   const sl=[
    `<div class="sl"><h2>Today's posting</h2><div class="sb"><div class="ringwrap" style="justify-content:center;margin:0"><div class="ringbox"><svg class="ring" viewBox="0 0 140 140"><circle class="rt" cx="70" cy="70" r="54"/><circle class="rf" cx="70" cy="70" r="54" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-f)}"/></svg><div class="ringtxt"><div class="hero-num">${lp(live.length)}<small>/ ${tot}</small></div><div class="hero-sub">live today</div></div></div><div class="streak"><b>${lp(st.cur)}</b><span>day streak</span><em>${tot-live.length} still to go</em></div></div><div class="chips" style="justify-content:center">${PLATFORMS.map(p=>{ const a=it.filter(i=>i.p===p.id); return `<span class="chip">${logo(p.id)} ${a.filter(i=>i.ok).length}/${a.length}</span>`; }).join('')}</div></div></div>`,
@@ -1226,7 +1232,7 @@ funnelCard=function(){ const ws=weekStart(todayKey()), W=weekStats(ws), v=sumN(p
 viewsCard=()=>'';
 function bannerCard(){ const d=dayOrEmpty(todayKey()), tot=ALL_TASKS.length, n=doneCount(d), s=streak();
   return `<div class="card banner" id="bannerBox"><div><b>${n} of ${tot} posts live today</b><div class="muted">${s.cur>1?s.cur+'-day full-posting streak':tot&&n>=tot?'All posts are live.':tot-n+' still to go.'}</div></div></div>`; }
-function liveCard(){ const E=liveEvents(); return `<div class="card" id="liveBox"><h2>Team today</h2>${dutyHtml()}<h2 style="margin-top:14px">Just happened</h2>${E.length?feedH(E):'<p class="muted" style="margin:0">Nothing yet today.</p>'}</div>`; }
+function liveCard(){ const E=liveEvents(); return `<div class="card" id="liveBox"><h2>Just happened</h2>${E.length?feedH(E):'<p class="muted" style="margin:0">Nothing yet today.</p>'}</div>`; }
 function msgPanel(){ const pid=sheetPerson, ed=EDITORS.find(e=>e.id===pid);
   return `<div class="seg" id="shSeg" style="margin-bottom:10px;width:100%">${[['poster',POSTER_NAME],...EDITORS.map(e=>[e.id,e.name])].map(([i,n])=>`<button data-p="${i}" class="${i===pid?'active':''}" style="flex:1">${esc(n)}</button>`).join('')}</div>`+msgBox(pid,ed?ed.name:POSTER_NAME); }
 const _rm=renderManager; renderManager=function(){ _rm(); if(!adminMode) return; document.getElementById('app').insertAdjacentHTML('afterbegin',msgPanel()+noteCard()); const ne=document.getElementById('noteEd'); if(ne) ne.oninput=()=>{ data.meta=data.meta||{}; data.meta.note=ne.value; save(); }; };
@@ -1234,9 +1240,47 @@ const _att=attentionCard, _vis=visionCard; attentionCard=()=>''; visionCard=()=>
 const _ra=renderAnalytics; renderAnalytics=function(){ _ra(); if(adminMode){ document.getElementById('app').insertAdjacentHTML('beforeend',_fun()+_vis()+_att()+'<div class="btn-row" style="margin-top:0"><button class="pill" id="repBtn">Weekly report</button></div>'); document.getElementById('repBtn').onclick=openReport; } };
 
 const _rd=renderDashboard;
-renderDashboard=function(){ if(!me) return guestDash(); if(adminMode) return managerDash(); const ed=EDITORS.find(e=>e.id===me.role); if(ed) return editorDash(ed); _rd();
-  if(me.role==='poster') document.getElementById('app').insertAdjacentHTML('afterbegin',msgIf('poster',POSTER_NAME)); runCU(); };
+let _lt=todayKey();
+renderDashboard=function(){ if(_lt!==todayKey()){ _lt=todayKey(); dashDate=_lt; } if(!me) return guestDash(); if(adminMode) return managerDash(); const ed=EDITORS.find(e=>e.id===me.role); if(ed) return editorDash(ed); _rd();
+  if(me.role==='poster'){ document.querySelectorAll('#app .streak').forEach(e=>e.remove()); document.querySelectorAll('#app .ringwrap').forEach(e=>e.style.justifyContent='center'); document.getElementById('app').insertAdjacentHTML('afterbegin',msgIf('poster',POSTER_NAME));
+    const hm=document.querySelector('.hero-meta'), tk=todayKey();
+    if(hm){ const day=getDay(tk), on=isOn(day);
+      hm.insertAdjacentHTML('afterend',`<div class="btn-row"><button class="big" id="dIn" style="flex:1" ${on?'disabled':''}>Sign in</button><button class="big out" id="dOut" style="flex:1" ${on?'':'disabled'}>Sign out</button></div>${dashDate!==tk?'<p class="muted" style="margin:6px 0 0;font-size:11.5px">Sign in and sign out always apply to today.</p>':''}`);
+      document.getElementById('dIn').onclick=()=>{ day.sessions.push({in:Date.now(),out:null}); save(); render(); };
+      document.getElementById('dOut').onclick=()=>{ day.sessions.forEach(x=>{ if(!x.out) x.out=Date.now(); }); save(); render(); }; } } runCU(); };
 
+
+// ===== v11: sectioned Analytics + Manager pages =====
+let anPane='views', mgPane='reels';
+function paneUp(id,tabs,cur,G,set){
+  const app=document.getElementById('app');
+  app.innerHTML=`<div class="seg" id="${id}" style="margin-bottom:10px;width:100%">${tabs.map(([k,l])=>`<button data-p="${k}" class="${k===cur?'active':''}" style="flex:1">${l}</button>`).join('')}</div>`;
+  tabs.forEach(([k])=>{ const d=document.createElement('div'); d.className='pane'; d.dataset.p=k; d.hidden=k!==cur; (G[k]||[]).forEach(n=>d.appendChild(n)); app.appendChild(d); });
+  app.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{ set(b.dataset.p);
+    app.querySelectorAll('#'+id+' button').forEach(x=>x.classList.toggle('active',x===b));
+    app.querySelectorAll('.pane').forEach(x=>x.hidden=x.dataset.p!==b.dataset.p); });
+}
+const _ra2=renderAnalytics; renderAnalytics=function(){ _ra2(); if(!adminMode) return;
+  const app=document.getElementById('app'), G={views:[],team:[],goals:[]};
+  [...app.children].forEach(c=>{ const h=(c.querySelector('h1,h2')||{}).textContent||'';
+    G[/Team progress|Content pipeline/.test(h)?'team':(/goals|Month report/i.test(h)||c.querySelector('#repBtn'))?'goals':'views'].push(c); });
+  const r=document.getElementById('anSeg');
+  if(r&&G.team.length){ const c=r.cloneNode(true); c.removeAttribute('id'); c.style.marginBottom='10px';
+    c.querySelectorAll('button').forEach(b=>b.onclick=()=>{ anDays=+b.dataset.n; render(); }); G.team.unshift(c); }
+  paneUp('anPane',[['views','Views'],['team','Team'],['goals','Goals']],anPane,G,v=>anPane=v); };
+const _rm2=renderManager; renderManager=function(){ _rm2(); if(!adminMode) return;
+  const app=document.getElementById('app'), G={reels:[],post:[],msg:[],reset:[]};
+  [...app.children].forEach(c=>{ const h=(c.querySelector('h1,h2')||{}).textContent||'';
+    G[c.id==='shSeg'||/^Message|Today's focus/.test(h)?'msg':c.querySelector('[data-act]')?'reels':/Posting duties/.test(h)?'post':'reset'].push(c); });
+  paneUp('mgPane',[['reels','Reels'],['post','Posting'],['msg','Messages'],['reset','Reset']],mgPane,G,v=>mgPane=v); };
+
+// ---------- v11: monthly details entry (only in report window) ----------
+function monthEntryCard(){ const c=cycleInfo(); if(!c||!c.isReportDay) return ''; const rows=[];
+  for(let k=c.start;k<=c.end;k=addDays(k,1)){ const d=data.poster[k]; if(!d) continue;
+    ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ if(!d.tasks[t.key]) return; const v=(d.views||{})[t.key]||{};
+      rows.push(`<tr><td>${fmtD(k)}</td><td>${logo(a.pid)} <b>${dn(a.handle)}</b></td><td>${t.label}</td>${['likes','comments','shares','saves','fol'].map(f=>`<td><input type="number" min="0" class="vin mon" data-d="${k}" data-key="${t.key}" data-f="${f}" placeholder="0" value="${v[f]!=null&&v[f]!==''?v[f]:''}"></td>`).join('')}</tr>`); })); }
+  if(!rows.length) return '';
+  return `<div class="card"><h1>${c.name} monthly report</h1><p class="muted" style="margin:0 0 10px">Fill these once for the month, one row per reel or carousel.</p><div class="sheet-scroll" style="max-height:420px"><table class="sheet"><thead><tr><th>Date</th><th>Account</th><th>Post</th><th>Likes</th><th>Comments</th><th>Shares</th><th>Saves</th><th>Followers gained</th></tr></thead><tbody>${rows.join('')}</tbody></table></div></div>`; }
 
 load(); cloudInit(); applyTheme();
 loadSession();
