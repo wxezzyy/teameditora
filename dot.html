@@ -424,6 +424,15 @@ body.arr main,body.arr header{filter:saturate(.4) brightness(.97);transition:fil
 .xrow{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line);opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}.xp.open .xrow{opacity:1;transform:none}
 .xp.open .xrow:nth-child(2){transition-delay:.08s}.xp.open .xrow:nth-child(3){transition-delay:.16s}.xp.open .xrow:nth-child(4){transition-delay:.24s}.xrow[data-go]:hover .chev{color:var(--red);transform:translateX(4px)}
 .xrt{flex:1;min-width:0}.xrt b{display:block}.xrt small{color:var(--sub)}.lgbig .lg{width:30px;height:30px}
+/* ===== v15 ===== */
+.mr{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end}.mr label{font-size:9.5px;color:var(--sub);text-transform:uppercase}.mr input[type=time],#seD{font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink)}
+.tmg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.tmc{border:1px solid var(--line);border-radius:14px;padding:12px}.tmh{display:flex;gap:10px;align-items:center;margin-bottom:10px}.tmh small{display:block;color:var(--sub);font-size:11px}.tms{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tmst b{display:block;font-size:clamp(13px,3.6vw,15px)}.tmst span{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--sub)}
+.tmc[data-tm],.dr2[data-tm]{cursor:pointer;transition:border-color .2s,transform .2s}.tmc[data-tm]:hover{border-color:var(--red)}.tmh .chev{margin-left:auto;font-size:22px;font-style:normal;color:var(--sub)}.tmd .rng{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}.tmd .rng button{border:1px solid var(--line);background:none;color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer}.tmd .rng button.active{background:var(--red);border-color:var(--red);color:#fff}.tmd .dts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;font-size:12.5px;color:var(--sub)}.tmd .dts input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:10px;background:none;color:var(--ink)}.tmd td.ab{color:var(--sub)}.tmd .ses{display:block;font-size:11px;color:var(--sub)}
+.zl{font-size:11.5px;margin-top:4px;color:var(--sub)}.zl b{color:var(--ink)}.zl i{font-style:normal;float:right;color:var(--ink);font-weight:700}
+.gtg{display:flex;justify-content:space-between;width:100%;background:none;border:0;padding:0 0 8px;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);cursor:pointer}.gtg i{font-style:normal;transition:transform .2s}.gcard:not(.shut) .gtg i{transform:rotate(90deg)}.gcard.shut>*:not(.gtg){display:none}
+.tkw{padding:6px 0;margin-bottom:10px}.tk{font-size:11.5px}
+.gx .slides,.gx .sl{height:226px}.gx .stat b{font-size:20px}
+@media (max-width:560px){.gx .slides,.gx .sl{height:208px}}
 </style>
 </head>
 <body>
@@ -433,7 +442,7 @@ body.arr main,body.arr header{filter:saturate(.4) brightness(.97);transition:fil
   <div class="admin-box" id="adminBox"></div>
 </header>
 <main id="app"></main>
-<footer>dot<span style="color:var(--red);font-weight:800">.</span> by <a href="https://www.instagram.com/teameditoraa" target="_blank" rel="noopener">@teameditoraa</a></footer>
+<footer>dot<span style="color:var(--red);font-weight:800">.</span> by <a href="https://www.instagram.com/teameditora?stkn=MXBpaWpzdXd4MTM3NA%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">@teameditora</a></footer>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -997,7 +1006,7 @@ function renderAnalytics0(){
     <div class="card"><h2>By account</h2>${acctTiles(R)}</div>
     <div class="card"><h2>Reels vs carousels (avg views per post)</h2><div class="grid"><div class="stat"><b>${g('reel')}</b><span>Reel</span></div><div class="stat"><b>${g('carousel')}</b><span>Carousel</span></div></div></div>
     <div class="card"><h2>Top posts</h2>${wv.sort((a,b)=>b.n-a.n).slice(0,5).map(r=>`<div class="arow"><span class="ah">${dn(r.a.handle)} · ${r.t.label}</span><span class="an" style="width:auto">${fmtD(r.k)}</span><b>${r.n}</b></div>`).join('')||'<p class="muted">No views entered yet.</p>'}</div>
-    <div class="card"><h2>Team progress</h2>${teamBars(tm,posted,missed)}<h2 style="margin-top:20px">Details</h2><div class="table-wrap"><table class="growth-table"><thead><tr><th>Editor</th><th>Provided by manager</th><th>Delivered</th><th>Avg turnaround</th><th>On time (24h)</th></tr></thead><tbody>${tm.map(t=>`<tr><td>${t.ed.name}</td><td data-l="Provided">${t.prov}/${t.exp}</td><td data-l="Delivered">${t.del}</td><td data-l="Turnaround">${t.avg}</td><td data-l="On time">${t.ot}</td></tr>`).join('')}</tbody></table></div></div>`;
+    <div class="card"><h2>Team progress</h2>${teamCards(tm,posted,missed)}</div>`;
   document.querySelectorAll('#anSeg button').forEach(b=>b.onclick=()=>{ anDays=+b.dataset.n; render(); });
 }
 
@@ -1107,7 +1116,8 @@ function liveEvents(){ const E=[], tk=todayKey();
     (d.sessions||[]).forEach(s=>{ E.push({t:s.in,i:'',x:`<b>${POSTER_NAME}</b> signed in`}); if(s.out) E.push({t:s.out,i:'',x:`<b>${POSTER_NAME}</b> signed out`}); }); });
   EDITORS.forEach(ed=>{ const ks=ed.period==='week'?[weekStart(tk),addDays(weekStart(tk),-7)]:[tk,addDays(tk,-1)];
     ks.forEach(k=>slotsOf(ed,k).forEach((s,i)=>{ if(s.recv) E.push({t:s.recv,i:'',x:`Manager gave <b>${ed.name}</b> Reel ${i+1}${s.topic?' · '+esc(s.topic):''}`}); if(s.done) E.push({t:s.done,i:'',x:`<b>${ed.name}</b> delivered Reel ${i+1}${s.title?' · '+esc(s.title):''}`}); })); });
-  return E.filter(e=>Date.now()-e.t<4*864e5).sort((a,b)=>b.t-a.t).slice(0,8); }
+  Object.keys(data.msgs||{}).forEach(pid=>(data.msgs[pid]||[]).forEach(m=>{ if(m&&m.t) E.push({t:m.t,i:'',x:`Manager messaged <b>${pid==='poster'?POSTER_NAME:((EDITORS.find(e=>e.id===pid)||{}).name||pid)}</b>`}); }));
+  return E.filter(e=>Date.now()-e.t<4*864e5).sort((a,b)=>b.t-a.t).slice(0,30); }
 function dutyHtml(){ return dutyHtml2(); }
 function liveCard(){ const E=liveEvents();
   return `<div class="card" id="liveBox"><div class="plat-head"><h2><span class="livedot"></span>Live report</h2></div>${dutyHtml()}<h2 style="margin-top:16px">Just happened</h2>`+
@@ -1195,7 +1205,7 @@ const _le=liveEvents;
 liveEvents=function(){ const E=_le(), tk=todayKey();
   let L=E.filter(e=>Date.now()-e.t<4*864e5).sort((a,b)=>b.t-a.t);
   if(me&&/^editor/.test(me.role)){ const n=EDITORS.find(e=>e.id===me.role).name; L=L.filter(e=>e.x.includes('<b>'+n+'</b>')); }
-  return L.slice(0,8); };
+  return L.slice(0,adminMode?20:8); };
 
 // compact team progress (manager + Zahra)
 function dutyHtml2(){ const tk=todayKey(), ws=weekStart(tk), d=dayOrEmpty(tk), pc=f=>{ const n=Math.round(f*100); return `<span data-cu="${n}" data-s="%">${n}%</span>`; };
@@ -1260,9 +1270,9 @@ function guestDash(){ const tk=todayKey(), d=dayOrEmpty(tk), it=[];
   const pv=['ig','tt','yt','fb'].map(p=>{ const src=ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)); return src.length?{p,v:R.filter(r=>src.some(a=>a.id===r.a.id)).reduce((x,r)=>x+(p==='fb'?r.fb:r.n),0)}:null; }).filter(Boolean), pm=Math.max(1,...pv.map(x=>x.v));
   const gr=ACCOUNTS.map(a=>{ const T=a.tasks.filter(t=>!d.tasks[t.key]); return {a,r:T.filter(t=>t.kind==='reel').length,c:T.filter(t=>t.kind==='carousel').length}; }).filter(g=>g.r+g.c);
   const sl=[
-   `<div class="sl"><h2>Today's posting</h2><div class="sb"><div class="ringwrap" style="justify-content:center;margin:0"><div class="ringbox"><svg class="ring" viewBox="0 0 140 140"><circle class="rt" cx="70" cy="70" r="54"/><circle class="rf" cx="70" cy="70" r="54" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-f)}"/></svg><div class="ringtxt"><div class="hero-num">${lp(live.length)}<small>/ ${tot}</small></div><div class="hero-sub">live today</div></div></div><div class="streak"><b>${lp(st.cur)}</b><span>day streak</span><em>${tot-live.length} still to go</em></div></div><div class="chips" style="justify-content:center">${PLATFORMS.map(p=>{ const a=it.filter(i=>i.p===p.id); return `<span class="chip">${logo(p.id)} ${a.filter(i=>i.ok).length}/${a.length}</span>`; }).join('')}</div></div></div>`,
-   `<div class="sl"><h2>Coming up today</h2><div class="sb" style="gap:6px">${gr.length?gr.slice(0,5).map(g=>`<div class="cu">${logo(g.a.pid)}<b>${dn(g.a.handle)}</b><span class="cc">${g.r?`<i class="chip"> ${g.r} reel${g.r>1?'s':''}</i>`:''}${g.c?`<i class="chip"> ${g.c} carousel${g.c>1?'s':''}</i>`:''}</span></div>`).join('')+(gr.length>5?`<div class="muted" style="text-align:center;font-size:11.5px">+${gr.length-5} more IDs</div>`:''):'<div class="hero-num" style="font-size:26px;text-align:center">Everything is live </div>'}</div></div>`,
-   `<div class="sl"><h2>Views · last 30 days</h2><div class="sb" style="gap:8px"><div style="text-align:center"><div class="hero-num" style="margin:0">${lp(v7)}</div><div class="hero-sub">${dl==null?'building up':`<span class="delta ${dl>=0?'up':'down'}">${dl>=0?'+':''}${dl}%</span> vs previous 30 days`}</div></div><div><div class="cols" style="height:84px">${days.map(x=>`<div title="${fmtD(x.k)}: ${x.v}" style="height:${Math.max(3,x.v/mx*100)}%"></div>`).join('')}</div>${colLabels(days.map((x,i)=>i%5===0?String(new Date(x.k+'T00:00:00').getDate()):''))}</div></div></div>`,
+   `<div class="sl"><h2>Today's posting</h2><div class="sb" style="gap:8px;text-align:center"><div class="hero-num" style="margin:0;font-size:32px">${lp(live.length)}<small>/ ${tot}</small></div><div class="hero-sub">posted today · ${tot-live.length} still to go</div><div class="bar" style="margin:0"><i style="width:${Math.round(f*100)}%"></i></div></div></div>`,
+   `<div class="sl"><h2>Coming up today</h2><div class="sb" style="gap:6px">${gr.length?gr.slice(0,4).map(g=>`<div class="cu">${logo(g.a.pid)}<b>${dn(g.a.handle)}</b><span class="cc">${g.r?`<i class="chip"> ${g.r} reel${g.r>1?'s':''}</i>`:''}${g.c?`<i class="chip"> ${g.c} carousel${g.c>1?'s':''}</i>`:''}</span></div>`).join('')+(gr.length>4?`<div class="muted" style="text-align:center;font-size:11.5px">+${gr.length-4} more IDs</div>`:''):'<div class="hero-num" style="font-size:26px;text-align:center">Everything is live </div>'}</div></div>`,
+   `<div class="sl"><h2>Views · last 30 days</h2><div class="sb" style="gap:8px"><div style="text-align:center"><div class="hero-num" style="margin:0">${lp(v7)}</div><div class="hero-sub">${dl==null?'building up':`<span class="delta ${dl>=0?'up':'down'}">${dl>=0?'+':''}${dl}%</span> vs previous 30 days`}</div></div><div><div class="cols" style="height:60px">${days.map(x=>`<div title="${fmtD(x.k)}: ${x.v}" style="height:${Math.max(3,x.v/mx*100)}%"></div>`).join('')}</div>${colLabels(days.map((x,i)=>i%5===0?String(new Date(x.k+'T00:00:00').getDate()):''))}</div></div></div>`,
    `<div class="sl"><h2>Platforms · views, 30 days</h2><div class="sb"><div class="tiles" style="padding:0">${pv.map(x=>`<div class="tile"><div class="tl">${logo(x.p)}<b>${NM[x.p]}</b></div><div class="tr" style="font-size:20px">${lp(x.v)}</div><div class="tb"><div class="bar" style="margin:0"><i style="width:${x.v/pm*100}%"></i></div></div></div>`).join('')}</div></div></div>`];
   const tkr=[...live.slice(0,6).map(i=>`<span>${logo(i.p)}${i.h} · ${i.l} is live </span>`),...up.slice(0,6).map(i=>`<span>${logo(i.p)}${i.h} · ${i.l} coming up </span>`),`<span> ${fmtN(v7)} views in 30 days</span>`,`<span> ${st.cur}-day posting streak</span>`].join(''), N=sl.length;
   document.getElementById('app').innerHTML=`<div id="gx" class="gx ${gHold?'hold':''}"><div class="tkw"><div class="tk">${tkr}${tkr}</div></div>
@@ -1370,7 +1380,7 @@ function openControl(){ if(document.getElementById('cpOv')) return; const o=docu
     if(t.dataset.t==='c') cfgW()[t.dataset.g]=Math.min(50,v); else { const A=data.analytics=data.analytics||{}; A.goal=A.goal||{}; A.goal[t.dataset.g]=v||GOAL_DEF[t.dataset.g]; } save(); render(); };
   o.onkeydown=e=>{ if(e.key==='Escape') close(); }; }
 // drill-down: platform -> id -> post
-let drS={p:null,a:null};
+let drS={p:null,a:null}, teamSel=null;
 function drillCard(){ const R=postRecs(30,0), NM={ig:'Instagram',fb:'Facebook',tt:'TikTok',yt:'YouTube'}, srcP=p=>ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)), val=(r,p)=>p==='fb'?r.fb:r.n;
   const posted=r=>{ const d=data.poster[r.k]; return d&&d.tasks&&d.tasks[r.t.key]; };
   const tile=(ico,name,v,n,mx,go)=>`<button class="tile dtile" data-dr="${go}"><div class="tl">${ico}<b>${name}</b></div><div class="tr" style="font-size:18px;font-weight:800">${fmtN(v)}</div><div class="tb"><div class="bar" style="margin:0"><i style="width:${v/mx*100}%"></i></div><small class="due">${n} post${n===1?'':'s'} · last 30 days</small></div></button>`;
@@ -1387,7 +1397,7 @@ document.addEventListener('click',e=>{ let b;
   if(b=e.target.closest('[data-dr]')){ const k=b.dataset.dr[0], v=b.dataset.dr.slice(2); drS=k==='x'?{p:null,a:null}:k==='p'?{p:v,a:null}:{p:drS.p,a:v}; document.querySelectorAll('.drillbox').forEach(el=>el.outerHTML=drillCard()); }
   else if(b=e.target.closest('[data-gs]')) gstep(+b.dataset.gs);
   else if(b=e.target.closest('[data-ov]')){ const c=document.getElementById('ovs'); if(c) c.scrollBy({left:+b.dataset.ov*c.clientWidth*.8,behavior:'smooth'}); }
-  else if(b=e.target.closest('[data-go]')){ if(b.dataset.dp) drS={p:b.dataset.dp,a:null}; const q=b.dataset.go.split(':'); if(q[1]){ if(q[0]==='analytics') anPane=q[1]; if(q[0]==='manager') mgPane=q[1]; } activeTab=q[0]; render(); } });
+  else if(b=e.target.closest('[data-go]')){ if(b.dataset.dp) drS={p:b.dataset.dp,a:null}; if(b.dataset.tm!==undefined) teamSel=b.dataset.tm||null; const q=b.dataset.go.split(':'); if(q[1]){ if(q[0]==='analytics') anPane=q[1]; if(q[0]==='manager') mgPane=q[1]; } activeTab=q[0]; render(); } });
 function gstep(n){ const d=[...document.querySelectorAll('#gx .dots i')]; if(!d.length) return; const i=Math.max(0,d.findIndex(x=>x.classList.contains('on'))); d[(i+n+d.length)%d.length].click(); }
 const _gd=guestDash;
 guestDash=function(){ _gd(); const gx=document.getElementById('gx'), sl=gx&&gx.querySelector('.slides'); if(!sl) return; const card=sl.parentElement; card.style.position='relative';
@@ -1425,7 +1435,7 @@ function overviewCard(){ const tk=todayKey(), ws=weekStart(tk), d=dayOrEmpty(tk)
 document.addEventListener('change',e=>{ const t=e.target; if(t.classList&&t.classList.contains('ptp')){ const d=getDay(sheetDate), k=t.dataset.key; d.views[k]=d.views[k]||{}; d.views[k].title=t.value.trim(); save(); } });
 // ---------- v13: god mode, layout, section access, reports, today board ----------
 SECTIONS.push('layout');
-const GOD_PW=')#@^%%))%@@', DATA_PW='":/)((""(//';
+const GOD_PW='%%))', DATA_PW='((""';
 const LYu=u=>{ const L=data.layout=data.layout||{}; return L[u]=L[u]||{}; }, LY=()=>LYu(me?me.id:'guest');
 const SEC={analytics:[['views','Views'],['team','Team'],['goals','Reports']],manager:[['reels','Reels'],['post','Posting'],['msg','Messages'],['reset','Reset']],sheet:[['today','Today'],['month','Month'],['day','Day'],['log','Log']]};
 const secEx=(uid,t,p)=>((data.access||{})[uid]||{})[t+'.'+p];
@@ -1466,7 +1476,7 @@ function askPass(title,pw,ok){ if(document.getElementById('pwOv')) return; const
   document.body.appendChild(o); requestAnimationFrame(()=>o.classList.add('on')); const i=document.getElementById('pwI'); i.focus(); const close=()=>{ o.classList.remove('on'); setTimeout(()=>o.remove(),250); };
   const go=()=>{ if(i.value===GOD_PW||i.value===DATA_PW){ close(); ok(); } else { document.getElementById('pwE').textContent='Wrong password'; const c=o.firstChild; c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); i.value=''; i.focus(); } };
   document.getElementById('pwG').onclick=go; document.getElementById('pwX').onclick=close; o.onkeydown=e=>{ if(e.key==='Enter') go(); if(e.key==='Escape') close(); }; }
-function openControl(){ if(localStorage.getItem('dot_god')==='1') openGod(); else askPass('Editor password','',()=>{ try{ localStorage.setItem('dot_god','1'); }catch(e){} openGod(); }); }
+function openControl(){ try{ localStorage.setItem('dot_god','1'); }catch(e){} openGod(); }
 let gTab='access', gdP='zahra', gdD=todayKey();
 const GT=[['access','Access'],['layout','Layout'],['goals','Goals'],['data','Data']];
 function gOrder(){ const o=(LY().tabs||[]).filter(x=>TABS_ALL.some(t=>t[0]===x)); TABS_ALL.forEach(t=>{ if(!o.includes(t[0])) o.push(t[0]); }); return o; }
@@ -1569,21 +1579,89 @@ function gLayout2(){ const nm=Object.fromEntries(TABS_ALL), o=gOrderFor(cpU).fil
 function startArrange(uid,tab){ vAs=uid; arr=true; if(uid==='guest'){ me=null; adminMode=false; } else { me={id:uid,...USERS[uid]}; adminMode=USERS[uid].role==='manager'; } activeTab=tab; render(); }
 function stopArrange(){ arr=false; vAs=null; loadSession(); render(); }
 // editor login (either password)
-const _lg=login; login=function(u,p){ if(String(u||'').trim().toLowerCase()==='editor'&&(p===GOD_PW||p===DATA_PW)){ try{ localStorage.setItem('dot_session','ezzy'); localStorage.setItem('dot_god','1'); }catch(e){} loadSession(); return true; } return _lg(u,p); };
-const _ol=openLogin; openLogin=function(){ _ol(); const c=document.querySelector('#lgOv .lg-card'); if(c&&!c.querySelector('.lg-ed')){ const b=document.createElement('button'); b.className='lg-guest lg-ed'; b.textContent='Editor (god mode) login'; b.onclick=()=>{ document.getElementById('lgU').value='editor'; document.getElementById('lgP').focus(); }; c.querySelector('#lgG').before(b); } };
+const _lg=login; login=function(u,p){ if(String(u||'').trim().toLowerCase()==='editora.'&&(p===GOD_PW||p===DATA_PW)){ try{ localStorage.setItem('dot_session','ezzy'); localStorage.setItem('dot_god','1'); }catch(e){} loadSession(); return true; } return _lg(u,p); };
+const _ol=openLogin; openLogin=function(){ _ol(); const c=document.querySelector('#lgOv .lg-card'); if(c&&!c.querySelector('.lg-ed')){ const b=document.createElement('button'); b.className='lg-guest lg-ed'; b.textContent='Editora. login'; b.onclick=()=>{ document.getElementById('lgU').value='editora.'; document.getElementById('lgP').focus(); }; c.querySelector('#lgG').before(b); } };
 // manager dashboard
 function teamNums(){ const tk=todayKey(), ws=weekStart(tk), d=dayOrEmpty(tk), tot=ALL_TASKS.length, dn_=doneCount(d);
   const ed=e=>{ const k=e.period==='week'?ws:tk, q=quota(e,k), a=slotsOf(e,k).slice(0,q), rc=a.filter(s=>s.recv).length, dl=a.filter(s=>s.done).length; return {rc,dl,q}; };
-  return [{n:POSTER_NAME,f:tot?dn_/tot:0,s:dn_+' of '+tot+' posted today',c:[(tot-dn_)+' still to post'],go:'analytics:team'},
-    ...EDITORS.map(e=>{ const x=ed(e); return {n:e.name,f:x.rc?x.dl/x.rc:0,s:x.dl+' of '+x.rc+' delivered '+(e.period==='week'?'this week':'today'),c:[(x.rc-x.dl)+' with them',(x.q-x.rc)+' left for you to give'],go:'manager:reels'}; })]; }
+  return [{n:POSTER_NAME,f:tot?dn_/tot:0,s:dn_+' of '+tot+' posted today',c:[(tot-dn_)+' still to post'],id:'zahra',go:'analytics:team',log:zLog()},
+    ...EDITORS.map(e=>{ const x=ed(e); return {n:e.name,f:x.rc?x.dl/x.rc:0,s:x.dl+' of '+x.rc+' delivered '+(e.period==='week'?'this week':'today'),c:[(x.rc-x.dl)+' with them',(x.q-x.rc)+' left for you to give'],id:e.id,go:'analytics:team'}; })]; }
 function xpCard(id,title,sub,f,txt,rows){ return `<div class="card xp ${xpOpen[id]?'open':''}" data-xp="${id}"><button class="xph"><span>${miniRing(f,txt,76)}</span><span class="xpt"><b>${title}</b><small>${sub}</small></span><i class="chev">›</i></button><div class="xpb"><div class="xpi">${rows}</div></div></div>`; }
 function teamXp(){ const L=teamNums(), f=L.reduce((x,o)=>x+o.f,0)/L.length;
-  return xpCard('team','Team progress',L.length+' people · tap to open',f,Math.round(f*100)+'%',L.map(o=>`<div class="xrow"><span>${miniRing(o.f,Math.round(o.f*100)+'%',58)}</span><div class="xrt"><b>${o.n}</b><small>${o.s}</small><div class="chips" style="margin-top:6px">${o.c.map(c=>`<span class="chip">${c}</span>`).join('')}</div></div><button class="pill" data-go="${o.go}">Open ›</button></div>`).join('')); }
+  return xpCard('team','Team progress',L.length+' people · tap to open',f,Math.round(f*100)+'%',L.map(o=>`<div class="xrow" data-go="${o.go}" data-tm="${o.id}" style="cursor:pointer"><span>${miniRing(o.f,Math.round(o.f*100)+'%',58)}</span><div class="xrt"><b>${o.n}</b><small>${o.s}</small><div class="chips" style="margin-top:6px">${o.c.map(c=>`<span class="chip">${c}</span>`).join('')}</div>${o.log||''}</div><button class="pill" data-go="${o.go}" data-tm="${o.id}">Open ›</button></div>`).join('')); }
 function platXp(){ const d=dayOrEmpty(todayKey()), R=postRecs(30,0), NM={ig:'Instagram',fb:'Facebook',tt:'TikTok',yt:'YouTube'}, tot=ALL_TASKS.length, dn_=doneCount(d);
   const L=['ig','fb','tt','yt'].map(p=>{ const src=ACCOUNTS.filter(a=>a.pid===(p==='fb'?'ig':p)); if(!src.length) return null; const t=src.reduce((x,a)=>x+a.tasks.length,0), n=src.reduce((x,a)=>x+a.tasks.filter(k=>d.tasks[k.key]).length,0),
     v=R.filter(r=>src.some(a=>a.id===r.a.id)&&((data.poster[r.k]||{}).tasks||{})[r.t.key]).reduce((x,r)=>x+(p==='fb'?r.fb:r.n),0); return {p,t,n,v}; }).filter(Boolean), tv=L.filter(x=>x.p!=='fb').reduce((x,o)=>x+o.v,0)+(L.find(x=>x.p==='fb')||{v:0}).v;
   return xpCard('plat','Platform progress',fmtN(tv)+' views · 30 days · tap to open',tot?dn_/tot:0,tot?Math.round(dn_/tot*100)+'%':'0%',L.map(x=>`<div class="xrow" data-go="analytics:views" data-dp="${x.p}" style="cursor:pointer"><span class="lgbig">${logo(x.p)}</span><span>${miniRing(x.t?x.n/x.t:0,x.n+'/'+x.t,58)}</span><div class="xrt"><b>${NM[x.p]}</b><small>${x.n} of ${x.t} posted today · ${fmtN(x.v)} views in 30 days</small></div><i class="chev" style="font-size:22px">›</i></div>`).join('')); }
 document.addEventListener('click',e=>{ const b=e.target.closest('.xph'); if(!b) return; const c=b.closest('.xp'), id=c.dataset.xp; xpOpen[id]=!xpOpen[id]; c.classList.toggle('open',xpOpen[id]); });
+
+// ===== v15: team log, feed, nicer team cards, session editor, compact guest =====
+function zLog(){ const tk=todayKey(), ks=[0,1,2,3].map(i=>addDays(tk,-i)).filter(k=>(dayOrEmpty(k).sessions||[]).length), on=isOn(dayOrEmpty(tk));
+  return `<div class="zl"><b>${on?'<span style="color:#1a8a3a">Signed in now</span>':'Signed out'}</b></div>`+(ks.length?ks.map(k=>{ const d=dayOrEmpty(k); return `<div class="zl"><b>${k===tk?'Today':fmtD(k)}</b> ${d.sessions.map(s=>fmtTime(s.in)+' - '+(s.out?fmtTime(s.out):'now')).join(', ')}<i>${fmtDur(workedMs(d))}</i></div>`; }).join(''):'<div class="zl">No sign-ins in the last 4 days.</div>'); }
+function feedXp(){ const E=liveEvents(); return xpCard('feed','Just happened',E.length?ago(E[0].t)+' · latest update':'Nothing yet',Math.min(1,E.length/10),String(E.length),E.length?feedH(E):'<p class="muted" style="margin:0">Nothing yet - team activity shows up here.</p>'); }
+function teamCards(tm,posted,missed){ let hrs=0,days=0; for(let i=0;i<anDays;i++){ const d=data.poster[addDays(todayKey(),-i)]; if(d&&(d.sessions||[]).length){ hrs+=workedMs(d)/36e5; days++; } }
+  const P=(a,b)=>b?Math.min(100,Math.round(a/b*100)):0, st=(v,l)=>`<div class="tmst"><b>${v}</b><span>${l}</span></div>`,
+    card=(n,r,p,S,id)=>`<div class="tmc"${id?` data-tm="${id}"`:''}><div class="tmh">${miniRing(p/100,p+'%',52)}<div><b>${n}</b><small>${r}</small></div>${id?'<i class="chev">›</i>':''}</div><div class="tms">${S.join('')}</div></div>`,
+    pv=tm.reduce((x,t)=>x+t.prov,0), ex=tm.reduce((x,t)=>x+t.exp,0);
+  return `<div class="tmg">${card(esc(POSTER_NAME),'Poster',P(posted,posted+missed),[st(posted,'Posted'),st(missed,'Missed'),st(days,'Days active'),st(hrs.toFixed(1)+'h','Logged')],'zahra')}${tm.map(t=>card(t.ed.name,'Editor',P(t.del,t.exp),[st(t.del+'/'+t.exp,'Delivered'),st(t.avg,'Avg turnaround'),st(t.ot,'On time (24h)'),st(t.prov+'/'+t.exp,'Provided')],t.ed.id)).join('')}${card('Manager','Supply',P(pv,ex),[st(pv+'/'+ex,'Reels provided')])}</div>`; }
+managerDash=function(){ document.getElementById('app').innerHTML=teamXp()+feedXp()+platXp(); };
+
+// manager edits Zahra's sign in / out
+let seD=null;
+function sessEdit(){ const k=seD||todayKey(), d=getDay(k), hm=t=>t?new Date(t).toTimeString().slice(0,5):'';
+  return `<div class="card"><h1>Edit sign in / out</h1><div class="sheet-bar"><input type="date" id="seD" value="${k}"><b>${fmtDur(workedMs(d))} worked</b></div>`+
+  (d.sessions.map((s,i)=>`<div class="mr" style="margin-top:8px"><label>In<br><input type="time" data-se="in" data-i="${i}" value="${hm(s.in)}"></label><label>Out<br><input type="time" data-se="out" data-i="${i}" value="${hm(s.out)}"></label><button class="ghost" data-sd="${i}">Remove</button></div>`).join('')||'<p class="muted" style="margin:8px 0 0">No sessions this day.</p>')+
+  `<div class="mr" style="margin-top:12px"><label>In<br><input type="time" id="seNi"></label><label>Out<br><input type="time" id="seNo"></label><button class="big" id="seAdd">Add session</button></div></div>`; }
+const _rp15=renderPoster; renderPoster=function(){ _rp15(); if(adminMode) document.getElementById('app').insertAdjacentHTML('beforeend',sessEdit()); };
+const tsOf=(k,v)=>v?new Date(k+'T'+v+':00').getTime():null;
+document.addEventListener('change',e=>{ const t=e.target; if(!adminMode) return; if(t.id==='seD'){ seD=t.value||null; return render(); }
+  if(t.dataset&&t.dataset.se){ const k=seD||todayKey(), S=getDay(k).sessions, s=S[+t.dataset.i]; if(!s) return; const ts=tsOf(k,t.value);
+    if(t.dataset.se==='in'){ if(ts&&(!s.out||ts<s.out)) s.in=ts; } else if(!ts||ts>s.in) s.out=ts; S.sort((a,b)=>a.in-b.in); save(); render(); } });
+document.addEventListener('click',e=>{ if(!adminMode) return; const b=e.target.closest('button'); if(!b) return; const k=seD||todayKey();
+  if(b.dataset.sd!==undefined){ getDay(k).sessions.splice(+b.dataset.sd,1); save(); render(); }
+  if(b.id==='seAdd'){ const i=tsOf(k,document.getElementById('seNi').value), o=tsOf(k,document.getElementById('seNo').value); if(!i||(o&&o<=i)) return; const S=getDay(k).sessions; S.push({in:i,out:o}); S.sort((a,b)=>a.in-b.in); save(); render(); } });
+
+// guest: compact + collapsible overview
+let gShut=false;
+const _gd15=guestDash; guestDash=function(){ _gd15(); const gx=document.getElementById('gx'), sl=gx&&gx.querySelector('.slides'); if(!sl) return; const c=sl.parentElement; c.classList.add('gcard'); c.classList.toggle('shut',gShut); c.insertAdjacentHTML('afterbegin','<button class="gtg">Live overview <i>›</i></button>'); };
+document.addEventListener('click',e=>{ const b=e.target.closest('.gtg'); if(!b) return; gShut=!gShut; b.parentElement.classList.toggle('shut',gShut); });
+
+// ===== v14.2: team member detail (custom date range, like Platform > ID > Post) =====
+let tmR={m:'week',from:null,to:null};
+function tmRange(){ const tk=todayKey(); let f,t=tk;
+  if(tmR.m==='today') f=tk; else if(tmR.m==='week') f=weekStart(tk); else if(tmR.m==='month') f=tk.slice(0,8)+'01'; else if(tmR.m==='30') f=addDays(tk,-29);
+  else { f=tmR.from||addDays(tk,-6); t=tmR.to||tk; if(f>t){ const x=f; f=t; t=x; } }
+  return {f,t}; }
+function tmDays(f,t){ const a=[]; for(let k=f;k<=t&&a.length<366;k=addDays(k,1)) a.push(k); return a; }
+function tmBody(id){ const {f,t}=tmRange(), days=tmDays(f,t), tk=todayKey(), ed=EDITORS.find(e=>e.id===id), st=(v,l)=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`;
+  const wd=k=>new Date(k+'T00:00:00').toLocaleDateString([], {weekday:'short'});
+  if(!ed){ let hrs=0,act=0,posted=0,tot=0,sess=0,best=0,firstIn=null; const rows=[], bars=[];
+    days.forEach(k=>{ const d=dayOrEmpty(k), S=(d.sessions||[]).slice().sort((a,b)=>a.in-b.in), w=workedMs(d)/36e5, pd=doneCount(d); if(S.length){ act++; hrs+=w; sess+=S.length; best=Math.max(best,w); }
+      if(data.poster[k]||k<=tk){ posted+=pd; tot+=ALL_TASKS.length; } bars.push({k,w});
+      rows.push(`<tr><td>${fmtD(k)}<span class="ses">${wd(k)}</span></td>${S.length?`<td>${fmtTime(S[0].in)}</td><td>${S[S.length-1].out?fmtTime(S[S.length-1].out):'<b style="color:#1a8a3a">now</b>'}</td><td>${w.toFixed(1)}h${S.length>1?`<span class="ses">${S.length} sessions</span>`:''}</td>`:`<td class="ab" colspan="3">${k>tk?'':k===tk?'Not signed in yet':'Absent'}</td>`}<td>${pd}/${ALL_TASKS.length}</td></tr>`); });
+    const mx=Math.max(.1,...bars.map(b=>b.w));
+    return `<div class="grid">${st(act+'/'+days.length,'Days active')}${st(hrs.toFixed(1)+'h','Total logged')}${st(act?(hrs/act).toFixed(1)+'h':'-','Avg per active day')}${st(best?best.toFixed(1)+'h':'-','Longest day')}${st(posted,'Posted')}${st(tot?Math.round(posted/tot*100)+'%':'0%','Posting rate')}</div>`+
+      (days.length<=62?`<div class="cols" style="margin-top:14px">${bars.map(b=>`<div title="${fmtD(b.k)}: ${b.w.toFixed(1)}h" style="height:${Math.max(2,b.w/mx*100)}%"></div>`).join('')}</div>`:'')+
+      `<h2 style="margin:16px 0 6px">Log · sign in / out</h2><div class="sheet-scroll" style="max-height:420px"><table class="sheet"><thead><tr><th>Date</th><th>In</th><th>Out</th><th>Worked</th><th>Posted</th></tr></thead><tbody>${rows.reverse().join('')}</tbody></table></div>`; }
+  const wk=ed.period==='week', ks=[...new Set(days.map(k=>wk?weekStart(k):k))]; let P=0,D=0,T=0,X=0; const rows=[];
+  ks.forEach(k=>slotsOf(ed,k).slice(0,quota(ed,k)).forEach((s,i)=>{ if(!s.recv) return; P++; const h=s.done?(s.done-s.recv)/36e5:0; if(s.done){ D++; T+=h; } const late=!s.done&&!wk&&Date.now()>s.recv+864e5; if(late) X++;
+    rows.push(`<tr><td>${wk?'Wk '+fmtD(k):fmtD(k)}</td><td>Reel ${i+1}${s.title?' · '+esc(s.title):''}</td><td>${fmtTime(s.recv)}</td><td>${s.done?fmtTime(s.done):'—'}</td><td>${s.done?h.toFixed(1)+'h':'—'}</td><td><span class="st ${s.done?'Posted':late?'Missed':''}">${s.done?'Delivered':late?'Overdue':(s.status||'Editing')}</span></td></tr>`); }));
+  return `<div class="grid">${st(P,'Received')}${st(D,'Delivered')}${st(P-D,'In progress')}${st(D?(T/D).toFixed(1)+'h':'-','Avg turnaround')}${st('<span class="'+(X?'delta down':'')+'">'+X+'</span>','Overdue')}${st(P?Math.round(D/P*100)+'%':'0%','Delivery rate')}</div>`+
+    `<h2 style="margin:16px 0 6px">Log · reels in / out</h2><div class="sheet-scroll" style="max-height:420px"><table class="sheet"><thead><tr><th>${wk?'Week':'Day'}</th><th>Reel</th><th>In</th><th>Out</th><th>Time</th><th>Status</th></tr></thead><tbody>${rows.reverse().join('')||'<tr><td colspan="6">Nothing received in this period.</td></tr>'}</tbody></table></div>`+
+    `<div class="btn-row" style="margin-top:12px"><button class="pill" data-go="manager:reels">Hand over reels ›</button></div>`; }
+function tmDetail(id){ const ed=EDITORS.find(e=>e.id===id), nm=ed?ed.name:POSTER_NAME, {f,t}=tmRange(), M=[['today','Today'],['week','This week'],['month','This month'],['30','Last 30 days'],['custom','Custom']];
+  return `<div class="card tmd" id="tmd"><h1>${esc(nm)} · ${ed?'Editor':'Poster'}</h1><div class="crumb"><button class="chip" data-tm="">All team</button> › <b>${esc(nm)}</b></div>
+    <div class="rng">${M.map(([k,l])=>`<button data-tmr="${k}" class="${tmR.m===k?'active':''}">${l}</button>`).join('')}</div>
+    <div class="dts"><span>From</span><input type="date" id="tmF" value="${f}"><span>to</span><input type="date" id="tmT" value="${t}"></div>
+    <div id="tmB">${tmBody(id)}</div></div>`; }
+const _ra4=renderAnalytics;
+renderAnalytics=function(){ _ra4(); if(!adminMode||!teamSel) return; if(teamSel!=='zahra'&&!EDITORS.some(e=>e.id===teamSel)){ teamSel=null; return; }
+  const pt=document.querySelector('.pane[data-p="team"]'); if(pt) pt.innerHTML=tmDetail(teamSel); };
+document.addEventListener('click',e=>{ let b;
+  if((b=e.target.closest('[data-tm]'))&&!b.dataset.go){ teamSel=b.dataset.tm||null; anPane='team'; render(); return; }
+  if(b=e.target.closest('[data-tmr]')){ tmR={m:b.dataset.tmr,from:tmRange().f,to:tmRange().t}; if(tmR.m!=='custom'){ tmR.from=tmR.to=null; } const c=document.getElementById('tmd'); if(c) c.outerHTML=tmDetail(teamSel); return; }
+  if((b=e.target.closest('#anPane button[data-p="team"]'))&&teamSel){ teamSel=null; setTimeout(render,0); } });
+document.addEventListener('change',e=>{ const t=e.target; if(t.id!=='tmF'&&t.id!=='tmT') return; const r=tmRange(); tmR={m:'custom',from:t.id==='tmF'?(t.value||r.f):r.f,to:t.id==='tmT'?(t.value||r.t):r.t}; const c=document.getElementById('tmd'); if(c) c.outerHTML=tmDetail(teamSel); });
 
 load(); cloudInit(); applyTheme();
 loadSession();
