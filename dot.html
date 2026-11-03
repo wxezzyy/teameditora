@@ -1699,6 +1699,31 @@ html.tt,html.tt *,html.tt *::before,html.tt *::after{transition:background-color
  #app .pane[data-p="log"] .grid .stat,#app .pane[data-p="accounts"] .grid .stat{display:flex!important}
 }
 #app .rpbar .rpact:has(> button:only-child){grid-template-columns:1fr!important}#app .rpbar .rpact:has(> button:only-child) button{width:100%}
+/* ===== v28: client report ===== */
+#reportOv.crep{--card:#fff;--soft:rgba(0,0,0,.04);--ok:#16803a;--red:#ff4328;--ink:#0b0b0b;--paper:#f6f5ef;--line:#e6e3d9;--sub:#6b6b6b;background:#fff;color:#0b0b0b}
+#reportOv.crep .card{background:#fff!important;border:1px solid #ece9df!important;border-radius:18px!important;box-shadow:none!important;padding:20px!important;margin-bottom:14px}
+#reportOv.crep .ek>span:not(.ekr){font-size:15px;font-weight:700;letter-spacing:-.01em;text-transform:none;color:#0b0b0b}
+.cr-head{margin:6px 0 20px}.cr-logo{font-size:28px;font-weight:800;font-style:italic;letter-spacing:-.05em}.cr-logo span{color:#ff4328}
+.cr-head h1{font-size:28px;font-weight:700;letter-spacing:-.03em;margin:10px 0 4px}.cr-head p{margin:0;color:#6b6b6b;font-size:13px}
+.cr-wins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.cr-w{border-radius:16px;padding:16px;background:#f6f4ee;display:flex;flex-direction:column;gap:4px;break-inside:avoid}
+.cr-w span{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b6b6b}
+.cr-w b{font-size:24px;font-weight:800;letter-spacing:-.03em;line-height:1.1;word-break:break-word}
+.cr-w em{font-style:normal;font-size:12px;color:#555;line-height:1.35}
+.cr-w.big{grid-column:span 3;background:#ff4328;color:#0b0b0b}.cr-w.big span,.cr-w.big em{color:rgba(0,0,0,.65)}.cr-w.big b{font-size:44px}
+.cr-foot{text-align:center;color:#6b6b6b;font-size:12px;margin:18px 0 6px}
+@media (max-width:560px){.cr-wins{grid-template-columns:repeat(2,minmax(0,1fr))}.cr-w.big{grid-column:span 2}.cr-w b{font-size:20px}}
+@media print{
+ @page{size:A4;margin:12mm}
+ html,body{background:#fff!important;color:#000!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important}
+ body>*:not(#reportOv){display:none!important}
+ #reportOv{position:static!important;inset:auto!important;overflow:visible!important;height:auto!important;min-height:0!important;background:#fff!important;padding:0!important}
+ body>svg{display:block!important;position:absolute!important;width:0!important;height:0!important}
+ #reportOv .card{break-inside:auto}.cr-w,#reportOv .rpa,#reportOv .vrow,#reportOv .ef,#reportOv .rpl-h{break-inside:avoid;page-break-inside:avoid}
+ .cr-w,.cr-w.big{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+#reportOv.crep button.ghost{background:#efede6!important;color:#0b0b0b!important}#reportOv.crep button.pill{background:#0b0b0b!important;color:#f4f2eb!important}
 </style>
 </head>
 <body>
@@ -3663,6 +3688,35 @@ document.addEventListener('click',()=>setTimeout(()=>{ try{ skin(); }catch(e){} 
 const _openLoginSk=openLogin; openLogin=function(){ _openLoginSk(); const c=document.querySelector('#lgOv .lg-card'); if(!c||c.querySelector('.sk-star')) return;
   const st=(r,R,n)=>{ let d=''; for(let i=0;i<n*2;i++){ const a=Math.PI*i/n, rr=i%2?r:R; d+=(i?'L':'M')+(100+rr*Math.sin(a)).toFixed(1)+' '+(75-rr*Math.cos(a)).toFixed(1); } return d+'Z'; };
   c.querySelector('.lg-x').insertAdjacentHTML('afterend',`<svg class="sk-star" viewBox="0 0 200 150" aria-hidden="true"><g><path d="${st(9,70,8)}" fill="#ff4328"/></g><g transform="translate(48 18) scale(.7)"><g class="s2"><path d="${st(6,52,6)}" fill="none" stroke="#f4f2eb" stroke-width="1.6"/></g></g></svg><h2 class="sk-h">Every post.<br>Every account.<br>One place.</h2>`); };
+
+// ===== v28: client report = only the wins (no missed, no "x of y"), clean print with no dark page =====
+function clientTable(S){ const n=v=>v?`<b>${v}</b>`:'<small>—</small>';
+  return `<div class="rpg cl"><div class="rpa rph"><span>Account</span><span>Reels</span><span>Carousels</span><span>Bonus</span><span>Total</span></div>`+PLATFORMS.map(pl=>{ const L=S.acc.filter(o=>o.a.pid===pl.id&&(o.r.p+o.c.p+o.x)); if(!L.length) return ''; const tp=L.reduce((x,o)=>x+o.r.p+o.c.p+o.x,0);
+    return `<div class="rpl"><div class="rpl-h">${logo(pl.id)}<b>${pl.name}</b><em>${tp} post${tp===1?'':'s'}</em></div>`+L.sort((x,y)=>(y.r.p+y.c.p+y.x)-(x.r.p+x.c.p+x.x)).map(o=>`<div class="rpa"><div class="rpa-n"><b>${dn(o.a.handle)}</b><span>${o.a.platform}</span></div><div class="rpc" data-l="Reels">${n(o.r.p)}</div><div class="rpc" data-l="Carousels">${n(o.c.p)}</div><div class="rpc" data-l="Bonus">${o.x?'<b>+'+o.x+'</b>':'<small>—</small>'}</div><div class="rpc" data-l="Total"><b>${o.r.p+o.c.p+o.x}</b></div></div>`).join('')+`</div>`; }).join('')+`</div>`; }
+function clientWins(P,S){ const L=postsIn(P).filter(r=>r.st==='Posted'||r.st==='Extra'), V=viewRows(P), byDay={}; L.forEach(r=>byDay[r.k]=(byDay[r.k]||0)+1);
+  const days=Object.keys(byDay).length, busiest=Object.entries(byDay).sort((a,b)=>b[1]-a[1])[0]; let run=0,best=0; S.days.forEach(k=>{ if(byDay[k]){ run++; best=Math.max(best,run); } else run=0; });
+  const acc=S.acc.map(o=>({a:o.a,n:o.r.p+o.c.p+o.x})).sort((x,y)=>y.n-x.n), plat=PLATFORMS.map(p=>({p,n:L.filter(r=>r.a.pid===p.id).length})).filter(x=>x.n).sort((x,y)=>y.n-x.n);
+  const top=L.filter(r=>hasV(r.v)).sort((x,y)=>vNum(y.v)+(+y.v.fbv||0)-vNum(x.v)-(+x.v.fbv||0))[0], W=[];
+  if(S.total) W.push(['Posts published',`${S.total}`,`went live across ${acc.filter(x=>x.n).length} accounts on ${plat.length} platform${plat.length>1?'s':''}`]);
+  if(V.withV) W.push(['Total views',fmtN(V.views+V.fb),`across every post this ${P.kind==='week'?'week':'month'}`]);
+  if(top) W.push(['Top post',fmtN(vNum(top.v)+(+top.v.fbv||0))+' views',`${esc(top.l)} on ${dnr(top.a.handle)}`]);
+  if(days) W.push(['Always on',`${days} day${days>1?'s':''}`,best>2?`with fresh content, including a ${best}-day run without a break`:'with fresh content going out']);
+  if(busiest&&busiest[1]>1) W.push(['Busiest day',`${busiest[1]} posts`,`on ${fmtLong(busiest[0])}`]);
+  if(acc[0]&&acc[0].n) W.push(['Most active account',dnr(acc[0].a.handle),`${acc[0].n} posts`]);
+  if(S.reels) W.push(['Reels',`${S.reels}`,'short-form videos published']);
+  if(S.car) W.push(['Carousels',`${S.car}`,'carousel posts published']);
+  if(S.extra) W.push(['Bonus content',`+${S.extra}`,`extra post${S.extra>1?'s':''} on top of the plan`]);
+  return W; }
+openClientReport=function(P){ const S=periodStats(P), W=clientWins(P,S), L=postsIn(P).filter(r=>(r.st==='Posted'||r.st==='Extra')&&hasV(r.v)).sort((x,y)=>vNum(y.v)-vNum(x.v)), old=document.getElementById('reportOv'); if(old) old.remove();
+  const o=document.createElement('div'); o.id='reportOv'; o.className='crep';
+  o.innerHTML=`<div class="rep"><div class="no-print" style="display:flex;gap:8px;margin-bottom:18px"><button class="pill" id="repPrint">Save as PDF</button><button class="ghost" id="repClose">Close</button></div>
+    <div class="cr-head"><div class="cr-logo">dot<span>.</span></div><h1>${esc(CLIENT_NAME)} · ${P.kind==='week'?'Weekly':'Monthly'} report</h1><p>${fmtLong(P.start)} – ${fmtLong(P.end)} · prepared by Team Editora</p></div>
+    ${W.length?`<div class="cr-wins">${W.map((w,i)=>`<div class="cr-w ${i===0?'big':''}"><span>${w[0]}</span><b>${w[1]}</b><em>${w[2]}</em></div>`).join('')}</div>`:''}
+    <div class="card">${ek('Posts by account')}${clientTable(S)}</div>
+    ${viewsBlock(S,P,true)}
+    ${L.length?`<div class="card">${ek('Top posts','by views')}${L.slice(0,5).map(r=>`<div class="ef"><time>${fmtD(r.k)}</time><span class="erow">${logo(r.a.pid)}<b>${dn(r.a.handle)} · ${esc(r.l)}</b><em>${fmtN(vNum(r.v))}</em></span></div>`).join('')}</div>`:''}
+    <p class="cr-foot">Thank you for trusting Team Editora with your content.</p></div>`;
+  o.innerHTML=o.innerHTML.replace(/url\(#iggG\)|url\(#igg\)/g,'#d62976'); document.body.appendChild(o); o.querySelector('#repPrint').onclick=()=>{ const t=document.title; document.title=`${CLIENT_NAME} ${P.kind==='week'?'weekly':'monthly'} report ${P.start}`; window.print(); document.title=t; }; o.querySelector('#repClose').onclick=()=>o.remove(); };
 
 load(); cloudInit(); applyTheme();
 loadSession();
