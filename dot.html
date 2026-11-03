@@ -996,6 +996,108 @@ main.enter .pane>*:nth-child(n+4),main.enter>.card:nth-child(n+5){animation-dela
 #reportOv .rep .card{margin-bottom:14px}
 @media (max-width:560px){.anbar select,.anbar .ghost{flex:1 1 100%}.hb .hl{flex:0 0 110px}}
 
+
+/* ===== v19: manager hub, reports, accounts, log, shift lock ===== */
+#mgPane{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}#mgPane::-webkit-scrollbar{display:none}
+#mgPane button{flex:1 0 auto!important;white-space:nowrap;padding:8px 14px}
+.rpbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.rpbar #rpK{width:auto;flex:0 0 auto}.rpbar #rpK button{padding:8px 16px}
+.rpnav{display:flex;align-items:center;gap:10px;flex:1 1 220px;justify-content:center;min-width:0}
+.rpnav>div{text-align:center;min-width:0}.rpnav b{display:block;font-size:14.5px;letter-spacing:-.01em;white-space:nowrap}.rpnav span{display:block;font-family:var(--mono);font-size:11px;color:var(--sub);margin-top:1px}
+.rpnav button{width:36px;height:36px;padding:0!important;display:grid;place-items:center;font-size:17px;flex:0 0 36px}
+.rpnav button:disabled{opacity:.3;cursor:default}
+.rpact{display:flex;gap:8px}.rpact button{height:38px}
+.rplive{display:inline-flex;align-items:center;gap:6px;color:var(--ok)}.rplive .lv{background:var(--ok);box-shadow:0 0 0 3px rgba(26,138,58,.15)}
+.rpfin{color:var(--sub)}
+.rphero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.rprate{text-align:right}.rprate .enum{justify-content:flex-end}
+/* account table */
+.rpg{margin-top:6px}
+.rpa{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(5,minmax(52px,.55fr)) minmax(0,2.2fr);gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.rpg.cl .rpa{grid-template-columns:minmax(0,2fr) repeat(4,minmax(64px,.7fr))}
+.rph{padding:10px 0 6px;border-bottom:0}.rph span{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.rpl{margin-top:10px}
+.rpl-h{display:flex;align-items:center;gap:10px;padding:12px 0 10px;border-bottom:1px solid var(--ink)}
+.rpl-h .lg{width:20px;height:20px}.rpl-h b{flex:1;font-size:14px}.rpl-h em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--sub)}
+.rpa-n{min-width:0}.rpa-n b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rpa-n span{display:block;font-size:11px;color:var(--sub);margin-top:2px}
+.rpc{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}.rpc b{font-weight:700}.rpc small{color:var(--sub);font-size:11px}.rpc.bad b{color:var(--red)}
+.rstrip{display:flex;gap:2px;height:20px}
+.rstrip.week{gap:4px}.rstrip i{flex:1;min-width:3px;border-radius:2px;background:var(--soft)}
+.rstrip.week i{border-radius:4px}
+.rstrip i.full{background:var(--ok)}
+.rstrip i.part{background:var(--ink);opacity:calc(.18 + var(--f,.5)*.55)}
+.rstrip i.miss{background:repeating-linear-gradient(135deg,transparent 0 3px,color-mix(in srgb,var(--red) 45%,transparent) 3px 4px);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--red) 30%,transparent)}
+.rstrip i.nt{background:none;box-shadow:inset 0 0 0 1px var(--line)}
+.rstrip i.fut{background:none;box-shadow:inset 0 0 0 1px var(--line);opacity:.45}
+.rstrip i.td{outline:1.5px solid var(--ink);outline-offset:1px}
+.rstl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--sub);margin-top:6px}
+.rstl.week{gap:4px}.rstl.week span{flex:1;text-align:center}
+.rph-s .rstl{margin:0;letter-spacing:0;text-transform:none;font-weight:500}
+.rstl-m{display:none}
+.okc{color:var(--ok)}.bad{color:var(--red)}
+.lnk{border:0;background:none;color:var(--ink);font:inherit;font-size:12px;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;letter-spacing:0;text-transform:none}
+/* accounts pane */
+.acchips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin-bottom:12px;scrollbar-width:none}.acchips::-webkit-scrollbar{display:none}
+.acch{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer;font:inherit;font-size:13px;font-weight:600;color:var(--ink);transition:border-color .2s}
+.acch:hover{border-color:var(--sub)}.acch.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.acch .lg{width:18px;height:18px}.acch em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--sub);font-weight:500}
+.acc-h{display:flex;align-items:center;gap:14px;margin-top:14px}.acc-h .lg{width:40px;height:40px}
+.card h2.acc-t{font-size:24px!important;letter-spacing:-.03em!important;text-transform:none!important;color:var(--ink)!important;margin:0!important;font-weight:700}
+.acc-h span{font-family:var(--mono);font-size:12px;color:var(--sub)}
+.stat b small{font-size:.5em;color:var(--sub);font-weight:500;letter-spacing:0}
+.apd{padding:12px 0;border-bottom:1px solid var(--line)}.apd:last-of-type{border-bottom:0}
+.apd-h{display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--sub);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.apr{display:flex;align-items:center;gap:12px;padding:6px 0;font-size:13px}
+.apr b{flex:1;font-weight:600;min-width:0}.apr time{font-family:var(--mono);font-size:12px;color:var(--sub);min-width:62px;text-align:right}.apr em{font-style:normal;font-family:var(--mono);font-size:12px;min-width:84px;text-align:right}
+.pst{flex:0 0 66px;text-align:center;font-size:10.5px;font-weight:700;padding:3px 0;border-radius:999px;font-family:var(--mono)}
+.pst.ok{color:var(--ok);box-shadow:inset 0 0 0 1px rgba(26,138,58,.45)}.pst.miss{color:var(--red);box-shadow:inset 0 0 0 1px rgba(255,67,40,.45)}
+.pst.pend{color:var(--sub);box-shadow:inset 0 0 0 1px var(--line)}.pst.ex{color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+/* log pane */
+.lgst{font-size:28px;font-weight:700;letter-spacing:-.035em;margin:16px 0 6px;line-height:1.15}
+.lgtb td{vertical-align:top;font-variant-numeric:tabular-nums}.lgtb td:nth-child(2),.lgtb td:nth-child(3),.lgtb td:nth-child(4),.lgtb td:nth-child(5){font-family:var(--mono);font-size:12.5px}
+.flg{display:inline-block;font-size:10.5px;font-family:var(--mono);font-weight:600;padding:2px 8px;border-radius:999px;margin:1px 4px 1px 0;white-space:nowrap}
+.flg.ok{color:var(--ok);box-shadow:inset 0 0 0 1px rgba(26,138,58,.4)}.flg.late{color:var(--warn);box-shadow:inset 0 0 0 1px currentColor}
+.flg.open{color:var(--red);box-shadow:inset 0 0 0 1px rgba(255,67,40,.45)}.flg.auto{color:var(--sub);box-shadow:inset 0 0 0 1px var(--line)}
+.efd{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);font-weight:700;margin:18px 0 2px}.efd:first-of-type{margin-top:8px}
+.ev{flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:var(--sub)}
+.ev.in{background:var(--ok)}.ev.out{background:var(--ink)}.ev.post{background:none;box-shadow:inset 0 0 0 1.5px var(--ink)}.ev.app{background:none;box-shadow:inset 0 0 0 1.5px var(--sub)}
+.erow b .bad{font-weight:700}
+.ef.lgf time{flex:0 0 72px;white-space:nowrap}
+/* shift lock */
+.lock{max-width:460px;margin:7vh auto 0;text-align:center;padding:44px 30px 32px!important}
+.lk-i{width:58px;height:58px;border-radius:18px;margin:0 auto 18px;display:grid;place-items:center;background:var(--soft);color:var(--ink)}
+.lk-i svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h1.lk-t{font-size:25px!important;letter-spacing:-.03em!important;text-transform:none!important;color:var(--ink)!important;margin:4px 0 10px!important;font-weight:700}
+.lock p{max-width:340px;margin:0 auto;line-height:1.5}
+.lk-s{display:flex;justify-content:center;gap:10px;font-family:var(--mono);font-size:12px;margin:20px 0 22px;color:var(--sub)}.lk-s b{color:var(--ink)}
+.lock .big{width:100%}
+main.enter .lock{animation:fadeup .8s var(--ease) both}
+main.enter .lk-i svg path{stroke-dasharray:24;animation:draw 1s var(--ease) .3s both}
+.offbar .nbi{color:var(--ink)}.offbar{border-color:var(--ink)}
+#tabs button.lk{opacity:.5}
+#tabs button.lk .ic{position:relative}
+#tabs button.lk .ic::after{content:'';position:absolute;right:2px;top:2px;width:8px;height:8px;border-radius:50%;background:var(--sub);box-shadow:0 0 0 2px var(--card)}
+.onsh{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--ok)}.onsh b{color:var(--ink);font-weight:600}
+.onsh .lv{background:var(--ok);box-shadow:0 0 0 3px rgba(26,138,58,.15)}
+button.big.sm{padding:8px 16px!important;font-size:12.5px;border-radius:10px;height:auto}
+.pagehead .phr{gap:14px}
+/* mobile */
+@media (max-width:760px){
+ .rph{display:none}
+ .rpa,.rpg.cl .rpa{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;padding:14px 0}
+ .rpg.cl .rpa{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .rpa-n{grid-column:1/-1}
+ .rpc::before{content:attr(data-l);display:block;font-family:Inter,Helvetica,sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:3px}
+ .rps{grid-column:1/-1}
+ .rstl-m{display:block}
+ .rpbar .rpnav{order:-1;flex:1 1 100%}
+ .rpbar #rpK{flex:1 1 auto}.rpbar #rpK button{flex:1}
+ .apr{gap:8px;flex-wrap:wrap}.apr em{min-width:0}.apr time{min-width:0}
+ .lgst{font-size:23px}
+ .lock{margin-top:3vh;padding:34px 22px 26px!important}
+ .pagehead .phr{width:100%;justify-content:space-between}
+}
+
 </style>
 </head>
 <body>
@@ -2445,6 +2547,196 @@ document.addEventListener('click',e=>{ let b;
   if(e.target.closest('#anPrint')){ openMonthReport(anYm); return; }
   if(e.target.closest('#phRep')){ e.stopPropagation(); activeTab='analytics'; anPane2='report'; render(); window.scrollTo({top:0}); } },true);
 document.addEventListener('change',e=>{ if(e.target.id==='anMon'){ anYm=e.target.value; render(); } });
+
+
+// ===== v19: Manager hub — live weekly/monthly reports, per-account view, Zahra's log, shift-gated access =====
+SECTIONS.push(...['msgs','alog'].filter(k=>!SECTIONS.includes(k)));
+mgPane='reports';
+let repKind='week', repOff=0, accSel=null, accDays=7;
+const wMs=(d,k)=>{ const tk=todayKey(), e=tsAt(k,shiftCfg().out); return (d.sessions||[]).reduce((a,s)=>a+Math.max(0,(s.out||(k<tk?Math.max(s.in,e):Date.now()))-s.in),0); };
+const POSTER_ID=Object.keys(USERS).find(k=>USERS[k].role==='poster');
+const ICON_LOCK=mkSvg('<rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>');
+const fmtH=ms=>{ const m=Math.round(ms/6e4); return Math.floor(m/60)+'h '+pad(m%60)+'m'; };
+const fmtClock=ms=>new Date(new Date().setHours(0,0,0,0)+ms).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+const fmtLong=k=>new Date(k+'T00:00:00').toLocaleDateString([], {weekday:'short',day:'numeric',month:'short'});
+const keysIn=(a,b)=>{ const L=[]; for(let k=a;k<=b;k=addDays(k,1)) L.push(k); return L; };
+const isCar=t=>t.kind==='carousel';
+const schedTxt=a=>{ const r=a.tasks.filter(t=>!isCar(t)).length, c=a.tasks.filter(isCar).length; return [r?r+' reel'+(r>1?'s':''):'',c?c+' carousel'+(c>1?'s':''):''].filter(Boolean).join(' + ')+' a day'; };
+const vNum=v=>Number(v.h48!==''&&v.h48!=null?v.h48:v.h24)||0;
+const vEng=v=>['likes','comments','shares','saves'].reduce((x,f)=>x+(Number(v[f])||0),0);
+
+// ---- activity log (app log in / log out)
+function logEv(e){ if(!me) return; data.alog=(data.alog||[]).concat({t:Date.now(),u:me.id,e}).slice(-400); save(); }
+const _login19=login; login=function(u,p){ const ok=_login19(u,p); if(ok) logEv('login'); return ok; };
+const _logout19=logout; logout=function(){ logEv('logout'); _logout19(); };
+
+// ---- periods
+function periodOf(kind,off){ const tk=todayKey();
+  if(kind==='week'){ const s=addDays(weekStart(tk),7*off), e=addDays(s,6); return {kind,off,start:s,end:e,label:fmtD(s)+' – '+fmtD(e),tag:off===0?'This week':off===-1?'Last week':'',name:'Week of '+fmtD(s)}; }
+  const n=new Date(), d=new Date(n.getFullYear(),n.getMonth()+off,1), y=d.getFullYear(), m=d.getMonth(), s=dateKey(y,m,1), e=dateKey(y,m,new Date(y,m+1,0).getDate());
+  return {kind,off,start:s,end:e,ym:s.slice(0,7),label:monName(s.slice(0,7)),tag:off===0?'This month':off===-1?'Last month':'',name:monName(s.slice(0,7))}; }
+function periodStats(P){ const tk=todayKey(), ft=firstTracked(), sh=shiftCfg(), last=P.end<tk?P.end:tk, K=P.start<=tk?keysIn(P.start,last):[];
+  const S={P,days:K,allDays:keysIn(P.start,P.end),posted:0,sched:0,missed:0,reels:0,car:0,extra:0,views:0,eng:0,fol:0,withV:0,nPosts:0,ended:P.end<tk,att:{days:0,ms:0,late:0,open:0,ins:[]}};
+  S.acc=ACCOUNTS.map(a=>({a,r:{p:0,s:0},c:{p:0,s:0},x:0,miss:0,views:0,eng:0,fol:0,withV:0,n:0,day:{}}));
+  K.forEach(k=>{ const d=dayOrEmpty(k), tr=!!ft&&k>=ft;
+    S.acc.forEach(o=>{ let dp=0,ds=0; const addV=v=>{ o.n++; if(hasV(v)) o.withV++; o.views+=vNum(v); o.eng+=vEng(v); o.fol+=Number(v.fol)||0; };
+      o.a.tasks.forEach(t=>{ const g=isCar(t)?o.c:o.r; if(tr){ g.s++; ds++; } if(d.tasks[t.key]){ g.p++; dp++; addV((d.views||{})[t.key]||{}); } else if(tr&&k<tk) o.miss++; });
+      (d.extra||[]).filter(x=>x.acct===o.a.id).forEach(x=>{ o.x++; dp++; addV((d.views||{})[x.id]||{}); });
+      o.day[k]={p:dp,s:ds,tr}; });
+    const ss=d.sessions||[]; if(ss.length){ S.att.days++; S.att.ms+=wMs(d,k); const f=Math.min(...ss.map(s=>s.in)); S.att.ins.push(f-new Date(k+'T00:00:00').getTime()); if(f>tsAt(k,sh.in)+15*6e4) S.att.late++; if(ss.some(s=>s.auto||(!s.out&&k<tk))) S.att.open++; } });
+  S.acc.forEach(o=>{ S.posted+=o.r.p+o.c.p; S.sched+=o.r.s+o.c.s; S.missed+=o.miss; S.reels+=o.r.p; S.car+=o.c.p; S.extra+=o.x; S.views+=o.views; S.eng+=o.eng; S.fol+=o.fol; S.withV+=o.withV; S.nPosts+=o.n; });
+  S.total=S.posted+S.extra; S.rate=S.sched?Math.min(100,Math.round(S.posted/S.sched*100)):0;
+  const t0=new Date(P.start+'T00:00:00').getTime(), t1=new Date(addDays(P.end,1)+'T00:00:00').getTime(), inR=t=>!!t&&t>=t0&&t<t1;
+  S.ed=EDITORS.map(ed=>{ const ks=new Set([addDays(P.start,-1),...S.allDays].map(k=>ed.period==='week'?weekStart(k):k)); let prov=0,del=0,late=0;
+    ks.forEach(k=>slotsOf(ed,k).forEach(s=>{ if(inR(s.recv)) prov++; if(inR(s.done)){ del++; if(ed.period==='day'&&s.recv&&s.done-s.recv>864e5) late++; } })); return {ed,prov,del,late}; });
+  return S; }
+function postsIn(P){ const L=[], tk=todayKey(), ft=firstTracked(); keysIn(P.start,P.end<tk?P.end:tk).forEach(k=>{ const d=dayOrEmpty(k), tr=!!ft&&k>=ft;
+  ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const p=!!d.tasks[t.key]; if(!p&&!tr) return; L.push({k,a,l:t.label,kind:t.kind,st:p?'Posted':k<tk?'Missed':'Pending',at:(d.times||{})[t.key],v:(d.views||{})[t.key]||{}}); }));
+  (d.extra||[]).forEach(x=>{ const a=ACCOUNTS.find(z=>z.id===x.acct); if(a) L.push({k,a,l:xLabel(x),kind:x.kind,st:'Extra',at:(d.times||{})[x.id],v:(d.views||{})[x.id]||{}}); }); }); return L; }
+
+// ---- shared pieces
+const st19=(l,v,cls='',x='')=>`<div class="stat"><span>${l}</span><b class="${cls}">${v}</b>${x}</div>`;
+function stripHtml(o,S,P){ const tk=todayKey(); return `<div class="rstrip ${P.kind}">${S.allDays.map(k=>{ const x=o.day[k]; let c='fut', f='';
+  if(k<=tk){ if(!x||!x.tr) c=x&&x.p?'part':'nt'; else if(x.s&&x.p>=x.s) c='full'; else if(x.p){ c='part'; f=`--f:${(x.p/Math.max(1,x.s)).toFixed(2)}`; } else c=k<tk?'miss':'nt'; }
+  return `<i class="${c} ${k===tk?'td':''}" style="${f}" title="${fmtLong(k)}${x&&(x.tr||x.p)?' · '+x.p+'/'+x.s:''}"></i>`; }).join('')}</div>`; }
+const stripLbl=(S,P)=>P.kind==='week'?`<div class="rstl week">${S.allDays.map(k=>`<span>${new Date(k+'T00:00:00').toLocaleDateString([], {weekday:'narrow'})}</span>`).join('')}</div>`:`<div class="rstl"><span>${fmtD(P.start)}</span><span>${fmtD(P.end)}</span></div>`;
+function acctTable(S,P,client){ const fr=g=>g.s?`<b>${g.p}</b><small>/${g.s}</small>`:g.p?`<b>${g.p}</b>`:'<small>—</small>';
+  const head=`<div class="rpa rph"><span>Account</span><span>Reels</span><span>Carousels</span><span>Extra</span><span>Total</span>${client?'':`<span>Missed</span><span class="rph-s">${stripLbl(S,P)}</span>`}</div>`;
+  return `<div class="rpg ${client?'cl':''}">${head}`+PLATFORMS.map(pl=>{ const L=S.acc.filter(o=>o.a.pid===pl.id); if(!L.length) return ''; const tp=L.reduce((x,o)=>x+o.r.p+o.c.p+o.x,0), rp=L.reduce((x,o)=>x+o.r.p,0), cp=L.reduce((x,o)=>x+o.c.p,0);
+    return `<div class="rpl"><div class="rpl-h">${logo(pl.id)}<b>${pl.name}</b><em>${tp} post${tp===1?'':'s'} · ${rp} reel${rp===1?'':'s'}${cp?' · '+cp+' carousel'+(cp===1?'':'s'):''}</em></div>`+L.map(o=>`<div class="rpa"><div class="rpa-n"><b>${dn(o.a.handle)}</b><span>${schedTxt(o.a)}</span></div><div class="rpc" data-l="Reels">${fr(o.r)}</div><div class="rpc" data-l="Carousels">${fr(o.c)}</div><div class="rpc" data-l="Extra">${o.x?'<b>+'+o.x+'</b>':'<small>—</small>'}</div><div class="rpc" data-l="Total"><b>${o.r.p+o.c.p+o.x}</b></div>${client?'':`<div class="rpc ${o.miss?'bad':''}" data-l="Missed">${o.miss?'<b>'+o.miss+'</b>':'<small>0</small>'}</div><div class="rps">${stripHtml(o,S,P)}</div>`}</div>`).join('')+`</div>`; }).join('')+`</div>`; }
+function viewsBlock(S,P,client){ const any=S.withV>0;
+  let note=''; if(P.kind==='month'){ const c=mvCnt(P.ym); note=!c.n?'':!c.miss?'All views are in for this month.':`${c.n-c.miss} of ${c.n} posts have views so far. ${POSTER_NAME} adds them at month-end.`; }
+  else note='Views are added once at month-end, so this week fills in after the month closes.';
+  if(!any) return client?'':`<div class="card">${ek('Views & engagement')}<p class="muted" style="margin:6px 0 0">${note}</p></div>`;
+  const rows=S.acc.filter(o=>o.n).sort((x,y)=>y.views-x.views);
+  return `<div class="card">${ek('Views & engagement',client?'':`${S.withV}/${S.nPosts} posts`)}<div class="grid kpi3" style="margin-top:14px">${st19('Views',fmtN(S.views))}${st19('Avg per post',fmtN(S.withV?Math.round(S.views/S.withV):0))}${st19('Engagement',fmtN(S.eng))}${st19('Followers gained','+'+fmtN(S.fol))}</div>
+    <div class="table-wrap" style="margin-top:18px"><table class="growth-table"><thead><tr><th>Account</th><th>Views</th><th>Avg</th><th>Engagement</th><th>Followers</th></tr></thead><tbody>${rows.map(o=>`<tr><td>${logo(o.a.pid)} ${dn(o.a.handle)}</td><td data-l="Views">${fmtN(o.views)}</td><td data-l="Avg">${fmtN(o.withV?Math.round(o.views/o.withV):0)}</td><td data-l="Engagement">${fmtN(o.eng)}</td><td data-l="Followers">+${fmtN(o.fol)}</td></tr>`).join('')}</tbody></table></div>
+    ${client||!note?'':`<p class="muted" style="margin:12px 0 0;font-size:12px">${note}</p>`}</div>`; }
+
+// ---- Reports pane
+function reportsHtml(){ const P=periodOf(repKind,repOff), S=periodStats(P), now=new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  const bar=`<div class="rpbar"><div class="seg" id="rpK">${[['week','Weekly'],['month','Monthly']].map(([k,l])=>`<button data-rk="${k}" class="${repKind===k?'active':''}">${l}</button>`).join('')}</div>
+    <div class="rpnav"><button class="ghost" id="rpPrev" aria-label="Previous">‹</button><div><b>${P.label}</b>${P.tag?`<span>${P.tag}</span>`:''}</div><button class="ghost" id="rpNext" aria-label="Next" ${repOff>=0?'disabled':''}>›</button></div>
+    <div class="rpact"><button class="ghost" id="rpCsv">CSV</button><button class="pill" id="rpCl">Client report</button></div></div>`;
+  const live=S.ended?'<span class="rpfin">final</span>':`<span class="rplive"><i class="lv"></i>live · updated ${now}</span>`;
+  const a=S.att, avg=a.ins.length?fmtClock(a.ins.reduce((x,y)=>x+y,0)/a.ins.length):'—';
+  return bar+`<div class="card">${ek(P.name+' · report',live)}
+    <div class="rphero"><div><div class="enum">${roll(S.total)}<span class="of">posts</span></div><div class="esub">${S.posted} of ${S.sched} scheduled${S.ended?'':' so far'}${S.extra?' · +'+S.extra+' extra':''}</div></div>
+      <div class="rprate"><div class="enum sm">${roll(S.rate)}<span class="of">%</span></div><div class="esub">of schedule posted</div></div></div>
+    <div style="margin:18px 0 20px">${ln(S.sched?S.posted/S.sched:0)}</div>
+    <div class="grid kpi3">${st19('Reels',S.reels)}${st19('Carousels',S.car)}${st19('Extra posts',S.extra)}${st19('Missed',S.missed,S.missed?'bad':'')}${st19('Accounts',ACCOUNTS.length)}${st19('Days tracked',S.days.length+' / '+S.allDays.length)}</div></div>
+   <div class="card">${ek('By account',`${ACCOUNTS.length} accounts · ${PLATFORMS.length} platforms`)}${acctTable(S,P,false)}<div class="rstl-m">${stripLbl(S,P)}</div>
+     <div class="tl-lg" style="margin-top:12px"><span><i class="hm" style="background:var(--ok);border:0"></i>All posted</span><span><i class="hm" style="background:var(--ink);opacity:.45;border:0"></i>Some posted</span><span><i class="hm cmiss"></i>Missed</span></div></div>
+   ${viewsBlock(S,P,false)}
+   <div class="card">${ek(POSTER_NAME+' · attendance','<button class="lnk" data-go="log">Open log →</button>')}<div class="grid kpi3" style="margin-top:14px">${st19('Days worked',a.days)}${st19('Hours',fmtH(a.ms))}${st19('Avg sign-in',avg)}${st19('Late sign-ins',a.late,a.late?'bad':'')}${st19('Missed sign-outs',a.open,a.open?'bad':'')}${st19('Avg per day',a.days?fmtH(a.ms/a.days):'—')}</div></div>
+   <div class="card">${ek('Editors')}${S.ed.map(x=>`<div class="ef"><time>${x.ed.period==='week'?'weekly':'daily'}</time><span class="erow"><b>${esc(x.ed.name)}</b><em>${x.prov} provided · ${x.del} delivered${x.late?' · <span class="bad">'+x.late+' late</span>':''}</em></span></div>`).join('')}</div>`; }
+
+function openClientReport(P){ const S=periodStats(P), L=postsIn(P).filter(r=>r.st!=='Missed'&&r.st!=='Pending'&&hasV(r.v)).sort((x,y)=>vNum(y.v)-vNum(x.v)), old=document.getElementById('reportOv'); if(old) old.remove();
+  const o=document.createElement('div'); o.id='reportOv';
+  o.innerHTML=`<div class="rep"><div class="no-print" style="display:flex;gap:8px;margin-bottom:18px"><button class="pill" id="repPrint">Print / Save as PDF</button><button class="ghost" id="repClose">Close</button></div>
+    <div class="pagehead"><div><h1 class="pt">${esc(CLIENT_NAME)} · ${P.kind==='week'?'Weekly':'Monthly'} report</h1><p>${fmtLong(P.start)} – ${fmtLong(P.end)} · prepared by Team Editora</p></div></div>
+    <div class="card">${ek('Summary')}<div class="grid kpi3" style="margin-top:14px">${st19('Posts published',S.total)}${st19('Reels',S.reels)}${st19('Carousels',S.car)}${st19('Extra posts',S.extra)}${st19('Accounts',ACCOUNTS.length)}${st19('Platforms',PLATFORMS.length)}</div></div>
+    <div class="card">${ek('Posts by account')}${acctTable(S,P,true)}</div>
+    ${viewsBlock(S,P,true)}
+    ${L.length?`<div class="card">${ek('Top posts','by views')}${L.slice(0,5).map((r,i)=>`<div class="ef"><time>${fmtD(r.k)}</time><span class="erow">${logo(r.a.pid)}<b>${dn(r.a.handle)} · ${esc(r.l)}</b><em>${fmtN(vNum(r.v))}</em></span></div>`).join('')}</div>`:''}</div>`;
+  document.body.appendChild(o); o.querySelector('#repPrint').onclick=()=>window.print(); o.querySelector('#repClose').onclick=()=>o.remove(); }
+function csvRange(P){ const rows=[['Date','Platform','Account','Post','Type','Status','Posted at','Views','FB views','Likes','Comments','Shares','Saves','Followers gained']];
+  postsIn(P).forEach(r=>{ const v=r.v; rows.push([r.k,r.a.platform,r.a.handle,r.l,r.kind==='carousel'?'Carousel':'Reel',r.st,r.at?fmtTime(r.at):'',hasV(v)?vNum(v):'',v.fbv??'',v.likes??'',v.comments??'',v.shares??'',v.saves??'',v.fol??'']); });
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n'), a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`dot-${P.kind}-${P.start}.csv`; document.body.appendChild(a); a.click(); a.remove(); }
+
+// ---- Accounts pane (one ID at a time)
+function accountsHtml(){ if(!ACCOUNTS.length) return '<div class="card"><p class="muted" style="margin:0">No accounts set up yet. Add them in Settings.</p></div>';
+  if(!accSel||!ACCOUNTS.some(a=>a.id===accSel)) accSel=ACCOUNTS[0].id; const a=ACCOUNTS.find(x=>x.id===accSel), tk=todayKey(), td=dayOrEmpty(tk);
+  const pick=P=>periodStats(P).acc.find(o=>o.a.id===a.id), W=pick(periodOf('week',0)), M=pick(periodOf('month',0)), P30={kind:'month',start:addDays(tk,-29),end:tk}, S30=periodStats(P30), o30=S30.acc.find(o=>o.a.id===a.id);
+  const tp=a.tasks.filter(t=>td.tasks[t.key]).length+(td.extra||[]).filter(x=>x.acct===a.id).length, fr=(o)=>`${o.r.p+o.c.p+o.x}<small> / ${o.r.s+o.c.s}</small>`;
+  const chips=`<div class="acchips">${ACCOUNTS.map(x=>{ const n=x.tasks.filter(t=>td.tasks[t.key]).length; return `<button class="acch ${x.id===accSel?'on':''}" data-acc="${x.id}">${logo(x.pid)}<span>${dn(x.handle)}</span><em>${n}/${x.tasks.length}</em></button>`; }).join('')}</div>`;
+  const L=postsIn({start:addDays(tk,-(accDays-1)),end:tk}).filter(r=>r.a.id===a.id), byDay={}; L.forEach(r=>(byDay[r.k]=byDay[r.k]||[]).push(r));
+  const pst=r=>r.st==='Posted'?`<span class="pst ok">posted</span>`:r.st==='Extra'?`<span class="pst ex">extra</span>`:r.st==='Missed'?`<span class="pst miss">missed</span>`:`<span class="pst pend">pending</span>`;
+  const days=Object.keys(byDay).sort().reverse().map(k=>{ const R=byDay[k], p=R.filter(r=>r.st==='Posted'||r.st==='Extra').length;
+    return `<div class="apd"><div class="apd-h"><span>${k===tk?'Today':fmtLong(k)}</span><span>${p} posted</span></div>${R.map(r=>`<div class="apr">${pst(r)}<b>${esc(r.l)}</b><time>${r.at?fmtTime(r.at):'—'}</time><em>${hasV(r.v)?fmtN(vNum(r.v))+' views':''}</em></div>`).join('')}</div>`; }).join('');
+  return chips+`<div class="card">${ek(a.platform+' · '+schedTxt(a),'<span class="rplive"><i class="lv"></i>live</span>')}
+    <div class="acc-h">${logo(a.pid)}<div><h2 class="acc-t">${dn(a.handle)}</h2><span>${esc(a.handle)}</span></div></div>
+    <div class="grid kpi3" style="margin-top:18px">${st19('Today',`${tp}<small> / ${a.tasks.length}</small>`)}${st19('This week',fr(W))}${st19('This month',fr(M))}${st19('Reels this month',M.r.p)}${st19('Carousels this month',M.c.p)}${st19('Missed this month',M.miss,M.miss?'bad':'')}</div>
+    ${M.withV?`<div class="grid kpi3" style="margin-top:16px">${st19('Views this month',fmtN(M.views))}${st19('Engagement',fmtN(M.eng))}${st19('Followers gained','+'+fmtN(M.fol))}</div>`:''}</div>
+   <div class="card">${ek('Last 30 days',`${o30.r.p+o30.c.p+o30.x} posts`)}<div style="margin-top:14px">${stripHtml(o30,S30,P30)}</div>${stripLbl(S30,P30)}</div>
+   <div class="card">${ek('Every post',`last ${accDays} days`)}${days||'<p class="muted" style="margin:6px 0 0">Nothing tracked for this account yet.</p>'}
+     <button class="ghost" id="accMore" style="margin-top:14px">${accDays===7?'Show 30 days':'Show 7 days'}</button></div>`; }
+
+// ---- Log pane (Zahra's sign in / sign out)
+function zEvents(days){ const E=[], tk=todayKey(), sh=shiftCfg();
+  for(let i=0;i<days;i++){ const k=addDays(tk,-i), d=data.poster[k]; if(!d) continue;
+    (d.sessions||[]).forEach(s=>{ E.push({t:s.in,c:'in',x:'Signed in'+(s.in>tsAt(k,sh.in)+15*6e4&&s===d.sessions[0]?' · late':'')}); if(s.out) E.push({t:s.out,c:'out',x:s.auto?'Shift closed automatically (no sign-out)':s.fixed?'Sign-out set by manager':'Signed out'}); });
+    ACCOUNTS.forEach(a=>a.tasks.forEach(t=>{ const at=(d.times||{})[t.key]; if(d.tasks[t.key]&&at) E.push({t:at,c:'post',x:`Posted ${dn(a.handle)} · ${t.label}`}); }));
+    (d.extra||[]).forEach(x=>{ const a=ACCOUNTS.find(z=>z.id===x.acct), at=(d.times||{})[x.id]; if(a&&at) E.push({t:at,c:'post',x:`Posted extra · ${dn(a.handle)} · ${x.kind==='carousel'?'Carousel':'Reel'}`}); }); }
+  const t0=new Date(addDays(tk,-(days-1))+'T00:00:00').getTime(); (data.alog||[]).filter(e=>e.u===POSTER_ID&&e.t>=t0).forEach(e=>E.push({t:e.t,c:'app',x:e.e==='login'?'Logged in to dot.':'Logged out of dot.'}));
+  return E.sort((a,b)=>b.t-a.t); }
+function logHtml(){ const tk=todayKey(), d=dayOrEmpty(tk), on=isOn(d), sh=shiftCfg(), W=periodStats(periodOf('week',0)), M=periodStats(periodOf('month',0)), ft=firstTracked();
+  const openS=(d.sessions||[]).find(s=>!s.out), lastOut=(d.sessions||[]).filter(s=>s.out).map(s=>s.out).sort().pop();
+  const now=on?`On shift since ${fmtTime(openS.in)}`:lastOut?`Signed out at ${fmtTime(lastOut)}`:'Not signed in today';
+  const rows=[]; for(let i=0;i<30;i++){ const k=addDays(tk,-i), x=dayOrEmpty(k), ss=x.sessions||[]; if(!ss.length&&!(ft&&k>=ft)) continue;
+    const late=ss.length&&Math.min(...ss.map(s=>s.in))>tsAt(k,sh.in)+15*6e4, lm=late?Math.round((Math.min(...ss.map(s=>s.in))-tsAt(k,sh.in))/6e4):0, open=k<tk&&ss.some(s=>!s.out), auto=ss.some(s=>s.auto), posted=doneCount(x)+(x.extra||[]).length;
+    const fl=[!ss.length&&k<tk?'<span class="flg open">no sign-in</span>':'',late?`<span class="flg late">late ${lm>=60?Math.floor(lm/60)+'h ':''}${lm%60}m</span>`:'',open?'<span class="flg open">no sign-out</span>':'',auto?'<span class="flg auto">auto-closed</span>':'',ss.some(s=>s.fixed)?'<span class="flg auto">fixed by manager</span>':'',ss.length&&!late&&!open&&!auto?'<span class="flg ok">on time</span>':''].join('');
+    rows.push(`<tr><td>${k===tk?'Today':fmtLong(k)}</td><td data-l="Sign in">${ss.map(s=>fmtTime(s.in)).join('<br>')||'—'}</td><td data-l="Sign out">${ss.map(s=>s.out?fmtTime(s.out):k===tk?'<b class="okc">on shift</b>':'—').join('<br>')||'—'}</td><td data-l="Hours"><b ${k===tk&&on?`data-timer="${k}"`:''}>${k===tk&&on?fmtDur(workedMs(x)):ss.length?fmtH(wMs(x,k)):'—'}</b></td><td data-l="Posts">${posted}/${ALL_TASKS.length}</td><td data-l="Status">${fl}${open?` <button class="lnk" data-fix="${k}">Close at ${fmt12(sh.out)}</button>`:''}</td></tr>`); }
+  const E=zEvents(14).filter(e=>e.c!=='post'), grp={}; E.forEach(e=>{ const k=new Date(e.t); const kk=dateKey(k.getFullYear(),k.getMonth(),k.getDate()); (grp[kk]=grp[kk]||[]).push(e); });
+  const feed=Object.keys(grp).sort().reverse().map(k=>`<div class="efd">${k===tk?'Today':fmtLong(k)}</div>`+grp[k].map(e=>`<div class="ef lgf"><time>${fmtTime(e.t)}</time><span class="erow"><i class="ev ${e.c}"></i><b>${esc(e.x)}</b></span></div>`).join('')).join('');
+  return `<div class="card">${ek(POSTER_NAME+' · right now',on?'on shift':'off shift',on)}<div class="lgst">${now}</div><div class="esub">Shift ${fmt12(sh.in)} – ${fmt12(sh.out)} · today ${on?`<b data-timer="${tk}">${fmtDur(workedMs(d))}</b>`:fmtH(workedMs(d))} worked</div>
+    <div class="grid kpi3" style="margin-top:18px">${st19('Hours this week',fmtH(W.att.ms))}${st19('Days this week',W.att.days)}${st19('Hours this month',fmtH(M.att.ms))}${st19('Late sign-ins (month)',M.att.late,M.att.late?'bad':'')}${st19('Missed sign-outs (month)',M.att.open,M.att.open?'bad':'')}${st19('Avg per day',M.att.days?fmtH(M.att.ms/M.att.days):'—')}</div></div>
+   <div class="card">${ek('Sign in / sign out','last 30 days')}${rows.length?`<div class="table-wrap" style="margin-top:10px"><table class="growth-table lgtb"><thead><tr><th>Day</th><th>Sign in</th><th>Sign out</th><th>Hours</th><th>Posts</th><th>Status</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>`:'<p class="muted" style="margin:6px 0 0">No sign-ins yet.</p>'}
+     <p class="muted" style="margin:12px 0 0;font-size:12px">Late = more than 15 minutes after ${fmt12(sh.in)}. A shift left open is closed automatically at shift end the next time ${POSTER_NAME} signs in.</p></div>
+   <div class="card">${ek('Sign-in activity','last 14 days')}${feed||'<p class="muted" style="margin:6px 0 0">No activity yet.</p>'}</div>`; }
+
+// ---- Manager tab: Reports · Accounts · Log · Reels · Messages · Settings
+const _rm19=renderManager;
+renderManager=function(){ _rm19(); if(!adminMode) return; const app=document.getElementById('app'), old={}; app.querySelectorAll('.pane').forEach(p=>old[p.dataset.p]=[...p.children]);
+  const frag=h=>{ const t=document.createElement('div'); t.innerHTML=h; return [...t.children]; };
+  const G={reports:frag(reportsHtml()),accounts:frag(accountsHtml()),log:frag(logHtml()),reels:old.reels||[],msg:old.msg||[],settings:[...(old.post||[]),...(old.reset||[])]};
+  paneUp('mgPane',[['reports','Reports'],['accounts','Accounts'],['log','Log'],['reels','Reels'],['msg','Messages'],['settings','Settings']],mgPane,G,v=>{ mgPane=v; });
+  const sb=app.querySelector('#mgPane button.active'); if(sb) sb.scrollIntoView({block:'nearest',inline:'center'}); startTick(); };
+function rerenderKeep(){ const y=scrollY; render(); scrollTo(0,y); }
+document.addEventListener('click',e=>{ let b;
+  if(b=e.target.closest('#rpK button')){ repKind=b.dataset.rk; repOff=0; rerenderKeep(); return; }
+  if(e.target.closest('#rpPrev')){ repOff--; rerenderKeep(); return; }
+  if(e.target.closest('#rpNext')){ if(repOff<0){ repOff++; rerenderKeep(); } return; }
+  if(e.target.closest('#rpCsv')){ csvRange(periodOf(repKind,repOff)); return; }
+  if(e.target.closest('#rpCl')){ openClientReport(periodOf(repKind,repOff)); return; }
+  if(b=e.target.closest('[data-go]')){ mgPane=b.dataset.go; render(); scrollTo({top:0}); return; }
+  if(b=e.target.closest('.acch')){ accSel=b.dataset.acc; rerenderKeep(); return; }
+  if(e.target.closest('#accMore')){ accDays=accDays===7?30:7; rerenderKeep(); return; }
+  if(b=e.target.closest('[data-fix]')){ const k=b.dataset.fix, d=getDay(k), end=tsAt(k,shiftCfg().out); d.sessions.forEach(s=>{ if(!s.out){ s.out=Math.max(s.in+6e4,end); s.fixed=1; } }); save(); toast('Shift closed',`${fmtLong(k)} closed at ${fmt12(shiftCfg().out)}`); rerenderKeep(); return; } });
+setInterval(()=>{ if(document.hidden||activeTab!=='manager'||!['reports','accounts','log'].includes(mgPane)) return; if(document.querySelector('#reportOv,.menu.open,#lgOv')) return;
+  const a=document.activeElement; if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)) return; rerenderKeep(); },30000);
+
+// ---- Analytics folds into Manager → Reports
+const _tf19=tabsFor; tabsFor=function(){ return _tf19().filter(t=>t.id!=='analytics'); };
+document.addEventListener('click',e=>{ if(!e.target.closest('#phRep')) return; activeTab='manager'; mgPane='reports'; render(); scrollTo({top:0}); },true);
+const _af19=alertsFor;
+alertsFor=function(){ const A=_af19().map(a=>a.tab==='analytics'?{...a,tab:'manager',pane:'reports'}:a); if(!adminMode) return A; const d=new Date();
+  if(d.getDay()===1){ const P=periodOf('week',-1), S=periodStats(P); if(S.sched) A.push({id:'wrp-'+P.start,lv:'ok',title:'Last week\'s report is ready',body:`${S.total} posts · ${S.rate}% of the schedule. Manager → Reports.`,tab:'manager',pane:'reports'}); }
+  if(d.getDate()<=2){ const P=periodOf('month',-1), S=periodStats(P); if(S.sched) A.push({id:'mrp-'+P.ym,lv:'ok',title:`${monName(P.ym).split(' ')[0]} posting report is ready`,body:`${S.total} posts across ${ACCOUNTS.length} accounts. Manager → Reports.`,tab:'manager',pane:'reports'}); }
+  return A; };
+document.addEventListener('click',e=>{ const n=e.target.closest('.ni'); if(!n||n.dataset.tab!=='manager') return; if(n.dataset.pane) mgPane=n.dataset.pane;
+  const t=n.textContent; if(/Last week's report/.test(t)){ repKind='week'; repOff=-1; } else if(/report is ready/.test(t)){ repKind='month'; repOff=-1; } },true);
+
+// ---- Zahra: access only while signed in to her shift
+const GATED=['sheet','calendar'];
+const posterOff=()=>!!me&&me.role==='poster'&&!isOn(dayOrEmpty(todayKey()));
+function closeStale(){ const tk=todayKey(), sh=shiftCfg(); Object.keys(data.poster).filter(k=>k<tk).forEach(k=>{ const d=data.poster[k]; (d.sessions||[]).forEach(s=>{ if(!s.out){ s.out=Math.max(s.in+6e4,tsAt(k,sh.out)); s.auto=1; } }); }); }
+function signIn19(){ closeStale(); const d=getDay(todayKey()); if(!isOn(d)) d.sessions.push({in:Date.now(),out:null}); save(); toast('Signed in','Your shift has started. Sheet and Calendar are unlocked.'); render(); }
+function signOut19(){ const d=getDay(todayKey()); d.sessions.forEach(s=>{ if(!s.out) s.out=Date.now(); }); save(); toast('Signed out','Sheet and Calendar stay locked until you sign in again.'); render(); }
+document.addEventListener('click',e=>{ if(e.target.closest('#dIn')) closeStale(); },true);
+document.addEventListener('click',e=>{ if(e.target.closest('#lkIn')) signIn19(); else if(e.target.closest('#lkOut')) signOut19(); });
+function lockHtml(){ const sh=shiftCfg(), d=dayOrEmpty(todayKey()), lo=(d.sessions||[]).filter(s=>s.out).map(s=>s.out).sort().pop(), past=Date.now()>tsAt(todayKey(),sh.out);
+  return `<div class="card lock"><div class="lk-i">${ICON_LOCK}</div><div class="ek" style="justify-content:center"><span>${lo?'Signed out':'Off shift'}</span></div>
+    <h1 class="lk-t">${lo?'Your shift is closed':'Sign in to start your shift'}</h1><p class="muted">${lo?`You signed out at ${fmtTime(lo)}. Sign in again if you still have posts to do.`:'Your Sheet and Calendar unlock the moment you sign in, and lock again when you sign out.'}</p>
+    <div class="lk-s"><span>Shift</span><b>${fmt12(sh.in)} – ${fmt12(sh.out)}</b>${past&&!lo?'<span class="bad">· ended</span>':''}</div><button class="big" id="lkIn">Sign in</button></div>`; }
+function gate19(){ if(!me||me.role!=='poster') return; const app=document.getElementById('app'), off=posterOff();
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('lk',off&&GATED.includes(b.dataset.tab)));
+  if(off&&GATED.includes(activeTab)){ app.classList.remove('cols2'); app.innerHTML=lockHtml(); return; }
+  if(off&&activeTab==='dashboard'&&!app.querySelector('.offbar')){ const first=app.querySelector('.dz')||app.firstElementChild; if(first) first.insertAdjacentHTML('beforebegin',`<div class="nbar offbar"><span class="nbi">${ICON_LOCK}</span><div class="nbt"><b>You're off shift</b>Sign in to unlock your Sheet and Calendar.</div><button class="pill" id="lkIn">Sign in</button></div>`); }
+  if(!off&&activeTab==='sheet'){ const ph=app.querySelector('.pagehead'); if(ph&&!ph.querySelector('#lkOut')){ ph.insertAdjacentHTML('beforeend',`<div class="phr"><span class="onsh"><i class="lv"></i>On shift · <b data-timer="${todayKey()}">${fmtDur(workedMs(getDay(todayKey())))}</b></span><button class="big out sm" id="lkOut">Sign out</button></div>`); startTick(); } } }
+const _render19=render;
+render=function(){ _render19(); try{ gate19(); const r=document.getElementById('phRep'); if(r) r.textContent='Reports'; }catch(e){ console.error(e); } };
 
 load(); cloudInit(); applyTheme();
 loadSession();
