@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>dot. (sample)</title>
+<title>dot.</title>
 <meta name="theme-color" content="#0b0b0b">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="dot.">
@@ -1663,6 +1666,39 @@ html.tt,html.tt *,html.tt *::before,html.tt *::after{transition:background-color
 
 :root[data-theme=light] #app .chips label.done input.ptime{color:var(--cream)!important}
 :root[data-theme=light] #app .plm-w.empty input.plm{color:transparent!important}:root[data-theme=light] #app .plm-w.empty:focus-within input.plm{color:var(--ink)!important}
+
+/* ===== SAMPLE: one spacing rhythm on every tab ===== */
+#app .pane>*{margin-bottom:14px}
+#app>.seg,#app .pane>.seg,#rpPane,#mgPane,#shPane{margin-bottom:16px!important}
+#app .rpbar{margin-bottom:24px!important}
+#app .pane>.card.fold,#app>.card.fold{margin-top:30px!important}
+#app .pane>.rpbar+.card.fold,#app .pane>.acchips+.card.fold{margin-top:30px!important}
+#app .acchips{margin-bottom:6px}
+@media (max-width:560px){
+ #app .pane>*{margin-bottom:12px}
+ #app .rpbar{display:grid!important;grid-template-columns:1fr 1fr;gap:10px!important;margin-bottom:24px!important}
+ #app .rpbar .rpnav{grid-column:1/-1;order:0!important;justify-content:space-between;flex:none!important;width:100%}
+ #app .rpbar .rpnav>div{flex:1}
+ #app .rpbar #rpK{grid-column:1/-1;width:100%!important}
+ #app .rpbar #rpK button{height:44px!important;font-size:13.5px!important;flex:1}
+ #app .rpbar .rpact{grid-column:1/-1;display:grid!important;grid-template-columns:1fr 1fr;gap:10px;margin:0!important;width:100%}
+ #app .rpbar:not(:has(#rpK)) .rpact{grid-template-columns:1fr}
+ #app .rpbar .rpact button{width:100%;height:44px!important;font-size:13.5px!important;padding:0 14px!important}
+ #app .rpnav button{width:44px!important;height:44px!important;flex:0 0 44px!important}
+ #app .pane>.card.fold,#app>.card.fold{margin-top:28px!important}
+ #app .seg button{min-height:40px}
+ .pagehead{margin-top:6px!important}
+}
+
+#app .pane>.card.fold,#app>.card.fold,#app .pane>.rpbar+.card.fold,#app .pane>.acchips+.card.fold,#app .pane>.seg+.card.fold{margin-top:40px!important}
+#app .rpbar{margin-bottom:0!important}
+@media (max-width:560px){
+ #app .rpbar .rpnav{order:-1!important}
+ #app .pane>.card.fold,#app>.card.fold,#app .pane>.rpbar+.card.fold,#app .pane>.acchips+.card.fold{margin-top:38px!important}
+ #app .pane[data-p="log"] .grid,#app .pane[data-p="accounts"] .grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ #app .pane[data-p="log"] .grid .stat,#app .pane[data-p="accounts"] .grid .stat{display:flex!important}
+}
+#app .rpbar .rpact:has(> button:only-child){grid-template-columns:1fr!important}#app .rpbar .rpact:has(> button:only-child) button{width:100%}
 </style>
 </head>
 <body>
@@ -1904,7 +1940,7 @@ function renderSheet(){
       <div class="stat"><b>${t.v24}</b><span>Views @24h</span></div>
       <div class="stat"><b>${t.v48}</b><span>Views @48h</span></div></div>
     <p class="muted" style="margin:8px 0 0">Tap a day to open it. Missed = a past day that was not ticked as posted.</p>
-    <button class="pill" id="csvBtn" style="margin-top:10px">Download month as CSV (opens in Google Sheets)</button></div>
+    </div>
     <div class="card"><div class="sheet-scroll"><table class="sheet"><thead><tr><th>Day</th><th>Posted</th><th>Missed</th><th>24h views</th><th>48h views</th></tr></thead>
       <tbody id="sumBody">${sumRows(y,m)}</tbody></table></div></div>
     <div class="card" id="detail"><h1>${new Date(sheetDate+'T00:00:00').toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'})}</h1>
@@ -1917,7 +1953,7 @@ function renderSheet(){
       <p class="muted" style="margin:10px 0 0">Add each post's views here at 24h and 48h. Likes, comments, shares, saves and followers are filled once a month in the monthly report below.</p></div>${monthEntryCard()}`;
   document.getElementById('sPrev').onclick=()=>{ sheetMonth.setMonth(sheetMonth.getMonth()-1); sheetDate=null; render(); };
   document.getElementById('sNext').onclick=()=>{ sheetMonth.setMonth(sheetMonth.getMonth()+1); sheetDate=null; render(); };
-  document.getElementById('csvBtn').onclick=()=>downloadCsv(y,m);
+  { const cb=document.getElementById('csvBtn'); if(cb) cb.onclick=()=>downloadCsv(y,m); }
   document.getElementById('sumBody').onclick=e=>{ const tr=e.target.closest('tr[data-d]'); if(!tr) return; sheetDate=tr.dataset.d; render();
     document.getElementById('detail').scrollIntoView({behavior:'smooth', block:'start'}); };
   document.querySelectorAll('.schk').forEach(c=>c.onchange=()=>{ setPosted(getDay(sheetDate), c.dataset.key, c.checked, sheetDate); save(); render(); });
@@ -3182,7 +3218,7 @@ function viewsBlock(S,P,client){ const any=S.withV>0;
 function reportsHtml(){ const P=periodOf(repKind,repOff), S=periodStats(P), now=new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
   const bar=`<div class="rpbar"><div class="seg" id="rpK">${[['week','Weekly'],['month','Monthly']].map(([k,l])=>`<button data-rk="${k}" class="${repKind===k?'active':''}">${l}</button>`).join('')}</div>
     <div class="rpnav"><button class="ghost" id="rpPrev" aria-label="Previous">‹</button><div><b>${P.label}</b>${P.tag?`<span>${P.tag}</span>`:''}</div><button class="ghost" id="rpNext" aria-label="Next" ${repOff>=0?'disabled':''}>›</button></div>
-    <div class="rpact"><button class="ghost" id="rpCsv">CSV</button><button class="pill" id="rpCl">Client report</button></div></div>`;
+    <div class="rpact"><button class="pill" id="rpCl">Client report</button></div></div>`;
   const live=S.ended?'<span class="rpfin">final</span>':`<span class="rplive"><i class="lv"></i>live<span class="upd"> · ${now}</span></span>`;
   const a=S.att, avg=a.ins.length?fmtClock(a.ins.reduce((x,y)=>x+y,0)/a.ins.length):'—';
   return bar+`<div class="card">${ek(P.kind==='week'?'Weekly report':'Monthly report',live)}
