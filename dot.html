@@ -2085,28 +2085,30 @@ let db=null, ready=false, got=0, pushed={}, pendingRender=false, syncT=null;
 let theme=(()=>{try{return localStorage.getItem('ct_theme')||'light'}catch(e){return 'light'}})();
 const SECTIONS=['editor1','editor2','calendar','analytics','meta','pipe','cfg'];
 function applyTheme(){ document.documentElement.dataset.theme=theme; }
-function setSync(s){ const e=document.getElementById('syncDot'); if(e){ e.className='sync '+s; e.title=s==='live'?'Synced':s==='offline'?'Offline - saved locally':'Local only (Firebase not configured)'; } }
+let syncMsg='';
+function setSync(s,msg){ if(msg!==undefined) syncMsg=msg; const e=document.getElementById('syncDot'); if(e){ e.className='sync '+s; e.title=(s==='live'?'Synced':s==='offline'?'Offline - saved locally':'Local only (Firebase not configured)')+(syncMsg?' | '+syncMsg:''); if(!e.dataset.tap){ e.dataset.tap=1; e.style.cursor='pointer'; e.addEventListener('click',()=>alert(e.title)); } } }
+function syncErr(where){ return err=>{ console.error('[dot sync] '+where, err); setSync('offline', where+': '+((err&&err.code)||(err&&err.message)||'error')); }; }
 function cloudInit(){
   if(!FIREBASE_CONFIG.apiKey || typeof firebase==='undefined') return setSync('local');
-  try{ firebase.initializeApp(FIREBASE_CONFIG); try{ firebase.analytics(); }catch(e){} db=firebase.firestore(); firebase.auth().signInAnonymously().catch(()=>{}).then(listen); }catch(e){ setSync('local'); }
+  try{ firebase.initializeApp(FIREBASE_CONFIG); try{ firebase.analytics(); }catch(e){} db=firebase.firestore(); firebase.auth().signInAnonymously().catch(syncErr('auth')).then(listen); }catch(e){ console.error(e); setSync('local'); }
 }
 function listen(){
   let f1=true,f2=true;
-  const first=()=>{ if(++got===2){ ready=true; syncCloud(); } setSync('live'); };
+  const first=()=>{ if(++got===2){ ready=true; syncCloud(); } setSync('live',''); };
   db.collection('dot').onSnapshot(snap=>{ let ch=false;
     snap.docChanges().forEach(c=>{ if(c.type==='removed'||c.doc.metadata.hasPendingWrites) return;
       const k=c.doc.id, v=(c.doc.data()||{}).v, s=JSON.stringify(v);
       if(SECTIONS.includes(k)&&v!==undefined&&pushed[k]!==s){ data[k]=v; pushed[k]=s; ch=true; } });
-    if(f1){f1=false; first();} if(ch) softRender(); }, ()=>setSync('offline'));
+    if(f1){f1=false; first();} if(ch) softRender(); }, syncErr('read dot'));
   db.collection('days').onSnapshot(snap=>{ let ch=false;
     snap.docChanges().forEach(c=>{ if(c.type==='removed'||c.doc.metadata.hasPendingWrites) return;
       const k=c.doc.id, v=(c.doc.data()||{}).v, s=JSON.stringify(v);
       if(v!==undefined&&pushed['p_'+k]!==s){ data.poster[k]=v; pushed['p_'+k]=s; ch=true; } });
-    if(f2){f2=false; first();} if(ch) softRender(); }, ()=>setSync('offline'));
+    if(f2){f2=false; first();} if(ch) softRender(); }, syncErr('read days'));
 }
 function syncCloud(){
   if(!db||!ready) return;
-  const put=(col,id,val,key)=>{ if(val==null) return; const s=JSON.stringify(val); if(pushed[key]===s) return; pushed[key]=s; db.collection(col).doc(id).set({v:JSON.parse(s)}).catch(()=>setSync('offline')); };
+  const put=(col,id,val,key)=>{ if(val==null) return; const s=JSON.stringify(val); if(pushed[key]===s) return; pushed[key]=s; db.collection(col).doc(id).set({v:JSON.parse(s)}).catch(e=>{ delete pushed[key]; syncErr('write '+col)(e); }); };
   SECTIONS.forEach(k=>put('dot',k,data[k],k));
   Object.keys(data.poster).forEach(d=>put('days',d,data.poster[d],'p_'+d));
 }
